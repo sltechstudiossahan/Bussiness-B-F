@@ -291,8 +291,15 @@
                 </h2>
                 <form id="addItemForm" onsubmit="handleAddItem(event)" class="space-y-3">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">අදාළ කඩය / ගණුදෙනුකරු</label>
-                        <select id="itemShopSelect" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-emerald-500 outline-none"></select>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="block text-xs font-semibold text-slate-600">අදාළ කඩවල් / ගණුදෙනුකරුවන් (Multiple Selection)</label>
+                            <button type="button" onclick="toggleSelectAllShops()" class="text-[11px] font-bold text-emerald-600 hover:underline">
+                                <span id="selectAllShopsLabel">සියල්ල තෝරන්න</span>
+                            </button>
+                        </div>
+                        <div id="itemShopsCheckboxContainer" class="grid grid-cols-2 gap-2 bg-slate-50 border border-slate-200 p-2.5 rounded-xl max-h-40 overflow-y-auto hide-scrollbar">
+                            <!-- Dynamic shop checkboxes rendered here -->
+                        </div>
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 mb-1">භාණ්ඩයේ නම (Item Name)</label>
@@ -1305,7 +1312,7 @@
         }
 
         function renderItemsTab() {
-            const select = document.getElementById('itemShopSelect');
+            const checkboxContainer = document.getElementById('itemShopsCheckboxContainer');
             const title = document.getElementById('addItemSectionTitle');
             const submitBtn = document.getElementById('addItemSubmitBtn');
 
@@ -1317,10 +1324,21 @@
                 submitBtn.className = "w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition";
             }
 
-            select.innerHTML = '<option value="">තෝරන්න...</option>';
-            (window.db[activeBusiness].shops || []).forEach(s => {
-                select.innerHTML += `<option value="${s.id}">${escapeHtml(s.name)}</option>`;
-            });
+            checkboxContainer.innerHTML = '';
+            const shops = window.db[activeBusiness].shops || [];
+
+            if (shops.length === 0) {
+                checkboxContainer.innerHTML = `<p class="text-xs text-slate-400 col-span-2 text-center py-2">කඩවල් කිසිවක් නැත.</p>`;
+            } else {
+                shops.forEach(s => {
+                    checkboxContainer.innerHTML += `
+                        <label class="flex items-center space-x-2 p-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 cursor-pointer">
+                            <input type="checkbox" name="itemShopCheckboxes" value="${s.id}" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                            <span class="truncate">${escapeHtml(s.name)}</span>
+                        </label>
+                    `;
+                });
+            }
 
             const list = document.getElementById('allRegisteredItemsList');
             list.innerHTML = '';
@@ -1352,23 +1370,43 @@
             });
         }
 
+        function toggleSelectAllShops() {
+            const checkboxes = document.getElementsByName('itemShopCheckboxes');
+            if (checkboxes.length === 0) return;
+            
+            let allChecked = true;
+            checkboxes.forEach(cb => { if (!cb.checked) allChecked = false; });
+
+            checkboxes.forEach(cb => cb.checked = !allChecked);
+            document.getElementById('selectAllShopsLabel').innerText = !allChecked ? "සියල්ල ඉවත් කරන්න" : "සියල්ල තෝරන්න";
+        }
+
         function handleAddItem(e) {
             e.preventDefault();
-            const shopId = document.getElementById('itemShopSelect').value;
+            const checkedBoxes = document.querySelectorAll('input[name="itemShopCheckboxes"]:checked');
+            const selectedShopIds = Array.from(checkedBoxes).map(cb => cb.value);
+
             const name = document.getElementById('itemNameInput').value.trim();
             const price = parseFloat(document.getElementById('itemPriceInput').value);
 
-            if (!shopId || !name || isNaN(price)) return;
-
-            const newItem = {
-                id: (activeBusiness === 'dealers' ? 'ditem_' : 'fitem_') + Date.now(),
-                shopId: shopId,
-                name: name,
-                priceHistory: [{ date: getTodayISO(), price: price }]
-            };
+            if (selectedShopIds.length === 0) {
+                alert('කරුණාකර අවම වශයෙන් එක් කඩයක් හෝ තෝරන්න.');
+                return;
+            }
+            if (!name || isNaN(price)) return;
 
             if (!window.db[activeBusiness].items) window.db[activeBusiness].items = [];
-            window.db[activeBusiness].items.push(newItem);
+
+            selectedShopIds.forEach(shopId => {
+                const newItem = {
+                    id: (activeBusiness === 'dealers' ? 'ditem_' : 'fitem_') + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+                    shopId: shopId,
+                    name: name,
+                    priceHistory: [{ date: getTodayISO(), price: price }]
+                };
+                window.db[activeBusiness].items.push(newItem);
+            });
+
             triggerSave();
 
             document.getElementById('itemNameInput').value = '';
