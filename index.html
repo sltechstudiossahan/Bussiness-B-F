@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ව්‍යාපාර කළමනාකරණය | Business & Poultry Cloud Cash Manager</title>
+    <!-- Web Application Manifest (PWA Inline Support) -->
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIlByaXlhbmthcmEgR3JvdXBzIEJ1c2luZXNzIiwKICAic2hvcnRfbmFtZSI6ICJCdXNpbmVzc01hbmFnZXIiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2YxZjVmOSIsCiAgInRoZW1lX2NvbG9yIjogIiMxNTgwM2QiLAogICJpY29ucyI6IFtdCn0=">
+    <meta name="theme-color" content="#15803d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js CDN -->
@@ -98,51 +103,60 @@
         <!-- ======================================================== -->
         <!-- 0. MULTI-BUSINESS LANDING PAGE / SELECTOR -->
         <!-- ======================================================== -->
-        <section id="view-landing" class="space-y-5 pt-2">
-            <div class="text-center space-y-1">
-                <h2 class="text-xl font-extrabold text-slate-800">ඔබගේ ව්‍යාපාරය තෝරන්න</h2>
-                <p class="text-xs text-slate-500 font-medium">Select Business Portal (Real-time Cloud Synchronized)</p>
+        <section id="view-landing" class="space-y-5 pt-2 flex flex-col justify-between min-h-[75vh]">
+            <div class="space-y-5">
+                <div class="text-center space-y-1">
+                    <h2 class="text-xl font-extrabold text-slate-800">ඔබගේ ව්‍යාපාරය තෝරන්න</h2>
+                    <p class="text-xs text-slate-500 font-medium">Select Business Portal (Real-time Cloud Synchronized)</p>
+                </div>
+
+                <!-- Business Selection Cards -->
+                <div class="grid grid-cols-1 gap-4">
+                    <!-- Business Card 1: Food Dealers -->
+                    <div onclick="selectBusiness('dealers')" class="bg-gradient-to-br from-emerald-600 to-teal-800 text-white p-5 rounded-3xl shadow-xl hover:shadow-2xl transition transform active:scale-98 cursor-pointer relative overflow-hidden group border border-emerald-500/30">
+                        <div class="absolute -right-4 -bottom-4 opacity-15 text-white group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-store text-9xl"></i>
+                        </div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-amber-300 text-2xl shadow-inner">
+                                <i class="fa-solid fa-shop"></i>
+                            </div>
+                            <span class="bg-amber-400 text-emerald-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider shadow">Active Module</span>
+                        </div>
+                        <h3 class="text-xl font-black mb-1">Food Dealers</h3>
+                        <p class="text-xs text-emerald-100 leading-relaxed mb-4">කඩවල් ජාලයේ දෛනික බඩු බෙදාහැරීම්, විකුණුම් හා මුදල් පාලනය</p>
+                        <div class="flex items-center text-xs font-bold text-amber-300 group-hover:translate-x-1 transition">
+                            <span>ඇතුළු වන්න (Open Portal)</span>
+                            <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </div>
+                    </div>
+
+                    <!-- Business Card 2: Poultry Farm House -->
+                    <div onclick="selectBusiness('farm')" class="bg-gradient-to-br from-amber-600 to-orange-700 text-white p-5 rounded-3xl shadow-xl hover:shadow-2xl transition transform active:scale-98 cursor-pointer relative overflow-hidden group border border-amber-500/30">
+                        <div class="absolute -right-4 -bottom-4 opacity-15 text-white group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-egg text-9xl"></i>
+                        </div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-yellow-200 text-2xl shadow-inner">
+                                <i class="fa-solid fa-feather-pointed"></i>
+                            </div>
+                            <span class="bg-yellow-300 text-amber-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider shadow">Farm Portal</span>
+                        </div>
+                        <h3 class="text-xl font-black mb-1">Poultry Farm House</h3>
+                        <p class="text-xs text-amber-100 leading-relaxed mb-4">බිත්තර නිෂ්පාදනය, කුකුළු මස් විකුණුම්, කෑම හා සතුන්ගේ පාලන වියදම්</p>
+                        <div class="flex items-center text-xs font-bold text-yellow-200 group-hover:translate-x-1 transition">
+                            <span>ඇතුළු වන්න (Open Portal)</span>
+                            <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Business Selection Cards -->
-            <div class="grid grid-cols-1 gap-4">
-                <!-- Business Card 1: Food Dealers -->
-                <div onclick="selectBusiness('dealers')" class="bg-gradient-to-br from-emerald-600 to-teal-800 text-white p-5 rounded-3xl shadow-xl hover:shadow-2xl transition transform active:scale-98 cursor-pointer relative overflow-hidden group border border-emerald-500/30">
-                    <div class="absolute -right-4 -bottom-4 opacity-15 text-white group-hover:scale-110 transition duration-300">
-                        <i class="fa-solid fa-store text-9xl"></i>
-                    </div>
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-amber-300 text-2xl shadow-inner">
-                            <i class="fa-solid fa-shop"></i>
-                        </div>
-                        <span class="bg-amber-400 text-emerald-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider shadow">Active Module</span>
-                    </div>
-                    <h3 class="text-xl font-black mb-1">Food Dealers</h3>
-                    <p class="text-xs text-emerald-100 leading-relaxed mb-4">කඩවල් ජාලයේ දෛනික බඩු බෙදාහැරීම්, විකුණුම් හා මුදල් පාලනය</p>
-                    <div class="flex items-center text-xs font-bold text-amber-300 group-hover:translate-x-1 transition">
-                        <span>ඇතුළු වන්න (Open Portal)</span>
-                        <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                    </div>
-                </div>
-
-                <!-- Business Card 2: Poultry Farm House -->
-                <div onclick="selectBusiness('farm')" class="bg-gradient-to-br from-amber-600 to-orange-700 text-white p-5 rounded-3xl shadow-xl hover:shadow-2xl transition transform active:scale-98 cursor-pointer relative overflow-hidden group border border-amber-500/30">
-                    <div class="absolute -right-4 -bottom-4 opacity-15 text-white group-hover:scale-110 transition duration-300">
-                        <i class="fa-solid fa-egg text-9xl"></i>
-                    </div>
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-yellow-200 text-2xl shadow-inner">
-                            <i class="fa-solid fa-feather-pointed"></i>
-                        </div>
-                        <span class="bg-yellow-300 text-amber-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider shadow">Farm Portal</span>
-                    </div>
-                    <h3 class="text-xl font-black mb-1">Poultry Farm House</h3>
-                    <p class="text-xs text-amber-100 leading-relaxed mb-4">බිත්තර නිෂ්පාදනය, කුකුළු මස් විකුණුම්, කෑම හා සතුන්ගේ පාලන වියදම්</p>
-                    <div class="flex items-center text-xs font-bold text-yellow-200 group-hover:translate-x-1 transition">
-                        <span>ඇතුළු වන්න (Open Portal)</span>
-                        <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                    </div>
-                </div>
+            <!-- HOME PAGE FOOTER CREDIT -->
+            <div class="pt-6 pb-2 text-center border-t border-slate-200/80 mt-auto">
+                <p class="text-xs font-extrabold text-slate-500 tracking-wide">
+                    Designed by <span class="text-emerald-700">Sahan Lakmina</span>
+                </p>
             </div>
         </section>
 
@@ -212,11 +226,11 @@
                 <div class="grid grid-cols-3 gap-2 text-center text-slate-900">
                     <div class="bg-white/90 p-2 rounded-xl">
                         <span class="text-[10px] font-bold text-slate-600 block">එකතු කළ (Total)</span>
-                        <input type="number" id="prodTotalEggs" min="0" onchange="saveFarmProduction()" placeholder="0" class="w-full text-center font-black text-sm text-slate-800 bg-transparent outline-none">
+                        <input type="number" id="prodTotalEggs" min="0" oninput="saveFarmProduction()" placeholder="0" class="w-full text-center font-black text-sm text-slate-800 bg-transparent outline-none">
                     </div>
                     <div class="bg-white/90 p-2 rounded-xl">
                         <span class="text-[10px] font-bold text-rose-600 block">බිඳුණු (Damaged)</span>
-                        <input type="number" id="prodDamagedEggs" min="0" onchange="saveFarmProduction()" placeholder="0" class="w-full text-center font-black text-sm text-rose-600 bg-transparent outline-none">
+                        <input type="number" id="prodDamagedEggs" min="0" oninput="saveFarmProduction()" placeholder="0" class="w-full text-center font-black text-sm text-rose-600 bg-transparent outline-none">
                     </div>
                     <div class="bg-emerald-100 p-2 rounded-xl">
                         <span class="text-[10px] font-bold text-emerald-700 block">විකිණිය හැකි</span>
@@ -510,13 +524,35 @@
         </div>
     </nav>
 
+    <!-- PWA SERVICE WORKER REGISTRATION SCRIPT -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                const CACHE_NAME = 'priyankara-biz-cache-v1';
+                self.addEventListener('install', (e) => {
+                    self.skipWaiting();
+                });
+                self.addEventListener('activate', (e) => {
+                    self.clients.claim();
+                });
+                self.addEventListener('fetch', (e) => {
+                    e.respondWith(
+                        fetch(e.request).catch(() => caches.match(e.request))
+                    );
+                });
+            `;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(blob);
+            navigator.serviceWorker.register(swUrl).catch(err => console.log('SW Reg Error:', err));
+        }
+    </script>
+
     <!-- FIREBASE CLOUD FIRESTORE INTEGRATION MODULE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Provided Firebase Credentials
         const firebaseConfig = {
             apiKey: "AIzaSyAaxXIqYD5E6KJISYQ8vh-2P6Qp62bopv0",
             authDomain: "priyankara-groups-business.firebaseapp.com",
@@ -535,7 +571,6 @@
 
         let firebaseUser = null;
 
-        // Firebase Auth Setup
         async function initAuth() {
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -570,11 +605,9 @@
             }
         }
 
-        // Realtime Firestore Synchronization Rules
         function setupFirestoreListeners() {
             if (!firebaseUser) return;
 
-            // Food Dealers Document Sync
             const dealersDocRef = doc(dbFirestore, 'artifacts', appId, 'public', 'data', 'food_dealers', 'state');
             onSnapshot(dealersDocRef, (docSnap) => {
                 if (docSnap.exists()) {
@@ -582,11 +615,10 @@
                     window.saveLocalOnly();
                     window.refreshCurrentView();
                 } else {
-                    window.saveCloudDatabase(); // Push default data
+                    window.saveCloudDatabase();
                 }
             }, (error) => console.error("Firestore dealers sync error:", error));
 
-            // Farm Document Sync
             const farmDocRef = doc(dbFirestore, 'artifacts', appId, 'public', 'data', 'poultry_farm', 'state');
             onSnapshot(farmDocRef, (docSnap) => {
                 if (docSnap.exists()) {
@@ -594,12 +626,11 @@
                     window.saveLocalOnly();
                     window.refreshCurrentView();
                 } else {
-                    window.saveCloudDatabase(); // Push default data
+                    window.saveCloudDatabase();
                 }
             }, (error) => console.error("Firestore farm sync error:", error));
         }
 
-        // Expose Cloud Save function to global scope
         window.saveCloudDatabase = async function() {
             window.saveLocalOnly();
             if (!firebaseUser) return;
@@ -614,13 +645,11 @@
             }
         };
 
-        // Initialize Auth
         initAuth();
     </script>
 
     <!-- MAIN APP SCRIPT -->
     <script>
-        // Initial Mock Database setup for both businesses
         const INITIAL_APP_DATA = {
             dealers: {
                 shops: [
@@ -657,13 +686,11 @@
             }
         };
 
-        // Application State Variables
         window.db = {};
-        let activeBusiness = null; // 'dealers' or 'farm'
-        let activeTab = 'shops';   // 'shops', 'shop-detail', 'items', 'expenses', 'admin'
+        let activeBusiness = null; 
+        let activeTab = 'shops';   
         let activeShopId = null;
 
-        // Chart Instances
         let dealersPieChart = null;
         let dealersBarChart = null;
         let farmPieChart = null;
@@ -738,6 +765,10 @@
 
         window.refreshCurrentView = function() {
             if (!activeBusiness) return;
+            const focusedEl = document.activeElement;
+            if (focusedEl && (focusedEl.tagName === 'INPUT' || focusedEl.tagName === 'SELECT')) {
+                return; 
+            }
             if (activeTab === 'shops') {
                 if (activeBusiness === 'dealers') renderDealersShopsGrid();
                 else { loadFarmProductionData(); renderFarmShopsGrid(); }
@@ -754,7 +785,6 @@
             }
         };
 
-        // ROUTING & BUSINESS SWITCHING LOGIC
         function openLandingPage() {
             activeBusiness = null;
             hideAllViews();
@@ -879,7 +909,6 @@
             return valid[0].price;
         }
 
-        // FOOD DEALERS LOGIC
         function renderDealersShopsGrid() {
             const grid = document.getElementById('dealersShopsGrid');
             const shops = window.db.dealers.shops || [];
@@ -948,8 +977,6 @@
                 return;
             }
 
-            let grandTotal = 0;
-
             shopItems.forEach(item => {
                 const effectivePrice = getEffectiveUnitPrice(item, date);
                 const dayEntry = (window.db.dealers.dailySales && window.db.dealers.dailySales[date] && window.db.dealers.dailySales[date][item.id]) || { delivered: 0, remaining: 0 };
@@ -958,7 +985,6 @@
                 const remaining = Number(dayEntry.remaining) || 0;
                 const sold = Math.max(0, delivered - remaining);
                 const itemTotal = sold * effectivePrice;
-                grandTotal += itemTotal;
 
                 const itemCard = document.createElement('div');
                 itemCard.className = "bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 space-y-3";
@@ -975,7 +1001,7 @@
                         </div>
                         <div class="text-right">
                             <span class="text-[10px] text-slate-400 block uppercase font-bold">මුළු එකතුව</span>
-                            <span class="text-sm font-black text-emerald-600">Rs. ${itemTotal.toFixed(2)}</span>
+                            <span id="itemTotal_${item.id}" class="text-sm font-black text-emerald-600">Rs. ${itemTotal.toFixed(2)}</span>
                         </div>
                     </div>
 
@@ -994,7 +1020,7 @@
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-slate-500 mb-1">විකුණූ (Sold)</label>
-                            <div class="w-full bg-emerald-50 border border-emerald-200 rounded-lg p-2 text-center text-sm font-extrabold text-emerald-700">
+                            <div id="itemSold_${item.id}" class="w-full bg-emerald-50 border border-emerald-200 rounded-lg p-2 text-center text-sm font-extrabold text-emerald-700">
                                 ${sold}
                             </div>
                         </div>
@@ -1003,10 +1029,9 @@
                 container.appendChild(itemCard);
             });
 
-            document.getElementById('dealersShopTotalRevenue').innerText = `Rs. ${grandTotal.toFixed(2)}`;
+            recalculateShopTotal('dealers');
         }
 
-        // POULTRY FARM HOUSE LOGIC
         function loadFarmProductionData() {
             const date = document.getElementById('farmProductionDateInput').value;
             const entry = (window.db.farm.dailyEggProduction && window.db.farm.dailyEggProduction[date]) || { total: 0, damaged: 0 };
@@ -1028,7 +1053,9 @@
             if (!window.db.farm.dailyEggProduction) window.db.farm.dailyEggProduction = {};
             window.db.farm.dailyEggProduction[date] = { total, damaged };
             triggerSave();
-            loadFarmProductionData();
+
+            const sellable = Math.max(0, total - damaged);
+            document.getElementById('prodSellableEggs').innerText = sellable;
         }
 
         function renderFarmShopsGrid() {
@@ -1094,8 +1121,6 @@
                 return;
             }
 
-            let grandTotal = 0;
-
             shopItems.forEach(item => {
                 const effectivePrice = getEffectiveUnitPrice(item, date);
                 const dayEntry = (window.db.farm.dailySales && window.db.farm.dailySales[date] && window.db.farm.dailySales[date][item.id]) || { delivered: 0, remaining: 0 };
@@ -1104,7 +1129,6 @@
                 const remaining = Number(dayEntry.remaining) || 0;
                 const sold = Math.max(0, delivered - remaining);
                 const itemTotal = sold * effectivePrice;
-                grandTotal += itemTotal;
 
                 const itemCard = document.createElement('div');
                 itemCard.className = "bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 space-y-3";
@@ -1121,7 +1145,7 @@
                         </div>
                         <div class="text-right">
                             <span class="text-[10px] text-slate-400 block uppercase font-bold">මුළු එකතුව</span>
-                            <span class="text-sm font-black text-amber-600">Rs. ${itemTotal.toFixed(2)}</span>
+                            <span id="itemTotal_${item.id}" class="text-sm font-black text-amber-600">Rs. ${itemTotal.toFixed(2)}</span>
                         </div>
                     </div>
 
@@ -1140,7 +1164,7 @@
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-slate-500 mb-1">විකුණූ (Sold)</label>
-                            <div class="w-full bg-amber-50 border border-amber-200 rounded-lg p-2 text-center text-sm font-extrabold text-amber-700">
+                            <div id="itemSold_${item.id}" class="w-full bg-amber-50 border border-amber-200 rounded-lg p-2 text-center text-sm font-extrabold text-amber-700">
                                 ${sold}
                             </div>
                         </div>
@@ -1149,7 +1173,7 @@
                 container.appendChild(itemCard);
             });
 
-            document.getElementById('farmShopTotalRevenue').innerText = `Rs. ${grandTotal.toFixed(2)}`;
+            recalculateShopTotal('farm');
         }
 
         function handleStockInput(biz, itemId, field, value) {
@@ -1163,11 +1187,41 @@
             window.db[biz].dailySales[date][itemId][field] = Math.max(0, parseInt(value) || 0);
             triggerSave();
             
-            if (biz === 'dealers') loadDealersShopData();
-            else loadFarmShopData();
+            const entry = window.db[biz].dailySales[date][itemId];
+            const delivered = Number(entry.delivered) || 0;
+            const remaining = Number(entry.remaining) || 0;
+            const sold = Math.max(0, delivered - remaining);
+
+            const item = (window.db[biz].items || []).find(i => i.id === itemId);
+            const price = getEffectiveUnitPrice(item, date);
+            const itemTotal = sold * price;
+
+            const soldEl = document.getElementById(`itemSold_${itemId}`);
+            const totalEl = document.getElementById(`itemTotal_${itemId}`);
+
+            if (soldEl) soldEl.innerText = sold;
+            if (totalEl) totalEl.innerText = `Rs. ${itemTotal.toFixed(2)}`;
+
+            recalculateShopTotal(biz);
         }
 
-        // MODALS LOGIC
+        function recalculateShopTotal(biz) {
+            const dateInputId = biz === 'dealers' ? 'dealersDateInput' : 'farmDateInput';
+            const date = document.getElementById(dateInputId).value;
+            const shopItems = (window.db[biz].items || []).filter(i => i.shopId === activeShopId);
+            
+            let grandTotal = 0;
+            shopItems.forEach(item => {
+                const effectivePrice = getEffectiveUnitPrice(item, date);
+                const dayEntry = (window.db[biz].dailySales && window.db[biz].dailySales[date] && window.db[biz].dailySales[date][item.id]) || { delivered: 0, remaining: 0 };
+                const sold = Math.max(0, (Number(dayEntry.delivered) || 0) - (Number(dayEntry.remaining) || 0));
+                grandTotal += sold * effectivePrice;
+            });
+
+            const revBadgeId = biz === 'dealers' ? 'dealersShopTotalRevenue' : 'farmShopTotalRevenue';
+            document.getElementById(revBadgeId).innerText = `Rs. ${grandTotal.toFixed(2)}`;
+        }
+
         function openAddShopModal() {
             document.getElementById('newShopNameInput').value = '';
             const title = document.getElementById('modalAddTitle');
@@ -1250,7 +1304,6 @@
             }
         }
 
-        // SHARED ITEMS MANAGEMENT LOGIC
         function renderItemsTab() {
             const select = document.getElementById('itemShopSelect');
             const title = document.getElementById('addItemSectionTitle');
@@ -1330,7 +1383,6 @@
             renderItemsTab();
         }
 
-        // SHARED EXPENSES TRACKER LOGIC
         function loadDailyExpenses() {
             const date = document.getElementById('expenseDateInput').value;
             const container = document.getElementById('expensesListContainer');
@@ -1394,7 +1446,6 @@
             loadDailyExpenses();
         }
 
-        // ADMIN DASHBOARDS & CHARTS LOGIC
         function renderDealersAdminDashboard() {
             const month = document.getElementById('adminDealersMonthPicker').value;
             if (!month) return;
@@ -1447,7 +1498,6 @@
                 badge.className = 'text-xs px-2.5 py-1 rounded-full font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30';
             }
 
-            // Pie Chart
             const ctxPie = document.getElementById('dealersProfitPieChart').getContext('2d');
             if (dealersPieChart) dealersPieChart.destroy();
             dealersPieChart = new Chart(ctxPie, {
@@ -1459,7 +1509,6 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
             });
 
-            // Bar Chart
             const ctxBar = document.getElementById('dealersShopsBarChart').getContext('2d');
             if (dealersBarChart) dealersBarChart.destroy();
             dealersBarChart = new Chart(ctxBar, {
@@ -1488,7 +1537,6 @@
             (window.db.farm.expenseCategories || []).forEach(c => categoryExpenses[c] = 0);
             (window.db.farm.shops || []).forEach(s => buyerRevs[s.name] = 0);
 
-            // Egg Production Metrics
             const dailyEggProd = window.db.farm.dailyEggProduction || {};
             Object.keys(dailyEggProd).forEach(date => {
                 if (date.startsWith(month)) {
@@ -1498,7 +1546,6 @@
                 }
             });
 
-            // Sales & Revenue Metrics
             const dailySales = window.db.farm.dailySales || {};
             Object.keys(dailySales).forEach(date => {
                 if (date.startsWith(month)) {
@@ -1520,7 +1567,6 @@
                 }
             });
 
-            // Expenses Breakdown Metrics
             const dailyExpenses = window.db.farm.dailyExpenses || {};
             Object.keys(dailyExpenses).forEach(date => {
                 if (date.startsWith(month)) {
@@ -1552,7 +1598,6 @@
                 marginBadge.className = 'text-base font-black px-3 py-1 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/30';
             }
 
-            // Farm Expenses Pie Chart
             const ctxPie = document.getElementById('farmExpensePieChart').getContext('2d');
             if (farmPieChart) farmPieChart.destroy();
             farmPieChart = new Chart(ctxPie, {
@@ -1568,7 +1613,6 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } } }
             });
 
-            // Farm Sales Bar Chart
             const ctxBar = document.getElementById('farmSalesBarChart').getContext('2d');
             if (farmBarChart) farmBarChart.destroy();
             farmBarChart = new Chart(ctxBar, {
