@@ -535,7 +535,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             const swCode = `
-                const CACHE_NAME = 'priyankara-biz-cache-v1';
+                const CACHE_NAME = 'priyankara-biz-cache-v2';
                 self.addEventListener('install', (e) => {
                     self.skipWaiting();
                 });
@@ -574,7 +574,8 @@
         const auth = getAuth(app);
         const dbFirestore = getFirestore(app);
 
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'priyankara-groups-business';
+        // Fixed document path for global multi-device synchronization
+        const UNIFIED_DOC_PATH = ['artifacts', 'priyankara-groups-business', 'public', 'data', 'shared_state', 'main'];
 
         let firebaseUser = null;
 
@@ -615,38 +616,27 @@
         function setupFirestoreListeners() {
             if (!firebaseUser) return;
 
-            const dealersDocRef = doc(dbFirestore, 'artifacts', appId, 'public', 'data', 'food_dealers', 'state');
-            onSnapshot(dealersDocRef, (docSnap) => {
+            const docRef = doc(dbFirestore, ...UNIFIED_DOC_PATH);
+            onSnapshot(docRef, (docSnap) => {
                 if (docSnap.exists()) {
-                    window.db.dealers = docSnap.data();
-                    window.saveLocalOnly();
-                    window.refreshCurrentView();
+                    const data = docSnap.data();
+                    if (data && data.dealers && data.farm) {
+                        window.db = data;
+                        window.saveLocalOnly();
+                        window.refreshCurrentView();
+                    }
                 } else {
                     window.saveCloudDatabase();
                 }
-            }, (error) => console.error("Firestore dealers sync error:", error));
-
-            const farmDocRef = doc(dbFirestore, 'artifacts', appId, 'public', 'data', 'poultry_farm', 'state');
-            onSnapshot(farmDocRef, (docSnap) => {
-                if (docSnap.exists()) {
-                    window.db.farm = docSnap.data();
-                    window.saveLocalOnly();
-                    window.refreshCurrentView();
-                } else {
-                    window.saveCloudDatabase();
-                }
-            }, (error) => console.error("Firestore farm sync error:", error));
+            }, (error) => console.error("Firestore sync error:", error));
         }
 
         window.saveCloudDatabase = async function() {
             window.saveLocalOnly();
             if (!firebaseUser) return;
             try {
-                const dealersDocRef = doc(dbFirestore, 'artifacts', appId, 'public', 'data', 'food_dealers', 'state');
-                const farmDocRef = doc(dbFirestore, 'artifacts', appId, 'public', 'data', 'poultry_farm', 'state');
-                
-                await setDoc(dealersDocRef, window.db.dealers);
-                await setDoc(farmDocRef, window.db.farm);
+                const docRef = doc(dbFirestore, ...UNIFIED_DOC_PATH);
+                await setDoc(docRef, window.db);
             } catch(e) {
                 console.warn('Cloud save error:', e);
             }
