@@ -588,6 +588,8 @@
                 }
             } catch(e) {
                 console.warn('Firebase Auth error, falling back:', e);
+                // Attempt direct anonymous login fallback
+                try { await signInAnonymously(auth); } catch(err){}
             }
         }
 
@@ -626,9 +628,13 @@
                         window.refreshCurrentView();
                     }
                 } else {
+                    // Initialize cloud with current db state if it doesn't exist yet
                     window.saveCloudDatabase();
                 }
-            }, (error) => console.error("Firestore sync error:", error));
+            }, (error) => {
+                console.error("Firestore sync error:", error);
+                updateCloudStatus('offline', 'Offline');
+            });
         }
 
         window.saveCloudDatabase = async function() {
@@ -637,6 +643,7 @@
             try {
                 const docRef = doc(dbFirestore, ...UNIFIED_DOC_PATH);
                 await setDoc(docRef, window.db);
+                updateCloudStatus('online', 'Cloud Live');
             } catch(e) {
                 console.warn('Cloud save error:', e);
             }
@@ -647,35 +654,18 @@
 
     <!-- MAIN APP SCRIPT -->
     <script>
-        const INITIAL_APP_DATA = {
+        // Clean blank structure (no fake demo shops) to prevent overwriting actual cloud user data
+        const BLANK_APP_DATA = {
             dealers: {
-                shops: [
-                    { id: 'dshop_1', name: 'සුපිරි වෙළඳසැල (City Mart)' },
-                    { id: 'dshop_2', name: 'තේ කඩේ (Tea Center)' },
-                    { id: 'dshop_3', name: 'ලංකා ස්ටෝර්ස් (Lanka Stores)' }
-                ],
-                items: [
-                    { id: 'ditem_1', shopId: 'dshop_1', name: 'පාන් 450g', priceHistory: [{ date: '2026-01-01', price: 140 }] },
-                    { id: 'ditem_2', shopId: 'dshop_1', name: 'බනිස්', priceHistory: [{ date: '2026-01-01', price: 80 }] },
-                    { id: 'ditem_3', shopId: 'dshop_2', name: 'ප්ලේන් ටී', priceHistory: [{ date: '2026-01-01', price: 50 }] },
-                    { id: 'ditem_4', shopId: 'dshop_3', name: 'සීනි 1kg', priceHistory: [{ date: '2026-01-01', price: 280 }] }
-                ],
+                shops: [],
+                items: [],
                 dailySales: {},
                 expenseCategories: ['ඉන්ධන (Fuel)', 'විදුලි බිල (Electricity)', 'ප්‍රවාහන (Transport)', 'සේවක පඩි (Salaries)'],
                 dailyExpenses: {}
             },
             farm: {
-                shops: [
-                    { id: 'fshop_1', name: 'බිත්තර වෙළඳසැල (Egg Hub Kandy)' },
-                    { id: 'fshop_2', name: 'කුකුළු මස් පියස (Poultry Mart)' },
-                    { id: 'fshop_3', name: 'හොටෙල් ලිමිටඩ් (Grand Hotel Supplier)' }
-                ],
-                items: [
-                    { id: 'fitem_1', shopId: 'fshop_1', name: 'ලොකු බිත්තර (Large Eggs)', priceHistory: [{ date: '2026-01-01', price: 38 }] },
-                    { id: 'fitem_2', shopId: 'fshop_1', name: 'මධ්‍යම බිත්තර (Medium Eggs)', priceHistory: [{ date: '2026-01-01', price: 34 }] },
-                    { id: 'fitem_3', shopId: 'fshop_2', name: 'බ්‍රොයිලර් මස් 1kg (Broiler Meat)', priceHistory: [{ date: '2026-01-01', price: 1150 }] },
-                    { id: 'fitem_4', shopId: 'fshop_3', name: 'සුදු බිත්තර (White Eggs)', priceHistory: [{ date: '2026-01-01', price: 36 }] }
-                ],
+                shops: [],
+                items: [],
                 dailySales: {},
                 dailyEggProduction: {},
                 expenseCategories: ['කුකුළු කෑම (Poultry Feed)', 'ඖෂධ & එන්නත් (Medication)', 'ෆාම් විදුලිය (Electricity)', 'ප්‍රවාහනය (Transport)', 'සේවක වේතන (Farm Labor)'],
@@ -705,10 +695,10 @@
                 try {
                     window.db = JSON.parse(saved);
                 } catch(e) {
-                    window.db = INITIAL_APP_DATA;
+                    window.db = BLANK_APP_DATA;
                 }
             } else {
-                window.db = INITIAL_APP_DATA;
+                window.db = BLANK_APP_DATA;
                 window.saveLocalOnly();
             }
         }
