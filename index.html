@@ -1,1357 +1,1651 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="si">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ව්‍යාපාර කළමනාකරණය | Business & Poultry Cloud Cash Manager</title>
-<!-- Web Application Manifest (PWA Inline Support) -->
-<link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIlByaXlhbmthcmEgR3JvdXBzIEJ1c2luZXNzIiwKICAic2hvcnRfbmFtZSI6ICJCdXNpbmVzc01hbmFnZXIiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2YxZjVmOSIsCiAgInRoZW1lX2NvbG9yIjogIiMxNTgwM2QiLAogICJpY29ucyI6IFtdCn0=">
-<meta name="theme-color" content="#15803d">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- Chart.js CDN -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- FontAwesome Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Google Fonts Inter -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<script>
-tailwind.config = {
-theme: {
-extend: {
-colors: {
-brand: {
-50: '#f0fdf4',
-100: '#dcfce7',
-500: '#22c55e',
-600: '#16a34a',
-700: '#15803d',
-},
-farm: {
-50: '#fffbe6',
-100: '#fef3c7',
-500: '#f59e0b',
-600: '#d97706',
-700: '#b45309',
-}
-},
-fontFamily: {
-sans: ['Inter', 'sans-serif'],
-}
-}
-}
-}
-</script>
-<style>
-body {
--webkit-tap-highlight-color: transparent;
-font-family: 'Inter', sans-serif;
-background-color: #f1f5f9;
-}
-.hide-scrollbar::-webkit-scrollbar {
-display: none;
-}
-.hide-scrollbar {
--ms-overflow-style: none;
-scrollbar-width: none;
-}
-.pb-safe {
-padding-bottom: env(safe-area-inset-bottom, 1rem);
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ව්‍යාපාර කළමනාකරණය | Business & Poultry Cloud Cash Manager</title>
+    <!-- Web Application Manifest (PWA Inline Support) -->
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIlByaXlhbmthcmEgR3JvdXBzIEJ1c2luZXNzIiwKICAic2hvcnRfbmFtZSI6ICJCdXNpbmVzc01hbmFnZXIiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2YxZjVmOSIsCiAgInRoZW1lX2NvbG9yIjogIiMxNTgwM2QiLAogICJpY29ucyI6IFtdCn0=">
+    <meta name="theme-color" content="#15803d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        },
+                        farm: {
+                            50: '#fffbe6',
+                            100: '#fef3c7',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 1rem);
+        }
+    </style>
 </head>
 <body class="text-slate-800 bg-slate-100 min-h-screen flex flex-col justify-between max-w-md mx-auto shadow-2xl relative border-x border-slate-200">
-​<!-- TOP NAVIGATION HEADER -->
-<header id="mainHeader" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white p-4 sticky top-0 z-30 shadow-md">
-<div class="flex justify-between items-center">
-<div class="flex items-center space-x-2 cursor-pointer" onclick="openLandingPage()">
-<div id="businessHeaderIcon" class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center font-bold text-amber-300">
-<i class="fa-solid fa-briefcase text-base"></i>
-</div>
-<div>
-<div class="flex items-center gap-2">
-<h1 id="appHeaderTitle" class="text-base font-extrabold tracking-wide leading-tight">ව්‍යාපාර තේරීම</h1>
-<!-- Live Cloud Status Badge -->
-<span id="cloudStatusBadge" class="bg-amber-400/20 text-amber-300 text-[9px] px-2 py-0.5 rounded font-bold flex items-center gap-1 border border-amber-400/30">
-<i class="fa-solid fa-arrows-rotate animate-spin text-[8px]"></i>
-<span>Connecting...</span>
-</span>
-</div>
-<p id="appHeaderSubtitle" class="text-[10px] text-emerald-200 font-medium">Business Cloud Portal</p>
-</div>
-</div>
-​<div class="flex items-center gap-2">
-<button id="switchBizBtn" onclick="openLandingPage()" class="bg-white/10 hover:bg-white/20 text-white text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1 font-semibold transition border border-white/20">
-<i class="fa-solid fa-repeat text-amber-300 text-xs"></i>
-<span>වෙනස් කරන්න</span>
-</button>
-<button id="backBtn" onclick="navigateBack()" class="hidden bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-2.5 py-1.5 rounded-lg flex items-center space-x-1 font-semibold transition">
-<i class="fa-solid fa-arrow-left"></i>
-<span>ආපසු</span>
-</button>
-</div>
-</div>
-</header>
-​<!-- MAIN CONTAINER -->
-<main class="flex-1 overflow-y-auto p-4 pb-24 hide-scrollbar">
-​<!-- ======================================================== -->
-<!-- 0. MULTI-BUSINESS LANDING PAGE / SELECTOR -->
-<!-- ======================================================== -->
-<section id="view-landing" class="space-y-5 pt-2 flex flex-col justify-between min-h-[75vh]">
-<div class="space-y-5">
-<div class="text-center space-y-1">
-<h2 class="text-xl font-extrabold text-slate-800">ඔබගේ ව්‍යාපාරය තෝරන්න</h2>
-<p class="text-xs text-slate-500 font-medium">Select Business Portal (Real-time Cloud Synchronized)</p>
-</div>
-​<!-- Business Selection Cards -->
-<div class="grid grid-cols-1 gap-4">
-<!-- Business Card 1: Food Dealers -->
-<div onclick="selectBusiness('dealers')" class="bg-gradient-to-br from-emerald-600 to-teal-800 text-white p-5 rounded-3xl shadow-xl hover:shadow-2xl transition transform active:scale-98 cursor-pointer relative overflow-hidden group border border-emerald-500/30">
-<div class="absolute -right-4 -bottom-4 opacity-15 text-white group-hover:scale-110 transition duration-300">
-<i class="fa-solid fa-store text-9xl"></i>
-</div>
-<div class="flex justify-between items-start mb-4">
-<div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-amber-300 text-2xl shadow-inner">
-<i class="fa-solid fa-shop"></i>
-</div>
-<span class="bg-amber-400 text-emerald-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider shadow">Active Module</span>
-</div>
-<h3 class="text-xl font-black mb-1">Food Dealers</h3>
-<p class="text-xs text-emerald-100 leading-relaxed mb-4">කඩවල් ජාලයේ දෛනික බඩු බෙදාහැරීම්, විකුණුම් හා මුදල් පාලනය</p>
-<div class="flex items-center text-xs font-bold text-amber-300 group-hover:translate-x-1 transition">
-<span>ඇතුළු වන්න (Open Portal)</span>
-<i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-</div>
-</div>
-​<!-- Business Card 2: Poultry Farm House -->
-<div onclick="selectBusiness('farm')" class="bg-gradient-to-br from-amber-600 to-orange-700 text-white p-5 rounded-3xl shadow-xl hover:shadow-2xl transition transform active:scale-98 cursor-pointer relative overflow-hidden group border border-amber-500/30">
-<div class="absolute -right-4 -bottom-4 opacity-15 text-white group-hover:scale-110 transition duration-300">
-<i class="fa-solid fa-egg text-9xl"></i>
-</div>
-<div class="flex justify-between items-start mb-4">
-<div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-yellow-200 text-2xl shadow-inner">
-<i class="fa-solid fa-feather-pointed"></i>
-</div>
-<span class="bg-yellow-300 text-amber-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider shadow">Farm Portal</span>
-</div>
-<h3 class="text-xl font-black mb-1">Poultry Farm House</h3>
-<p class="text-xs text-amber-100 leading-relaxed mb-4">බිත්තර නිෂ්පාදනය, කුකුළු මස් විකුණුම්, කෑම හා සතුන්ගේ පාලන වියදම්</p>
-<div class="flex items-center text-xs font-bold text-yellow-200 group-hover:translate-x-1 transition">
-<span>ඇතුළු වන්න (Open Portal)</span>
-<i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-</div>
-</div>
-</div>
-</div>
-​<!-- HOME PAGE FOOTER CREDIT -->
-<div class="pt-6 pb-2 text-center border-t border-slate-200/80 mt-auto">
-<p class="text-xs font-extrabold text-slate-500 tracking-wide">
-Designed by <span class="text-emerald-700">Sahan Lakmina</span>
-</p>
-</div>
-</section>
-​<!-- ======================================================== -->
-<!-- BUSINESS 1: FOOD DEALERS SHARED MODULE VIEWS -->
-<!-- ======================================================== -->
-​<!-- 1.1 SHOPS MAIN VIEW (2-Column Grid Layout) -->
-<section id="view-dealers-shops" class="hidden space-y-4">
-<div class="flex justify-between items-center mb-1">
-<p class="text-xs font-bold text-slate-500 uppercase tracking-wider">ඔබගේ කඩවල් (Select Shop)</p>
-<span id="dealersShopCountBadge" class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-extrabold">0 Shops</span>
-</div>
-<div id="dealersShopsGrid" class="grid grid-cols-2 gap-3"></div>
-</section>
-​<!-- 1.2 SHOP DETAIL VIEW -->
-<section id="view-dealers-shop-detail" class="hidden space-y-4">
-<!-- Date Selector -->
-<div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 flex flex-col space-y-2">
-<div class="flex justify-between items-center">
-<label class="text-xs font-bold text-slate-600 flex items-center gap-1.5">
-<i class="fa-regular fa-calendar-days text-emerald-600"></i> දින තේරීම:
-</label>
-<button onclick="setTodayDate('dealers')" class="text-xs bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-2 py-0.5 rounded-md font-bold">අද (Today)</button>
-</div>
-<input type="date" id="dealersDateInput" onchange="loadDealersShopData()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-emerald-500 outline-none">
-</div>
-​<!-- Active Shop Name Banner -->
-<div class="bg-gradient-to-r from-emerald-700 to-teal-800 text-white p-4 rounded-2xl shadow-md flex justify-between items-center">
-<div>
-<h2 id="dealersDetailShopTitle" class="text-lg font-extrabold">කඩේ නම</h2>
-<p class="text-xs text-emerald-200 mt-0.5">දෛනික බඩු විකුණුම් සටහන</p>
-</div>
-<div class="text-right">
-<p class="text-[10px] text-emerald-200 uppercase font-bold">එකතුව (Revenue)</p>
-<p id="dealersShopTotalRevenue" class="text-lg font-black text-amber-300">Rs. 0.00</p>
-</div>
-</div>
-​<!-- Items List -->
-<div class="space-y-3">
-<div class="flex justify-between items-center">
-<h3 class="text-sm font-bold text-slate-700">භාණ්ඩ ලැයිස්තුව</h3>
-<button onclick="navigateToTab('items')" class="text-xs text-emerald-600 font-bold hover:underline">+ නව භාණ්ඩයක්</button>
-</div>
-<div id="dealersItemsContainer" class="space-y-3"></div>
-</div>
-</section>
-​<!-- ======================================================== -->
-<!-- BUSINESS 2: POULTRY FARM HOUSE SHARED MODULE VIEWS -->
-<!-- ======================================================== -->
-​<!-- 2.1 FARM SHOPS / BUYERS GRID (2-Column Layout) -->
-<section id="view-farm-shops" class="hidden space-y-4">
-<!-- Farm Production Daily Quick Input Widget -->
-<div class="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-4 rounded-2xl shadow-md space-y-3">
-<div class="flex justify-between items-center">
-<div class="flex items-center gap-1.5">
-<i class="fa-solid fa-egg text-yellow-200 text-base"></i>
-<h3 class="text-sm font-bold">දෛනික බිත්තර එකතුව (Egg Production)</h3>
-</div>
-<input type="date" id="farmProductionDateInput" onchange="loadFarmProductionData()" class="bg-amber-700 text-white text-xs border border-amber-400 rounded-lg px-2 py-1 font-bold outline-none">
-</div>
-<div class="grid grid-cols-3 gap-2 text-center text-slate-900">
-<div class="bg-white/90 p-2 rounded-xl">
-<span class="text-[10px] font-bold text-slate-600 block">එකතු කළ (Total)</span>
-<input type="number" id="prodTotalEggs" min="0" oninput="saveFarmProduction()" placeholder="0" class="w-full text-center font-black text-sm text-slate-800 bg-transparent outline-none">
-</div>
-<div class="bg-white/90 p-2 rounded-xl">
-<span class="text-[10px] font-bold text-rose-600 block">බිඳුණු (Damaged)</span>
-<input type="number" id="prodDamagedEggs" min="0" oninput="saveFarmProduction()" placeholder="0" class="w-full text-center font-black text-sm text-rose-600 bg-transparent outline-none">
-</div>
-<div class="bg-emerald-100 p-2 rounded-xl">
-<span class="text-[10px] font-bold text-emerald-700 block">විකිණිය හැකි</span>
-<span id="prodSellableEggs" class="font-extrabold text-sm text-emerald-800">0</span>
-</div>
-</div>
-</div>
-​<div class="flex justify-between items-center mb-1">
-<p class="text-xs font-bold text-slate-500 uppercase tracking-wider">ෆාම් ගණුදෙනුකරුවන් / කඩවල් (Farm Buyers)</p>
-<span id="farmShopCountBadge" class="bg-amber-100 text-amber-800 text-xs px-2.5 py-0.5 rounded-full font-extrabold">0 Buyers</span>
-</div>
-<div id="farmShopsGrid" class="grid grid-cols-2 gap-3"></div>
-</section>
-​<!-- 2.2 FARM SHOP / BUYER DETAIL VIEW -->
-<section id="view-farm-shop-detail" class="hidden space-y-4">
-<!-- Date Selector -->
-<div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 flex flex-col space-y-2">
-<div class="flex justify-between items-center">
-<label class="text-xs font-bold text-slate-600 flex items-center gap-1.5">
-<i class="fa-regular fa-calendar-days text-amber-600"></i> දින තේරීම:
-</label>
-<button onclick="setTodayDate('farm')" class="text-xs bg-amber-50 text-amber-700 hover:bg-amber-100 px-2 py-0.5 rounded-md font-bold">අද (Today)</button>
-</div>
-<input type="date" id="farmDateInput" onchange="loadFarmShopData()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-amber-500 outline-none">
-</div>
-​<!-- Active Farm Buyer Title -->
-<div class="bg-gradient-to-r from-amber-600 to-orange-700 text-white p-4 rounded-2xl shadow-md flex justify-between items-center">
-<div>
-<h2 id="farmDetailShopTitle" class="text-lg font-extrabold">ගණුදෙනුකරු නම</h2>
-<p class="text-xs text-amber-100 mt-0.5">බිත්තර හා කුකුළු මස් විකුණුම්</p>
-</div>
-<div class="text-right">
-<p class="text-[10px] text-amber-100 uppercase font-bold">එකතුව (Revenue)</p>
-<p id="farmShopTotalRevenue" class="text-lg font-black text-yellow-300">Rs. 0.00</p>
-</div>
-</div>
-​<!-- Farm Items List -->
-<div class="space-y-3">
-<div class="flex justify-between items-center">
-<h3 class="text-sm font-bold text-slate-700">ෆාම් නිපැයුම් (Poultry Items)</h3>
-<button onclick="navigateToTab('items')" class="text-xs text-amber-600 font-bold hover:underline">+ නව නිපැයුමක්</button>
-</div>
-<div id="farmItemsContainer" class="space-y-3"></div>
-</div>
-</section>
-​<!-- ======================================================== -->
-<!-- SHARED ITEMS MANAGEMENT TAB -->
-<!-- ======================================================== -->
-<section id="view-items" class="hidden space-y-4">
-<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-<h2 class="text-sm font-extrabold text-slate-800 mb-3 flex items-center gap-2">
-<i class="fa-solid fa-plus-circle text-emerald-600"></i> <span id="addItemSectionTitle">නව භාණ්ඩයක් ඇඩ් කරන්න</span>
-</h2>
-<form id="addItemForm" onsubmit="handleAddItem(event)" class="space-y-3">
-<div>
-<div class="flex justify-between items-center mb-1.5">
-<label class="block text-xs font-semibold text-slate-600">අදාළ කඩවල් / ගණුදෙනුකරුවන් (Multiple Selection)</label>
-<button type="button" onclick="toggleSelectAllShops()" class="text-[11px] font-bold text-emerald-600 hover:underline">
-<span id="selectAllShopsLabel">සියල්ල තෝරන්න</span>
-</button>
-</div>
-<div id="itemShopsCheckboxContainer" class="grid grid-cols-2 gap-2 bg-slate-50 border border-slate-200 p-2.5 rounded-xl max-h-40 overflow-y-auto hide-scrollbar">
-<!-- Dynamic shop checkboxes rendered here -->
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold text-slate-600 mb-1">භාණ්ඩයේ නම (Item Name)</label>
-<input type="text" id="itemNameInput" placeholder="උදා: Large Eggs / Broiler Meat / පාන්" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
-</div>
-<div>
-<label class="block text-xs font-semibold text-slate-600 mb-1">ආරම්භක ඒකක මිල (Default Unit Price - Rs.)</label>
-<input type="number" step="0.01" id="itemPriceInput" placeholder="0.00" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
-</div>
-<button type="submit" id="addItemSubmitBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition">
-එක් කරන්න (Add Item)
-</button>
-</form>
-</div>
-​<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-<h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">ලියාපදිංචි භාණ්ඩ ලැයිස්තුව</h3>
-<div id="allRegisteredItemsList" class="space-y-2"></div>
-</div>
-</section>
-​<!-- ======================================================== -->
-<!-- SHARED EXPENSES TRACKER TAB -->
-<!-- ======================================================== -->
-<section id="view-expenses" class="hidden space-y-4">
-<div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 flex flex-col space-y-2">
-<div class="flex justify-between items-center">
-<label class="text-xs font-bold text-slate-600 flex items-center gap-1.5">
-<i class="fa-regular fa-calendar-days text-emerald-600"></i> වියදම් දිනය:
-</label>
-<button onclick="setExpenseTodayDate()" class="text-xs bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-2 py-0.5 rounded-md font-bold">අද (Today)</button>
-</div>
-<input type="date" id="expenseDateInput" onchange="loadDailyExpenses()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-emerald-500 outline-none">
-</div>
-​<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-<h3 class="text-sm font-extrabold text-slate-800 mb-3 flex items-center gap-2">
-<i class="fa-solid fa-receipt text-rose-500"></i> වියදම් වර්ගයක් එක් කරන්න
-</h3>
-<form id="addExpenseCatForm" onsubmit="handleAddExpenseCategory(event)" class="flex gap-2">
-<input type="text" id="expenseCatNameInput" placeholder="උදා: ෆාම් කෑම (Feed) / විදුලි බිල" required class="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
-<button type="submit" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition">
-+ ඇඩ්
-</button>
-</form>
-</div>
-​<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3">
-<div class="flex justify-between items-center border-b pb-2">
-<h3 class="text-sm font-bold text-slate-800">දෛනික වියදම් සටහන</h3>
-<span id="dailyExpenseTotalBadge" class="text-xs font-extrabold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full">Rs. 0.00</span>
-</div>
-<div id="expensesListContainer" class="space-y-3"></div>
-</div>
-</section>
-​<!-- ======================================================== -->
-<!-- ADMIN DASHBOARD VIEWS -->
-<!-- ======================================================== -->
-​<!-- 1. FOOD DEALERS DASHBOARD -->
-<section id="view-admin-dealers" class="hidden space-y-4">
-<div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 flex justify-between items-center">
-<span class="text-xs font-bold text-slate-600"><i class="fa-solid fa-chart-line text-emerald-600 mr-1"></i> මාසික වාර්තාව:</span>
-<input type="month" id="adminDealersMonthPicker" onchange="renderDealersAdminDashboard()" class="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-2 focus:ring-emerald-500 outline-none">
-</div>
-​<div class="grid grid-cols-2 gap-3">
-<div class="bg-emerald-600 text-white p-3.5 rounded-2xl shadow-sm">
-<p class="text-[11px] font-semibold text-emerald-100 uppercase">මුළු ආදායම (Revenue)</p>
-<p id="dealersKpiSales" class="text-lg font-black mt-1">Rs. 0.00</p>
-<span class="text-[10px] bg-emerald-700 text-emerald-100 px-1.5 py-0.5 rounded mt-2 inline-block">Gross Revenue</span>
-</div>
-<div class="bg-rose-600 text-white p-3.5 rounded-2xl shadow-sm">
-<p class="text-[11px] font-semibold text-rose-100 uppercase">මුළු වියදම (Expenses)</p>
-<p id="dealersKpiExpenses" class="text-lg font-black mt-1">Rs. 0.00</p>
-<span class="text-[10px] bg-rose-700 text-rose-100 px-1.5 py-0.5 rounded mt-2 inline-block">Total Expenses</span>
-</div>
-<div class="bg-slate-800 text-white p-3.5 rounded-2xl shadow-sm col-span-2">
-<div class="flex justify-between items-start">
-<div>
-<p class="text-[11px] font-semibold text-slate-400 uppercase">ශුද්ධ ලාභය / අලාභය (Net Profit)</p>
-<p id="dealersKpiNetProfit" class="text-2xl font-black text-amber-400 mt-1">Rs. 0.00</p>
-</div>
-<span id="dealersProfitBadge" class="text-xs px-2.5 py-1 rounded-full font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">PROFIT</span>
-</div>
-</div>
-</div>
-​<!-- Charts -->
-<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-<h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">ආදායම vs වියදම් බිඳවැටීම</h4>
-<div class="h-48 relative">
-<canvas id="dealersProfitPieChart"></canvas>
-</div>
-</div>
-​<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-<h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">කඩවල් අනුව ආදායම් සංසන්දනය</h4>
-<div class="h-56 relative">
-<canvas id="dealersShopsBarChart"></canvas>
-</div>
-</div>
-</section>
-​<!-- 2. POULTRY FARM HOUSE DASHBOARD -->
-<section id="view-admin-farm" class="hidden space-y-4">
-<div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 flex justify-between items-center">
-<span class="text-xs font-bold text-slate-600"><i class="fa-solid fa-chart-pie text-amber-600 mr-1"></i> ෆාම් මාසික වාර්තාව:</span>
-<input type="month" id="adminFarmMonthPicker" onchange="renderFarmAdminDashboard()" class="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-2 focus:ring-amber-500 outline-none">
-</div>
-​<!-- Detailed Farm Metrics Cards Grid -->
-<div class="grid grid-cols-2 gap-3">
-<div class="bg-amber-600 text-white p-3.5 rounded-2xl shadow-sm">
-<p class="text-[10px] font-bold uppercase text-amber-100">එකතු කළ බිත්තර (Eggs Collected)</p>
-<p id="farmKpiTotalEggs" class="text-xl font-black mt-0.5">0</p>
-<span id="farmKpiDamagedEggRate" class="text-[10px] bg-amber-700 text-yellow-200 px-1.5 py-0.5 rounded mt-1 inline-block">0% Damaged</span>
-</div>
-​<div class="bg-emerald-600 text-white p-3.5 rounded-2xl shadow-sm">
-<p class="text-[10px] font-bold uppercase text-emerald-100">විකිණූ බිත්තර / මස් (Sold Units)</p>
-<p id="farmKpiSoldUnits" class="text-xl font-black mt-0.5">0</p>
-<span class="text-[10px] bg-emerald-700 text-emerald-100 px-1.5 py-0.5 rounded mt-1 inline-block">Units Sold</span>
-</div>
-​<div class="bg-slate-800 text-white p-3.5 rounded-2xl shadow-sm">
-<p class="text-[10px] font-bold uppercase text-slate-400">මුළු ෆාම් ආදායම</p>
-<p id="farmKpiRevenue" class="text-lg font-black text-amber-300 mt-0.5">Rs. 0.00</p>
-</div>
-​<div class="bg-rose-600 text-white p-3.5 rounded-2xl shadow-sm">
-<p class="text-[10px] font-bold uppercase text-rose-100">මුළු ෆාම් වියදම්</p>
-<p id="farmKpiExpenses" class="text-lg font-black mt-0.5">Rs. 0.00</p>
-</div>
-​<!-- Profit Margin Highlight Card -->
-<div class="bg-gradient-to-r from-teal-800 to-slate-900 text-white p-4 rounded-2xl shadow-md col-span-2 flex justify-between items-center">
-<div>
-<p class="text-[10px] font-bold text-emerald-300 uppercase">ශුද්ධ ෆාම් ලාභය & Profit Margin %</p>
-<p id="farmKpiNetProfit" class="text-2xl font-black text-amber-400 mt-0.5">Rs. 0.00</p>
-</div>
-<div class="text-right">
-<span id="farmProfitMarginBadge" class="text-base font-black px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 inline-block">0%</span>
-<p class="text-[9px] text-slate-400 mt-1">Profit Percentage</p>
-</div>
-</div>
-</div>
-​<!-- Farm Analytics Charts -->
-<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-<h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">ෆාම් වියදම් බෙදී යාම (Expense Breakdown)</h4>
-<div class="h-48 relative">
-<canvas id="farmExpensePieChart"></canvas>
-</div>
-</div>
-​<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-<h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">ගණුදෙනුකරුවන්ගේ බිත්තර / මස් ආදායම</h4>
-<div class="h-56 relative">
-<canvas id="farmSalesBarChart"></canvas>
-</div>
-</div>
-</section>
-​</main>
-​<!-- MODAL: ADD SHOP / FARM BUYER MODAL -->
-<div id="addShopModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-<div class="bg-white w-full max-w-xs rounded-2xl shadow-2xl p-4 space-y-3">
-<div class="flex justify-between items-center border-b pb-2">
-<h3 id="modalAddTitle" class="text-sm font-extrabold text-slate-800">අලුත් කඩයක් ඇඩ් කරන්න</h3>
-<button onclick="closeAddShopModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-</div>
-<form onsubmit="handleCreateShop(event)" class="space-y-3">
-<div>
-<label id="modalAddLabel" class="block text-xs font-semibold text-slate-600 mb-1">නම (Name)</label>
-<input type="text" id="newShopNameInput" placeholder="උදා: City Mart / Farm Buyer A" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
-</div>
-<div class="flex gap-2 pt-1">
-<button type="button" onclick="closeAddShopModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2 rounded-xl text-xs">අවලංගුයි</button>
-<button type="submit" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl text-xs shadow-md">එක් කරන්න</button>
-</div>
-</form>
-</div>
-</div>
-​<!-- MODAL: CHANGE UNIT PRICE -->
-<div id="changePriceModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-<div class="bg-white w-full max-w-xs rounded-2xl shadow-2xl p-4 space-y-3">
-<div class="flex justify-between items-center border-b pb-2">
-<h3 class="text-sm font-extrabold text-slate-800">ඒකක මිල වෙනස් කිරීම</h3>
-<button onclick="closePriceModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-</div>
-<p class="text-xs text-slate-500">මෙම නව මිල තෝරාගත් දින සිට ඉදිරියට පමණක් බලපැවැත්වේ.</p>
-<form onsubmit="handleUpdateUnitPrice(event)" class="space-y-3">
-<input type="hidden" id="modalItemId">
-<div>
-<label class="block text-xs font-semibold text-slate-600 mb-1">නව ඒකක මිල (New Price - Rs.)</label>
-<input type="number" step="0.01" id="modalNewPriceInput" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
-</div>
-<div class="flex gap-2 pt-1">
-<button type="button" onclick="closePriceModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2 rounded-xl text-xs">අවලංගුයි</button>
-<button type="submit" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl text-xs shadow-md">සුරකින්න</button>
-</div>
-</form>
-</div>
-</div>
-​<!-- BOTTOM FIXED NAVIGATION BAR -->
-<nav id="bottomNav" class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-slate-200 z-30 pb-safe shadow-lg hidden">
-<div class="grid grid-cols-4 text-center py-2">
-<button onclick="navigateToTab('shops')" id="nav-shops" class="flex flex-col items-center justify-center text-emerald-600 font-bold">
-<i id="navShopsIcon" class="fa-solid fa-store text-lg"></i>
-<span id="navShopsText" class="text-[10px] mt-1">කඩවල්</span>
-</button>
-<button onclick="navigateToTab('items')" id="nav-items" class="flex flex-col items-center justify-center text-slate-400 font-normal">
-<i class="fa-solid fa-boxes-stacked text-lg"></i>
-<span class="text-[10px] mt-1">භාණ්ඩ</span>
-</button>
-<button onclick="navigateToTab('expenses')" id="nav-expenses" class="flex flex-col items-center justify-center text-slate-400 font-normal">
-<i class="fa-solid fa-wallet text-lg"></i>
-<span class="text-[10px] mt-1">වියදම්</span>
-</button>
-<button onclick="navigateToTab('admin')" id="nav-admin" class="flex flex-col items-center justify-center text-slate-400 font-normal">
-<i class="fa-solid fa-chart-pie text-lg"></i>
-<span class="text-[10px] mt-1">ඇඩ්මින්</span>
-</button>
-</div>
-</nav>
-​<!-- PWA SERVICE WORKER REGISTRATION SCRIPT -->
-<script>
-if ('serviceWorker' in navigator) {
-const swCode = const CACHE_NAME = 'priyankara-biz-cache-v2'; self.addEventListener('install', (e) => { self.skipWaiting(); }); self.addEventListener('activate', (e) => { self.clients.claim(); }); self.addEventListener('fetch', (e) => { e.respondWith( fetch(e.request).catch(() => caches.match(e.request)) ); });;
-const blob = new Blob([swCode], { type: 'application/javascript' });
-const swUrl = URL.createObjectURL(blob);
-navigator.serviceWorker.register(swUrl).catch(err => console.log('SW Reg Error:', err));
-}
-</script>
-​<!-- FIREBASE CLOUD FIRESTORE INTEGRATION MODULE -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-​const firebaseConfig = {
-apiKey: "AIzaSyAaxXIqYD5E6KJISYQ8vh-2P6Qp62bopv0",
-authDomain: "priyankara-groups-business.firebaseapp.com",
-projectId: "priyankara-groups-business",
-storageBucket: "priyankara-groups-business.firebasestorage.app",
-messagingSenderId: "417734535878",
-appId: "1:417734535878:web:c365d3955c4bd70c0005c7",
-measurementId: "G-DXHGHETYD5"
-};
-​const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const dbFirestore = getFirestore(app);
-​// Unified document path for multi-device sync
-const UNIFIED_DOC_PATH = ['artifacts', 'priyankara-groups-business', 'public', 'data', 'shared_state', 'main'];
-​let firebaseUser = null;
-​async function initAuth() {
-try {
-await signInAnonymously(auth);
-} catch(e) {
-console.warn('Firebase Auth error:', e);
-}
-}
-​onAuthStateChanged(auth, (user) => {
-firebaseUser = user;
-if (user) {
-updateCloudStatus('online', 'Cloud Live Syncing');
-setupFirestoreListeners();
-} else {
-updateCloudStatus('offline', 'Connecting...');
-}
-});
-​function updateCloudStatus(status, label) {
-const badge = document.getElementById('cloudStatusBadge');
-if (!badge) return;
-badge.className = "bg-emerald-400/20 text-emerald-300 text-[9px] px-2 py-0.5 rounded font-bold flex items-center gap-1 border border-emerald-400/30";
-badge.innerHTML = <i class="fa-solid fa-cloud text-[9px]"></i> <span>${label}</span>;
-}
-​function setupFirestoreListeners() {
-if (!firebaseUser) return;
-​const docRef = doc(dbFirestore, ...UNIFIED_DOC_PATH);
-onSnapshot(docRef, (docSnap) => {
-// Prevent screen re-renders when user is actively typing in input fields
-const activeEl = document.activeElement;
-if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) {
-return;
-}
-​if (docSnap.exists()) {
-const data = docSnap.data();
-if (data && data.dealers && data.farm) {
-window.db = data;
-window.refreshCurrentView();
-}
-} else {
-window.saveCloudDatabase();
-}
-}, (error) => {
-console.error("Firestore sync error:", error);
-});
-}
-​window.saveCloudDatabase = async function() {
-if (!firebaseUser) return;
-try {
-const docRef = doc(dbFirestore, ...UNIFIED_DOC_PATH);
-await setDoc(docRef, window.db);
-updateCloudStatus('online', 'Cloud Live Syncing');
-} catch(e) {
-console.warn('Cloud save error:', e);
-}
-};
-​initAuth();
-</script>
-​<!-- MAIN APP SCRIPT -->
-<script>
-const BLANK_APP_DATA = {
-dealers: {
-shops: [],
-items: [],
-dailySales: {},
-expenseCategories: ['ඉන්ධන (Fuel)', 'විදුලි බිල (Electricity)', 'ප්‍රවාහන (Transport)', 'සේවක පඩි (Salaries)'],
-dailyExpenses: {}
-},
-farm: {
-shops: [],
-items: [],
-dailySales: {},
-dailyEggProduction: {},
-expenseCategories: ['කුකුළු කෑම (Poultry Feed)', 'ඖෂධ & එන්නත් (Medication)', 'ෆාම් විදුලිය (Electricity)', 'ප්‍රවාහනය (Transport)', 'සේවක වේතන (Farm Labor)'],
-dailyExpenses: {}
-}
-};
-​window.db = BLANK_APP_DATA;
-let activeBusiness = null;
-let activeTab = 'shops';
-let activeShopId = null;
-​let dealersPieChart = null;
-let dealersBarChart = null;
-let farmPieChart = null;
-let farmBarChart = null;
-​window.onload = function() {
-initDateFields();
-openLandingPage();
-};
-​function triggerSave() {
-if (window.saveCloudDatabase) {
-window.saveCloudDatabase();
-}
-}
-​function getTodayISO() {
-return new Date().toISOString().split('T')[0];
-}
-​function getTodayMonthISO() {
-return new Date().toISOString().slice(0, 7);
-}
-​function initDateFields() {
-const today = getTodayISO();
-const month = getTodayMonthISO();
-document.getElementById('dealersDateInput').value = today;
-document.getElementById('farmDateInput').value = today;
-document.getElementById('farmProductionDateInput').value = today;
-document.getElementById('expenseDateInput').value = today;
-document.getElementById('adminDealersMonthPicker').value = month;
-document.getElementById('adminFarmMonthPicker').value = month;
-}
-​function setTodayDate(biz) {
-const today = getTodayISO();
-if (biz === 'dealers') {
-document.getElementById('dealersDateInput').value = today;
-loadDealersShopData();
-} else {
-document.getElementById('farmDateInput').value = today;
-loadFarmShopData();
-}
-}
-​function setExpenseTodayDate() {
-document.getElementById('expenseDateInput').value = getTodayISO();
-loadDailyExpenses();
-}
-​window.refreshCurrentView = function() {
-if (!activeBusiness) return;
-const focusedEl = document.activeElement;
-if (focusedEl && (focusedEl.tagName === 'INPUT' || focusedEl.tagName === 'SELECT')) {
-return;
-}
-if (activeTab === 'shops') {
-if (activeBusiness === 'dealers') renderDealersShopsGrid();
-else { loadFarmProductionData(); renderFarmShopsGrid(); }
-} else if (activeTab === 'shop-detail') {
-if (activeBusiness === 'dealers') loadDealersShopData();
-else loadFarmShopData();
-} else if (activeTab === 'items') {
-renderItemsTab();
-} else if (activeTab === 'expenses') {
-loadDailyExpenses();
-} else if (activeTab === 'admin') {
-if (activeBusiness === 'dealers') renderDealersAdminDashboard();
-else renderFarmAdminDashboard();
-}
-};
-​function openLandingPage() {
-activeBusiness = null;
-hideAllViews();
-document.getElementById('view-landing').classList.remove('hidden');
-document.getElementById('bottomNav').classList.add('hidden');
-document.getElementById('switchBizBtn').classList.add('hidden');
-document.getElementById('backBtn').classList.add('hidden');
-​document.getElementById('mainHeader').className = "bg-gradient-to-r from-emerald-800 to-teal-900 text-white p-4 sticky top-0 z-30 shadow-md";
-document.getElementById('appHeaderTitle').innerText = "ව්‍යාපාර තේරීම";
-document.getElementById('appHeaderSubtitle').innerText = "Business Cloud Portal";
-document.getElementById('businessHeaderIcon').innerHTML = <i class="fa-solid fa-briefcase text-base"></i>;
-}
-​function selectBusiness(biz) {
-activeBusiness = biz;
-document.getElementById('switchBizBtn').classList.remove('hidden');
-document.getElementById('bottomNav').classList.remove('hidden');
-​const header = document.getElementById('mainHeader');
-const title = document.getElementById('appHeaderTitle');
-const subtitle = document.getElementById('appHeaderSubtitle');
-const icon = document.getElementById('businessHeaderIcon');
-const navShopsIcon = document.getElementById('navShopsIcon');
-const navShopsText = document.getElementById('navShopsText');
-​if (biz === 'dealers') {
-header.className = "bg-gradient-to-r from-emerald-800 to-teal-900 text-white p-4 sticky top-0 z-30 shadow-md";
-title.innerText = "Food Dealers";
-subtitle.innerText = "කඩවල් ජාල පාලනය";
-icon.innerHTML = <i class="fa-solid fa-shop text-amber-300"></i>;
-navShopsIcon.className = "fa-solid fa-store text-lg";
-navShopsText.innerText = "කඩවල්";
-} else {
-header.className = "bg-gradient-to-r from-amber-700 to-orange-800 text-white p-4 sticky top-0 z-30 shadow-md";
-title.innerText = "Poultry Farm House";
-subtitle.innerText = "බිත්තර & කුකුළු මස් ෆාම්";
-icon.innerHTML = <i class="fa-solid fa-egg text-yellow-200"></i>;
-navShopsIcon.className = "fa-solid fa-feather-pointed text-lg";
-navShopsText.innerText = "ෆාම් කඩවල්";
-}
-​navigateToTab('shops');
-}
-​function hideAllViews() {
-const views = [
-'landing', 'dealers-shops', 'dealers-shop-detail',
-'farm-shops', 'farm-shop-detail', 'items', 'expenses',
-'admin-dealers', 'admin-farm'
-];
-views.forEach(id => {
-const el = document.getElementById(view-${id});
-if (el) el.classList.add('hidden');
-});
-}
-​function navigateToTab(tab) {
-activeTab = tab;
-hideAllViews();
-​['shops', 'items', 'expenses', 'admin'].forEach(t => {
-const btn = document.getElementById(nav-${t});
-if (btn) {
-if (t === tab || (t === 'shops' && tab === 'shop-detail')) {
-btn.className = activeBusiness === 'dealers'
-? "flex flex-col items-center justify-center text-emerald-600 font-bold"
-: "flex flex-col items-center justify-center text-amber-600 font-bold";
-} else {
-btn.className = "flex flex-col items-center justify-center text-slate-400 font-normal";
-}
-}
-});
-​const backBtn = document.getElementById('backBtn');
-backBtn.classList.add('hidden');
-​if (tab === 'shops') {
-if (activeBusiness === 'dealers') {
-document.getElementById('view-dealers-shops').classList.remove('hidden');
-renderDealersShopsGrid();
-} else {
-document.getElementById('view-farm-shops').classList.remove('hidden');
-loadFarmProductionData();
-renderFarmShopsGrid();
-}
-} else if (tab === 'shop-detail') {
-backBtn.classList.remove('hidden');
-if (activeBusiness === 'dealers') {
-document.getElementById('view-dealers-shop-detail').classList.remove('hidden');
-loadDealersShopData();
-} else {
-document.getElementById('view-farm-shop-detail').classList.remove('hidden');
-loadFarmShopData();
-}
-} else if (tab === 'items') {
-document.getElementById('view-items').classList.remove('hidden');
-renderItemsTab();
-} else if (tab === 'expenses') {
-document.getElementById('view-expenses').classList.remove('hidden');
-loadDailyExpenses();
-} else if (tab === 'admin') {
-if (activeBusiness === 'dealers') {
-document.getElementById('view-admin-dealers').classList.remove('hidden');
-renderDealersAdminDashboard();
-} else {
-document.getElementById('view-admin-farm').classList.remove('hidden');
-renderFarmAdminDashboard();
-}
-}
-}
-​function navigateBack() {
-navigateToTab('shops');
-}
-​function getEffectiveUnitPrice(item, selectedDate) {
-if (!item || !item.priceHistory || item.priceHistory.length === 0) return 0;
-const valid = item.priceHistory.filter(ph => ph.date <= selectedDate);
-if (valid.length === 0) return item.priceHistory[0].price;
-valid.sort((a, b) => b.date.localeCompare(a.date));
-return valid[0].price;
-}
-​function renderDealersShopsGrid() {
-const grid = document.getElementById('dealersShopsGrid');
-const shops = window.db.dealers.shops || [];
-document.getElementById('dealersShopCountBadge').innerText = ${shops.length} Shops;
-grid.innerHTML = '';
-​shops.forEach(shop => {
-const box = document.createElement('div');
-box.className = "bg-white p-4 rounded-2xl shadow-sm border border-slate-200 hover:border-emerald-500 hover:shadow-md transition cursor-pointer flex flex-col justify-between h-32 group";
-box.onclick = () => openShopDetail(shop.id);
-box.innerHTML = <div class="flex justify-between items-start"> <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg"> <i class="fa-solid fa-store"></i> </div> <button onclick="event.stopPropagation(); deleteShop('${shop.id}')" class="text-slate-300 hover:text-rose-500 p-1"> <i class="fa-solid fa-trash-can text-xs"></i> </button> </div> <div> <h3 class="font-bold text-sm text-slate-800 group-hover:text-emerald-700 transition line-clamp-2">${escapeHtml(shop.name)}</h3> <p class="text-[10px] text-slate-400 mt-0.5">විකුණුම් බලන්න &rarr;</p> </div>;
-grid.appendChild(box);
-});
-​const addCard = document.createElement('div');
-addCard.className = "bg-emerald-50/60 border-2 border-dashed border-emerald-300 p-4 rounded-2xl hover:bg-emerald-100/50 transition cursor-pointer flex flex-col items-center justify-center text-center h-32 text-emerald-700";
-addCard.onclick = () => openAddShopModal();
-addCard.innerHTML = <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold shadow-sm mb-1"> <i class="fa-solid fa-plus text-xs"></i> </div> <span class="font-bold text-xs">Add a Shop</span> <span class="text-[9px] text-emerald-600">අලුත් කඩයක් ඇඩ් කරන්න</span>;
-grid.appendChild(addCard);
-}
-​function openShopDetail(shopId) {
-activeShopId = shopId;
-navigateToTab('shop-detail');
-}
-​function loadDealersShopData() {
-const date = document.getElementById('dealersDateInput').value;
-const container = document.getElementById('dealersItemsContainer');
-const shop = (window.db.dealers.shops || []).find(s => s.id === activeShopId);
-if (!shop) return;
-​document.getElementById('dealersDetailShopTitle').innerText = shop.name;
-​const shopItems = (window.db.dealers.items || []).filter(i => i.shopId === activeShopId);
-container.innerHTML = '';
-​if (shopItems.length === 0) {
-container.innerHTML = <div class="bg-white p-6 rounded-2xl text-center border border-slate-200"> <i class="fa-solid fa-box-open text-3xl text-slate-300 mb-2"></i> <p class="text-xs font-semibold text-slate-500">මෙම කඩයට තවම භාණ්ඩ ඇතුළත් කර නොමැත.</p> <button onclick="navigateToTab('items')" class="mt-3 text-xs bg-emerald-600 text-white font-bold px-3 py-1.5 rounded-lg">+ භාණ්ඩ එකතු කරන්න</button> </div>;
-document.getElementById('dealersShopTotalRevenue').innerText = 'Rs. 0.00';
-return;
-}
-​shopItems.forEach(item => {
-const effectivePrice = getEffectiveUnitPrice(item, date);
-const dayEntry = (window.db.dealers.dailySales && window.db.dealers.dailySales[date] && window.db.dealers.dailySales[date][item.id]) || { delivered: 0, remaining: 0 };
-​const delivered = Number(dayEntry.delivered) || 0;
-const remaining = Number(dayEntry.remaining) || 0;
-const sold = Math.max(0, delivered - remaining);
-const itemTotal = sold * effectivePrice;
-​const itemCard = document.createElement('div');
-itemCard.className = "bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 space-y-3";
-itemCard.innerHTML = `
-<div class="flex justify-between items-center border-b border-slate-100 pb-2">
-<div>
-<h4 class="font-bold text-sm text-slate-800">${escapeHtml(item.name)}</h4>
-<div class="flex items-center gap-2 mt-0.5">
-<span class="text-xs text-slate-500">මිල: <strong class="text-slate-700">Rs. ${effectivePrice.toFixed(2)}</strong></span>
-<button onclick="openChangePriceModal('${item.id}', ${effectivePrice})" class="text-[10px] bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 px-2 py-0.5 rounded font-bold">
-Change
-</button>
-</div>
-</div>
-<div class="text-right">
-<span class="text-[10px] text-slate-400 block uppercase font-bold">මුළු එකතුව</span>
-<span id="itemTotal_${item.id}" class="text-sm font-black text-emerald-600">Rs. ${itemTotal.toFixed(2)}</span>
-</div>
-</div>
-​<div class="grid grid-cols-3 gap-2 text-center">
-<div>
-<label class="block text-[10px] font-bold text-slate-500 mb-1">දුන් ගාණ (Units)</label>
-<input type="number" min="0" value="${delivered || ''}" placeholder="0" 
-oninput="handleStockInput('dealers', '${item.id}', 'delivered', this.value)" 
-class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-center text-sm font-bold text-slate-800 focus:ring-2 focus:ring-emerald-500 outline-none">
-</div>
-<div>
-<label class="block text-[10px] font-bold text-slate-500 mb-1">ඉතුරු ගාණ (Remains)</label>
-<input type="number" min="0" value="${remaining || ''}" placeholder="0" 
-oninput="handleStockInput('dealers', '${item.id}', 'remaining', this.value)" 
-class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-center text-sm font-bold text-slate-800 focus:ring-2 focus:ring-emerald-500 outline-none">
-</div>
-<div>
-<label class="block text-[10px] font-bold text-slate-500 mb-1">විකුණූ (Sold)</label>
-<div id="itemSold_${item.id}" class="w-full bg-emerald-50 border border-emerald-200 rounded-lg p-2 text-center text-sm font-extrabold text-emerald-700">
-${sold.toLocaleString()}
-</div>
-</div>
-</div>
-`;
-container.appendChild(itemCard);
-});
-​recalculateShopTotal('dealers');
-}
-​function loadFarmProductionData() {
-const date = document.getElementById('farmProductionDateInput').value;
-const entry = (window.db.farm.dailyEggProduction && window.db.farm.dailyEggProduction[date]) || { total: 0, damaged: 0 };
-​document.getElementById('prodTotalEggs').value = entry.total || '';
-document.getElementById('prodDamagedEggs').value = entry.damaged || '';
-​const total = Number(entry.total) || 0;
-const damaged = Number(entry.damaged) || 0;
-const sellable = Math.max(0, total - damaged);
-document.getElementById('prodSellableEggs').innerText = sellable.toLocaleString();
-}
-​function saveFarmProduction() {
-const date = document.getElementById('farmProductionDateInput').value;
-const total = Math.max(0, parseInt(document.getElementById('prodTotalEggs').value) || 0);
-const damaged = Math.max(0, parseInt(document.getElementById('prodDamagedEggs').value) || 0);
-​if (!window.db.farm.dailyEggProduction) window.db.farm.dailyEggProduction = {};
-window.db.farm.dailyEggProduction[date] = { total, damaged };
-​const sellable = Math.max(0, total - damaged);
-document.getElementById('prodSellableEggs').innerText = sellable.toLocaleString();
-​if (window.stockSaveTimer) clearTimeout(window.stockSaveTimer);
-window.stockSaveTimer = setTimeout(() => {
-triggerSave();
-}, 600);
-}
-​function renderFarmShopsGrid() {
-const grid = document.getElementById('farmShopsGrid');
-const shops = window.db.farm.shops || [];
-document.getElementById('farmShopCountBadge').innerText = ${shops.length} Buyers;
-grid.innerHTML = '';
-​shops.forEach(shop => {
-const box = document.createElement('div');
-box.className = "bg-white p-4 rounded-2xl shadow-sm border border-slate-200 hover:border-amber-500 hover:shadow-md transition cursor-pointer flex flex-col justify-between h-32 group";
-box.onclick = () => openShopDetail(shop.id);
-box.innerHTML = <div class="flex justify-between items-start"> <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-lg"> <i class="fa-solid fa-feather-pointed"></i> </div> <button onclick="event.stopPropagation(); deleteShop('${shop.id}')" class="text-slate-300 hover:text-rose-500 p-1"> <i class="fa-solid fa-trash-can text-xs"></i> </button> </div> <div> <h3 class="font-bold text-sm text-slate-800 group-hover:text-amber-700 transition line-clamp-2">${escapeHtml(shop.name)}</h3> <p class="text-[10px] text-slate-400 mt-0.5">බිත්තර / මස් ලබාදීම් &rarr;</p> </div>;
-grid.appendChild(box);
-});
-​const addCard = document.createElement('div');
-addCard.className = "bg-amber-50/60 border-2 border-dashed border-amber-300 p-4 rounded-2xl hover:bg-amber-100/50 transition cursor-pointer flex flex-col items-center justify-center text-center h-32 text-amber-700";
-addCard.onclick = () => openAddShopModal();
-addCard.innerHTML = <div class="w-8 h-8 rounded-full bg-amber-600 text-white flex items-center justify-center font-bold shadow-sm mb-1"> <i class="fa-solid fa-plus text-xs"></i> </div> <span class="font-bold text-xs">Add Buyer/Shop</span> <span class="text-[9px] text-amber-600">ගණුදෙනුකරුවෙකු ඇඩ් කරන්න</span>;
-grid.appendChild(addCard);
-}
-​function loadFarmShopData() {
-const date = document.getElementById('farmDateInput').value;
-const container = document.getElementById('farmItemsContainer');
-const shop = (window.db.farm.shops || []).find(s => s.id === activeShopId);
-if (!shop) return;
-​document.getElementById('farmDetailShopTitle').innerText = shop.name;
-​const shopItems = (window.db.farm.items || []).filter(i => i.shopId === activeShopId);
-container.innerHTML = '';
-​if (shopItems.length === 0) {
-container.innerHTML = <div class="bg-white p-6 rounded-2xl text-center border border-slate-200"> <i class="fa-solid fa-egg text-3xl text-slate-300 mb-2"></i> <p class="text-xs font-semibold text-slate-500">මෙම ගණුදෙනුකරුට තවම නිපැයුම් ඇතුළත් කර නොමැත.</p> <button onclick="navigateToTab('items')" class="mt-3 text-xs bg-amber-600 text-white font-bold px-3 py-1.5 rounded-lg">+ නිපැයුම් එකතු කරන්න</button> </div>;
-document.getElementById('farmShopTotalRevenue').innerText = 'Rs. 0.00';
-return;
-}
-​shopItems.forEach(item => {
-const effectivePrice = getEffectiveUnitPrice(item, date);
-const dayEntry = (window.db.farm.dailySales && window.db.farm.dailySales[date] && window.db.farm.dailySales[date][item.id]) || { delivered: 0, remaining: 0 };
-​const delivered = Number(dayEntry.delivered) || 0;
-const remaining = Number(dayEntry.remaining) || 0;
-const sold = Math.max(0, delivered - remaining);
-const itemTotal = sold * effectivePrice;
-​const itemCard = document.createElement('div');
-itemCard.className = "bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 space-y-3";
-itemCard.innerHTML = `
-<div class="flex justify-between items-center border-b border-slate-100 pb-2">
-<div>
-<h4 class="font-bold text-sm text-slate-800">${escapeHtml(item.name)}</h4>
-<div class="flex items-center gap-2 mt-0.5">
-<span class="text-xs text-slate-500">මිල: <strong class="text-slate-700">Rs. ${effectivePrice.toFixed(2)}</strong></span>
-<button onclick="openChangePriceModal('${item.id}', ${effectivePrice})" class="text-[10px] bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 px-2 py-0.5 rounded font-bold">
-Change
-</button>
-</div>
-</div>
-<div class="text-right">
-<span class="text-[10px] text-slate-400 block uppercase font-bold">මුළු එකතුව</span>
-<span id="itemTotal_${item.id}" class="text-sm font-black text-amber-600">Rs. ${itemTotal.toFixed(2)}</span>
-</div>
-</div>
-​<div class="grid grid-cols-3 gap-2 text-center">
-<div>
-<label class="block text-[10px] font-bold text-slate-500 mb-1">දුන් ගාණ (Units)</label>
-<input type="number" min="0" value="${delivered || ''}" placeholder="0" 
-oninput="handleStockInput('farm', '${item.id}', 'delivered', this.value)" 
-class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-center text-sm font-bold text-slate-800 focus:ring-2 focus:ring-amber-500 outline-none">
-</div>
-<div>
-<label class="block text-[10px] font-bold text-slate-500 mb-1">ඉතුරු ගාණ (Remains)</label>
-<input type="number" min="0" value="${remaining || ''}" placeholder="0" 
-oninput="handleStockInput('farm', '${item.id}', 'remaining', this.value)" 
-class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-center text-sm font-bold text-slate-800 focus:ring-2 focus:ring-amber-500 outline-none">
-</div>
-<div>
-<label class="block text-[10px] font-bold text-slate-500 mb-1">විකුණූ (Sold)</label>
-<div id="itemSold_${item.id}" class="w-full bg-amber-50 border border-amber-200 rounded-lg p-2 text-center text-sm font-extrabold text-amber-700">
-${sold.toLocaleString()}
-</div>
-</div>
-</div>
-`;
-container.appendChild(itemCard);
-});
-​recalculateShopTotal('farm');
-}
-​function handleStockInput(biz, itemId, field, value) {
-const dateInputId = biz === 'dealers' ? 'dealersDateInput' : 'farmDateInput';
-const date = document.getElementById(dateInputId).value;
-​if (!window.db[biz].dailySales) window.db[biz].dailySales = {};
-if (!window.db[biz].dailySales[date]) window.db[biz].dailySales[date] = {};
-if (!window.db[biz].dailySales[date][itemId]) window.db[biz].dailySales[date][itemId] = { delivered: 0, remaining: 0 };
-​window.db[biz].dailySales[date][itemId][field] = Math.max(0, parseInt(value) || 0);
-​const entry = window.db[biz].dailySales[date][itemId];
-const delivered = Number(entry.delivered) || 0;
-const remaining = Number(entry.remaining) || 0;
-const sold = Math.max(0, delivered - remaining);
-​const item = (window.db[biz].items || []).find(i => i.id === itemId);
-const price = getEffectiveUnitPrice(item, date);
-const itemTotal = sold * price;
-​const soldEl = document.getElementById(itemSold_${itemId});
-const totalEl = document.getElementById(itemTotal_${itemId});
-​if (soldEl) soldEl.innerText = sold.toLocaleString();
-if (totalEl) totalEl.innerText = Rs. ${itemTotal.toFixed(2)};
-​recalculateShopTotal(biz);
-​// Debounced Cloud Firestore Save to prevent keyboard focus interruption on mobile
-if (window.stockSaveTimer) clearTimeout(window.stockSaveTimer);
-window.stockSaveTimer = setTimeout(() => {
-triggerSave();
-}, 600);
-}
-​function recalculateShopTotal(biz) {
-const dateInputId = biz === 'dealers' ? 'dealersDateInput' : 'farmDateInput';
-const date = document.getElementById(dateInputId).value;
-const shopItems = (window.db[biz].items || []).filter(i => i.shopId === activeShopId);
-​let grandTotal = 0;
-shopItems.forEach(item => {
-const effectivePrice = getEffectiveUnitPrice(item, date);
-const dayEntry = (window.db[biz].dailySales && window.db[biz].dailySales[date] && window.db[biz].dailySales[date][item.id]) || { delivered: 0, remaining: 0 };
-const sold = Math.max(0, (Number(dayEntry.delivered) || 0) - (Number(dayEntry.remaining) || 0));
-grandTotal += sold * effectivePrice;
-});
-​const revBadgeId = biz === 'dealers' ? 'dealersShopTotalRevenue' : 'farmShopTotalRevenue';
-document.getElementById(revBadgeId).innerText = Rs. ${grandTotal.toFixed(2)};
-}
-​function openAddShopModal() {
-document.getElementById('newShopNameInput').value = '';
-const title = document.getElementById('modalAddTitle');
-const label = document.getElementById('modalAddLabel');
-if (activeBusiness === 'dealers') {
-title.innerText = 'අලුත් කඩයක් ඇඩ් කරන්න';
-label.innerText = 'කඩේ නම (Shop Name)';
-} else {
-title.innerText = 'අලුත් ගණුදෙනුකරුවෙකු / කඩයක් ඇඩ් කරන්න';
-label.innerText = 'ගණුදෙනුකරුගේ නම (Buyer/Shop Name)';
-}
-document.getElementById('addShopModal').classList.remove('hidden');
-}
-​function closeAddShopModal() {
-document.getElementById('addShopModal').classList.add('hidden');
-}
-​function handleCreateShop(e) {
-e.preventDefault();
-const name = document.getElementById('newShopNameInput').value.trim();
-if (!name) return;
-​const newShop = {
-id: (activeBusiness === 'dealers' ? 'dshop_' : 'fshop_') + Date.now(),
-name: name
-};
-if (!window.db[activeBusiness].shops) window.db[activeBusiness].shops = [];
-window.db[activeBusiness].shops.push(newShop);
-triggerSave();
-closeAddShopModal();
-​if (activeBusiness === 'dealers') renderDealersShopsGrid();
-else renderFarmShopsGrid();
-}
-​function deleteShop(shopId) {
-if (!confirm('ඔබට මෙය ඉවත් කිරීමට අවශ්‍යද?')) return;
-window.db[activeBusiness].shops = (window.db[activeBusiness].shops || []).filter(s => s.id !== shopId);
-window.db[activeBusiness].items = (window.db[activeBusiness].items || []).filter(i => i.shopId !== shopId);
-triggerSave();
-​if (activeBusiness === 'dealers') renderDealersShopsGrid();
-else renderFarmShopsGrid();
-}
-​function openChangePriceModal(itemId, currentPrice) {
-document.getElementById('modalItemId').value = itemId;
-document.getElementById('modalNewPriceInput').value = currentPrice;
-document.getElementById('changePriceModal').classList.remove('hidden');
-}
-​function closePriceModal() {
-document.getElementById('changePriceModal').classList.add('hidden');
-}
-​function handleUpdateUnitPrice(e) {
-e.preventDefault();
-const itemId = document.getElementById('modalItemId').value;
-const newPrice = parseFloat(document.getElementById('modalNewPriceInput').value);
-const dateInputId = activeBusiness === 'dealers' ? 'dealersDateInput' : 'farmDateInput';
-const date = document.getElementById(dateInputId).value;
-​if (isNaN(newPrice) || newPrice < 0) return;
-​const item = (window.db[activeBusiness].items || []).find(i => i.id === itemId);
-if (item) {
-if (!item.priceHistory) item.priceHistory = [];
-const idx = item.priceHistory.findIndex(ph => ph.date === date);
-if (idx >= 0) {
-item.priceHistory[idx].price = newPrice;
-} else {
-item.priceHistory.push({ date: date, price: newPrice });
-}
-triggerSave();
-closePriceModal();
-​if (activeBusiness === 'dealers') loadDealersShopData();
-else loadFarmShopData();
-}
-}
-​function renderItemsTab() {
-const checkboxContainer = document.getElementById('itemShopsCheckboxContainer');
-const title = document.getElementById('addItemSectionTitle');
-const submitBtn = document.getElementById('addItemSubmitBtn');
-​if (activeBusiness === 'dealers') {
-title.innerText = "Food Dealers: නව භාණ්ඩයක් ඇඩ් කරන්න";
-submitBtn.className = "w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition";
-} else {
-title.innerText = "Poultry Farm: නව නිපැයුමක් ඇඩ් කරන්න";
-submitBtn.className = "w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition";
-}
-​checkboxContainer.innerHTML = '';
-const shops = window.db[activeBusiness].shops || [];
-​if (shops.length === 0) {
-checkboxContainer.innerHTML = <p class="text-xs text-slate-400 col-span-2 text-center py-2">කඩවල් කිසිවක් නැත.</p>;
-} else {
-shops.forEach(s => {
-checkboxContainer.innerHTML += <label class="flex items-center space-x-2 p-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 cursor-pointer"> <input type="checkbox" name="itemShopCheckboxes" value="${s.id}" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"> <span class="truncate">${escapeHtml(s.name)}</span> </label>;
-});
-}
-​const list = document.getElementById('allRegisteredItemsList');
-list.innerHTML = '';
-​const items = window.db[activeBusiness].items || [];
-if (items.length === 0) {
-list.innerHTML = <p class="text-xs text-slate-400 text-center py-2">භාණ්ඩ කිසිවක් නැත.</p>;
-return;
-}
-​items.forEach(item => {
-const shop = (window.db[activeBusiness].shops || []).find(s => s.id === item.shopId);
-const latestPrice = item.priceHistory && item.priceHistory.length > 0 ? item.priceHistory[item.priceHistory.length - 1].price : 0;
-const row = document.createElement('div');
-row.className = "flex justify-between items-center p-2.5 bg-slate-50 border border-slate-200 rounded-xl";
-row.innerHTML = <div> <h4 class="font-bold text-xs text-slate-800">${escapeHtml(item.name)}</h4> <span class="text-[10px] ${activeBusiness==='dealers'?'text-emerald-600':'text-amber-600'} font-semibold">${shop ? escapeHtml(shop.name) : 'Unassigned'}</span> </div> <div class="flex items-center gap-3"> <span class="text-xs font-black text-slate-700">Rs. ${latestPrice.toFixed(2)}</span> <button onclick="deleteItem('${item.id}')" class="text-slate-300 hover:text-rose-500"> <i class="fa-solid fa-trash-can text-xs"></i> </button> </div>;
-list.appendChild(row);
-});
-}
-​function toggleSelectAllShops() {
-const checkboxes = document.getElementsByName('itemShopCheckboxes');
-if (checkboxes.length === 0) return;
-​let allChecked = true;
-checkboxes.forEach(cb => { if (!cb.checked) allChecked = false; });
-​checkboxes.forEach(cb => cb.checked = !allChecked);
-document.getElementById('selectAllShopsLabel').innerText = !allChecked ? "සියල්ල ඉවත් කරන්න" : "සියල්ල තෝරන්න";
-}
-​function handleAddItem(e) {
-e.preventDefault();
-const checkedBoxes = document.querySelectorAll('input[name="itemShopCheckboxes"]:checked');
-const selectedShopIds = Array.from(checkedBoxes).map(cb => cb.value);
-​const name = document.getElementById('itemNameInput').value.trim();
-const price = parseFloat(document.getElementById('itemPriceInput').value);
-​if (selectedShopIds.length === 0) {
-alert('කරුණාකර අවම වශයෙන් එක් කඩයක් හෝ තෝරන්න.');
-return;
-}
-if (!name || isNaN(price)) return;
-​if (!window.db[activeBusiness].items) window.db[activeBusiness].items = [];
-​selectedShopIds.forEach(shopId => {
-const newItem = {
-id: (activeBusiness === 'dealers' ? 'ditem_' : 'fitem_') + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
-shopId: shopId,
-name: name,
-priceHistory: [{ date: getTodayISO(), price: price }]
-};
-window.db[activeBusiness].items.push(newItem);
-});
-​triggerSave();
-​document.getElementById('itemNameInput').value = '';
-document.getElementById('itemPriceInput').value = '';
-renderItemsTab();
-}
-​function deleteItem(itemId) {
-if (!confirm('ඔබට මෙම භාණ්ඩය ඉවත් කිරීමට අවශ්‍යද?')) return;
-window.db[activeBusiness].items = (window.db[activeBusiness].items || []).filter(i => i.id !== itemId);
-triggerSave();
-renderItemsTab();
-}
-​function loadDailyExpenses() {
-const date = document.getElementById('expenseDateInput').value;
-const container = document.getElementById('expensesListContainer');
-container.innerHTML = '';
-​const categories = window.db[activeBusiness].expenseCategories || [];
-const dayExpenses = (window.db[activeBusiness].dailyExpenses && window.db[activeBusiness].dailyExpenses[date]) || {};
-let totalExpense = 0;
-​if (categories.length === 0) {
-container.innerHTML = <p class="text-xs text-slate-400 text-center py-2">වියදම් වර්ග කිසිවක් ඇතුළත් කර නැත.</p>;
-document.getElementById('dailyExpenseTotalBadge').innerText = 'Rs. 0.00';
-return;
-}
-​categories.forEach(cat => {
-const cost = dayExpenses[cat] || 0;
-totalExpense += Number(cost);
-​const itemRow = document.createElement('div');
-itemRow.className = "flex items-center justify-between gap-3 p-2.5 bg-slate-50 border border-slate-200 rounded-xl";
-itemRow.innerHTML = <span class="text-xs font-bold text-slate-700 flex-1">${escapeHtml(cat)}</span> <div class="w-32 relative"> <span class="absolute left-2.5 top-2 text-xs text-slate-400 font-semibold">Rs.</span> <input type="number" min="0" step="0.01" value="${cost || ''}" placeholder="0.00" oninput="handleExpenseInput('${cat}', this.value)" class="w-full bg-white border border-slate-300 rounded-lg pl-8 pr-2 py-1.5 text-right text-xs font-bold text-slate-800 focus:ring-2 ${activeBusiness==='dealers'?'focus:ring-emerald-500':'focus:ring-amber-500'} outline-none"> </div>;
-container.appendChild(itemRow);
-});
-​document.getElementById('dailyExpenseTotalBadge').innerText = Rs. ${totalExpense.toFixed(2)};
-}
-​function handleExpenseInput(cat, value) {
-const date = document.getElementById('expenseDateInput').value;
-if (!window.db[activeBusiness].dailyExpenses) window.db[activeBusiness].dailyExpenses = {};
-if (!window.db[activeBusiness].dailyExpenses[date]) window.db[activeBusiness].dailyExpenses[date] = {};
-window.db[activeBusiness].dailyExpenses[date][cat] = Math.max(0, parseFloat(value) || 0);
-​let total = 0;
-Object.values(window.db[activeBusiness].dailyExpenses[date]).forEach(v => total += Number(v || 0));
-document.getElementById('dailyExpenseTotalBadge').innerText = Rs. ${total.toFixed(2)};
-​if (window.stockSaveTimer) clearTimeout(window.stockSaveTimer);
-window.stockSaveTimer = setTimeout(() => {
-triggerSave();
-}, 600);
-}
-​function handleAddExpenseCategory(e) {
-e.preventDefault();
-const input = document.getElementById('expenseCatNameInput');
-const catName = input.value.trim();
-if (!catName) return;
-​if (!window.db[activeBusiness].expenseCategories) window.db[activeBusiness].expenseCategories = [];
-if (!window.db[activeBusiness].expenseCategories.includes(catName)) {
-window.db[activeBusiness].expenseCategories.push(catName);
-triggerSave();
-}
-input.value = '';
-loadDailyExpenses();
-}
-​function renderDealersAdminDashboard() {
-const month = document.getElementById('adminDealersMonthPicker').value;
-if (!month) return;
-​let totalRev = 0;
-let totalExp = 0;
-const shopRevs = {};
-​(window.db.dealers.shops || []).forEach(s => shopRevs[s.name] = 0);
-​const dailySales = window.db.dealers.dailySales || {};
-Object.keys(dailySales).forEach(date => {
-if (date.startsWith(month)) {
-const dayData = dailySales[date];
-Object.keys(dayData).forEach(itemId => {
-const item = (window.db.dealers.items || []).find(i => i.id === itemId);
-if (item) {
-const shop = (window.db.dealers.shops || []).find(s => s.id === item.shopId);
-const price = getEffectiveUnitPrice(item, date);
-const entry = dayData[itemId];
-const sold = Math.max(0, (entry.delivered || 0) - (entry.remaining || 0));
-const rev = sold * price;
-​totalRev += rev;
-if (shop) shopRevs[shop.name] = (shopRevs[shop.name] || 0) + rev;
-}
-});
-}
-});
-​const dailyExpenses = window.db.dealers.dailyExpenses || {};
-Object.keys(dailyExpenses).forEach(date => {
-if (date.startsWith(month)) {
-Object.values(dailyExpenses[date]).forEach(c => totalExp += Number(c || 0));
-}
-});
-​const netProfit = totalRev - totalExp;
-​document.getElementById('dealersKpiSales').innerText = Rs. ${totalRev.toFixed(2)};
-document.getElementById('dealersKpiExpenses').innerText = Rs. ${totalExp.toFixed(2)};
-document.getElementById('dealersKpiNetProfit').innerText = Rs. ${netProfit.toFixed(2)};
-​const badge = document.getElementById('dealersProfitBadge');
-if (netProfit >= 0) {
-badge.innerText = 'PROFIT';
-badge.className = 'text-xs px-2.5 py-1 rounded-full font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
-} else {
-badge.innerText = 'LOSS';
-badge.className = 'text-xs px-2.5 py-1 rounded-full font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30';
-}
-​const ctxPie = document.getElementById('dealersProfitPieChart').getContext('2d');
-if (dealersPieChart) dealersPieChart.destroy();
-dealersPieChart = new Chart(ctxPie, {
-type: 'doughnut',
-data: {
-labels: ['ආදායම (Revenue)', 'වියදම් (Expenses)'],
-datasets: [{ data: [totalRev, totalExp], backgroundColor: ['#16a34a', '#e11d48'], borderWidth: 0 }]
-},
-options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-});
-​const ctxBar = document.getElementById('dealersShopsBarChart').getContext('2d');
-if (dealersBarChart) dealersBarChart.destroy();
-dealersBarChart = new Chart(ctxBar, {
-type: 'bar',
-data: {
-labels: Object.keys(shopRevs),
-datasets: [{ label: 'ආදායම (Rs.)', data: Object.values(shopRevs), backgroundColor: '#0d9488', borderRadius: 8 }]
-},
-options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
-});
-}
-​function renderFarmAdminDashboard() {
-const month = document.getElementById('adminFarmMonthPicker').value;
-if (!month) return;
-​let totalEggsProduced = 0;
-let totalEggsDamaged = 0;
-let totalSoldUnits = 0;
-let totalRev = 0;
-let totalExp = 0;
-​const categoryExpenses = {};
-const buyerRevs = {};
-​(window.db.farm.expenseCategories || []).forEach(c => categoryExpenses[c] = 0);
-(window.db.farm.shops || []).forEach(s => buyerRevs[s.name] = 0);
-​const dailyEggProd = window.db.farm.dailyEggProduction || {};
-Object.keys(dailyEggProd).forEach(date => {
-if (date.startsWith(month)) {
-const entry = dailyEggProd[date];
-totalEggsProduced += Number(entry.total || 0);
-totalEggsDamaged += Number(entry.damaged || 0);
-}
-});
-​const dailySales = window.db.farm.dailySales || {};
-Object.keys(dailySales).forEach(date => {
-if (date.startsWith(month)) {
-const dayData = dailySales[date];
-Object.keys(dayData).forEach(itemId => {
-const item = (window.db.farm.items || []).find(i => i.id === itemId);
-if (item) {
-const shop = (window.db.farm.shops || []).find(s => s.id === item.shopId);
-const price = getEffectiveUnitPrice(item, date);
-const entry = dayData[itemId];
-const sold = Math.max(0, (entry.delivered || 0) - (entry.remaining || 0));
-const rev = sold * price;
-​totalSoldUnits += sold;
-totalRev += rev;
-if (shop) buyerRevs[shop.name] = (buyerRevs[shop.name] || 0) + rev;
-}
-});
-}
-});
-​const dailyExpenses = window.db.farm.dailyExpenses || {};
-Object.keys(dailyExpenses).forEach(date => {
-if (date.startsWith(month)) {
-const dayExp = dailyExpenses[date];
-Object.keys(dayExp).forEach(cat => {
-const cost = Number(dayExp[cat] || 0);
-totalExp += cost;
-categoryExpenses[cat] = (categoryExpenses[cat] || 0) + cost;
-});
-}
-});
-​const netProfit = totalRev - totalExp;
-const damagedRatePercent = totalEggsProduced > 0 ? ((totalEggsDamaged / totalEggsProduced) * 100).toFixed(1) : 0;
-const profitMarginPercent = totalRev > 0 ? ((netProfit / totalRev) * 100).toFixed(1) : 0;
-​document.getElementById('farmKpiTotalEggs').innerText = totalEggsProduced.toLocaleString();
-document.getElementById('farmKpiDamagedEggRate').innerText = ${damagedRatePercent}% Damaged;
-document.getElementById('farmKpiSoldUnits').innerText = totalSoldUnits.toLocaleString();
-document.getElementById('farmKpiRevenue').innerText = Rs. ${totalRev.toFixed(2)};
-document.getElementById('farmKpiExpenses').innerText = Rs. ${totalExp.toFixed(2)};
-document.getElementById('farmKpiNetProfit').innerText = Rs. ${netProfit.toFixed(2)};
-​const marginBadge = document.getElementById('farmProfitMarginBadge');
-marginBadge.innerText = ${profitMarginPercent}% Margin;
-if (netProfit >= 0) {
-marginBadge.className = 'text-base font-black px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
-} else {
-marginBadge.className = 'text-base font-black px-3 py-1 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/30';
-}
-​const ctxPie = document.getElementById('farmExpensePieChart').getContext('2d');
-if (farmPieChart) farmPieChart.destroy();
-farmPieChart = new Chart(ctxPie, {
-type: 'pie',
-data: {
-labels: Object.keys(categoryExpenses),
-datasets: [{
-data: Object.values(categoryExpenses),
-backgroundColor: ['#d97706', '#0284c7', '#16a34a', '#dc2626', '#9333ea'],
-borderWidth: 0
-}]
-},
-options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } } }
-});
-​const ctxBar = document.getElementById('farmSalesBarChart').getContext('2d');
-if (farmBarChart) farmBarChart.destroy();
-farmBarChart = new Chart(ctxBar, {
-type: 'bar',
-data: {
-labels: Object.keys(buyerRevs),
-datasets: [{ label: 'ආදායම (Rs.)', data: Object.values(buyerRevs), backgroundColor: '#d97706', borderRadius: 8 }]
-},
-options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
-});
-}
-​function escapeHtml(str) {
-return String(str).replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"');
-}
-</script>
+
+    <!-- TOP NAVIGATION HEADER -->
+    <header id="mainHeader" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white p-4 sticky top-0 z-30 shadow-md">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2 cursor-pointer" onclick="openLandingPage()">
+                <div id="businessHeaderIcon" class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center font-bold text-amber-300">
+                    <i class="fa-solid fa-briefcase text-base"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 id="appHeaderTitle" class="text-base font-extrabold tracking-wide leading-tight">ව්‍යාපාර තේරීම</h1>
+                        <!-- Firebase Cloud Status Badge -->
+                        <span id="cloudStatusBadge" class="bg-amber-400/20 text-amber-300 text-[9px] px-1.5 py-0.5 rounded font-bold flex items-center gap-1 border border-amber-400/30">
+                            <i class="fa-solid fa-arrows-rotate animate-spin text-[8px]"></i>
+                            <span>Connecting...</span>
+                        </span>
+                    </div>
+                    <p id="appHeaderSubtitle" class="text-[10px] text-emerald-200 font-medium">Business Cloud Portal</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <button id="switchBizBtn" onclick="openLandingPage()" class="bg-white/10 hover:bg-white/20 text-white text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1 font-semibold transition border border-white/20">
+                    <i class="fa-solid fa-repeat text-amber-300 text-xs"></i>
+                    <span>වෙනස් කරන්න</span>
+                </button>
+                <button id="backBtn" onclick="navigateBack()" class="hidden bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-2.5 py-1.5 rounded-lg flex items-center space-x-1 font-semibold transition">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>ආපසු</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-1 overflow-y-auto p-4 pb-24 hide-scrollbar">
+
+        <!-- ======================================================== -->
+        <!-- 0. MULTI-BUSINESS LANDING PAGE / SELECTOR -->
+        <!-- ======================================================== -->
+        <section id="view-landing" class="space-y-5 pt-2 flex flex-col justify-between min-h-[75vh]">
+            <div class="space-y-5">
+                <div class="text-center space-y-1">
+                    <h2 class="text-xl font-extrabold text-slate-800">ඔබගේ ව්‍යාපාරය තෝරන්න</h2>
+                    <p class="text-xs text-slate-500 font-medium">Select Business Portal (Real-time Cloud Synchronized)</p>
+                </div>
+
+                <!-- Business Selection Cards -->
+                <div class="grid grid-cols-1 gap-4">
+                    <!-- Business Card 1: Food Dealers -->
+                    <div onclick="selectBusiness('dealers')" class="bg-gradient-to-br from-emerald-600 to-teal-800 text-white p-5 rounded-3xl shadow-xl hover:shadow-2xl transition transform active:scale-98 cursor-pointer relative overflow-hidden group border border-emerald-500/30">
+                        <div class="absolute -right-4 -bottom-4 opacity-15 text-white group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-store text-9xl"></i>
+                        </div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-amber-300 text-2xl shadow-inner">
+                                <i class="fa-solid fa-shop"></i>
+                            </div>
+                            <span class="bg-amber-400 text-emerald-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider shadow">Active Module</span>
+                        </div>
+                        <h3 class="text-xl font-black mb-1">Food Dealers</h3>
+                        <p class="text-xs text-emerald-100 leading-relaxed mb-4">කඩවල් ජාලයේ දෛනික බඩු බෙදාහැරීම්, විකුණුම් හා මුදල් පාලනය</p>
+                        <div class="flex items-center text-xs font-bold text-amber-300 group-hover:translate-x-1 transition">
+                            <span>ඇතුළු වන්න (Open Portal)</span>
+                            <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </div>
+                    </div>
+
+                    <!-- Business Card 2: Poultry Farm House -->
+                    <div onclick="selectBusiness('farm')" class="bg-gradient-to-br from-amber-600 to-orange-700 text-white p-5 rounded-3xl shadow-xl hover:shadow-2xl transition transform active:scale-98 cursor-pointer relative overflow-hidden group border border-amber-500/30">
+                        <div class="absolute -right-4 -bottom-4 opacity-15 text-white group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-egg text-9xl"></i>
+                        </div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-yellow-200 text-2xl shadow-inner">
+                                <i class="fa-solid fa-feather-pointed"></i>
+                            </div>
+                            <span class="bg-yellow-300 text-amber-950 font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider shadow">Farm Portal</span>
+                        </div>
+                        <h3 class="text-xl font-black mb-1">Poultry Farm House</h3>
+                        <p class="text-xs text-amber-100 leading-relaxed mb-4">බිත්තර නිෂ්පාදනය, කුකුළු මස් විකුණුම්, කෑම හා සතුන්ගේ පාලන වියදම්</p>
+                        <div class="flex items-center text-xs font-bold text-yellow-200 group-hover:translate-x-1 transition">
+                            <span>ඇතුළු වන්න (Open Portal)</span>
+                            <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HOME PAGE FOOTER CREDIT -->
+            <div class="pt-6 pb-2 text-center border-t border-slate-200/80 mt-auto">
+                <p class="text-xs font-extrabold text-slate-500 tracking-wide">
+                    Designed by <span class="text-emerald-700">Sahan Lakmina</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- BUSINESS 1: FOOD DEALERS SHARED MODULE VIEWS -->
+        <!-- ======================================================== -->
+
+        <!-- 1.1 SHOPS MAIN VIEW (2-Column Grid Layout) -->
+        <section id="view-dealers-shops" class="hidden space-y-4">
+            <div class="flex justify-between items-center mb-1">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">ඔබගේ කඩවල් (Select Shop)</p>
+                <span id="dealersShopCountBadge" class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-extrabold">0 Shops</span>
+            </div>
+            <div id="dealersShopsGrid" class="grid grid-cols-2 gap-3"></div>
+        </section>
+
+        <!-- 1.2 SHOP DETAIL VIEW -->
+        <section id="view-dealers-shop-detail" class="hidden space-y-4">
+            <!-- Date Selector -->
+            <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 flex flex-col space-y-2">
+                <div class="flex justify-between items-center">
+                    <label class="text-xs font-bold text-slate-600 flex items-center gap-1.5">
+                        <i class="fa-regular fa-calendar-days text-emerald-600"></i> දින තේරීම:
+                    </label>
+                    <button onclick="setTodayDate('dealers')" class="text-xs bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-2 py-0.5 rounded-md font-bold">අද (Today)</button>
+                </div>
+                <input type="date" id="dealersDateInput" onchange="loadDealersShopData()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-emerald-500 outline-none">
+            </div>
+
+            <!-- Active Shop Name Banner -->
+            <div class="bg-gradient-to-r from-emerald-700 to-teal-800 text-white p-4 rounded-2xl shadow-md flex justify-between items-center">
+                <div>
+                    <h2 id="dealersDetailShopTitle" class="text-lg font-extrabold">කඩේ නම</h2>
+                    <p class="text-xs text-emerald-200 mt-0.5">දෛනික බඩු විකුණුම් සටහන</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] text-emerald-200 uppercase font-bold">එකතුව (Revenue)</p>
+                    <p id="dealersShopTotalRevenue" class="text-lg font-black text-amber-300">Rs. 0.00</p>
+                </div>
+            </div>
+
+            <!-- Items List -->
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-sm font-bold text-slate-700">භාණ්ඩ ලැයිස්තුව</h3>
+                    <button onclick="navigateToTab('items')" class="text-xs text-emerald-600 font-bold hover:underline">+ නව භාණ්ඩයක්</button>
+                </div>
+                <div id="dealersItemsContainer" class="space-y-3"></div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- BUSINESS 2: POULTRY FARM HOUSE SHARED MODULE VIEWS -->
+        <!-- ======================================================== -->
+
+        <!-- 2.1 FARM SHOPS / BUYERS GRID (2-Column Layout) -->
+        <section id="view-farm-shops" class="hidden space-y-4">
+            <!-- Farm Production Daily Quick Input Widget -->
+            <div class="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-4 rounded-2xl shadow-md space-y-3">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-1.5">
+                        <i class="fa-solid fa-egg text-yellow-200 text-base"></i>
+                        <h3 class="text-sm font-bold">දෛනික බිත්තර එකතුව (Egg Production)</h3>
+                    </div>
+                    <input type="date" id="farmProductionDateInput" onchange="loadFarmProductionData()" class="bg-amber-700 text-white text-xs border border-amber-400 rounded-lg px-2 py-1 font-bold outline-none">
+                </div>
+                <div class="grid grid-cols-3 gap-2 text-center text-slate-900">
+                    <div class="bg-white/90 p-2 rounded-xl">
+                        <span class="text-[10px] font-bold text-slate-600 block">එකතු කළ (Total)</span>
+                        <input type="number" id="prodTotalEggs" min="0" oninput="saveFarmProduction()" placeholder="0" class="w-full text-center font-black text-sm text-slate-800 bg-transparent outline-none">
+                    </div>
+                    <div class="bg-white/90 p-2 rounded-xl">
+                        <span class="text-[10px] font-bold text-rose-600 block">බිඳුණු (Damaged)</span>
+                        <input type="number" id="prodDamagedEggs" min="0" oninput="saveFarmProduction()" placeholder="0" class="w-full text-center font-black text-sm text-rose-600 bg-transparent outline-none">
+                    </div>
+                    <div class="bg-emerald-100 p-2 rounded-xl">
+                        <span class="text-[10px] font-bold text-emerald-700 block">විකිණිය හැකි</span>
+                        <span id="prodSellableEggs" class="font-extrabold text-sm text-emerald-800">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center mb-1">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">ෆාම් ගණුදෙනුකරුවන් / කඩවල් (Farm Buyers)</p>
+                <span id="farmShopCountBadge" class="bg-amber-100 text-amber-800 text-xs px-2.5 py-0.5 rounded-full font-extrabold">0 Buyers</span>
+            </div>
+            <div id="farmShopsGrid" class="grid grid-cols-2 gap-3"></div>
+        </section>
+
+        <!-- 2.2 FARM SHOP / BUYER DETAIL VIEW -->
+        <section id="view-farm-shop-detail" class="hidden space-y-4">
+            <!-- Date Selector -->
+            <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 flex flex-col space-y-2">
+                <div class="flex justify-between items-center">
+                    <label class="text-xs font-bold text-slate-600 flex items-center gap-1.5">
+                        <i class="fa-regular fa-calendar-days text-amber-600"></i> දින තේරීම:
+                    </label>
+                    <button onclick="setTodayDate('farm')" class="text-xs bg-amber-50 text-amber-700 hover:bg-amber-100 px-2 py-0.5 rounded-md font-bold">අද (Today)</button>
+                </div>
+                <input type="date" id="farmDateInput" onchange="loadFarmShopData()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-amber-500 outline-none">
+            </div>
+
+            <!-- Active Farm Buyer Title -->
+            <div class="bg-gradient-to-r from-amber-600 to-orange-700 text-white p-4 rounded-2xl shadow-md flex justify-between items-center">
+                <div>
+                    <h2 id="farmDetailShopTitle" class="text-lg font-extrabold">ගණුදෙනුකරු නම</h2>
+                    <p class="text-xs text-amber-100 mt-0.5">බිත්තර හා කුකුළු මස් විකුණුම්</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] text-amber-100 uppercase font-bold">එකතුව (Revenue)</p>
+                    <p id="farmShopTotalRevenue" class="text-lg font-black text-yellow-300">Rs. 0.00</p>
+                </div>
+            </div>
+
+            <!-- Farm Items List -->
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-sm font-bold text-slate-700">ෆාම් නිපැයුම් (Poultry Items)</h3>
+                    <button onclick="navigateToTab('items')" class="text-xs text-amber-600 font-bold hover:underline">+ නව නිපැයුමක්</button>
+                </div>
+                <div id="farmItemsContainer" class="space-y-3"></div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- SHARED ITEMS MANAGEMENT TAB -->
+        <!-- ======================================================== -->
+        <section id="view-items" class="hidden space-y-4">
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <h2 class="text-sm font-extrabold text-slate-800 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-plus-circle text-emerald-600"></i> <span id="addItemSectionTitle">නව භාණ්ඩයක් ඇඩ් කරන්න</span>
+                </h2>
+                <form id="addItemForm" onsubmit="handleAddItem(event)" class="space-y-3">
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="block text-xs font-semibold text-slate-600">අදාළ කඩවල් / ගණුදෙනුකරුවන් (Multiple Selection)</label>
+                            <button type="button" onclick="toggleSelectAllShops()" class="text-[11px] font-bold text-emerald-600 hover:underline">
+                                <span id="selectAllShopsLabel">සියල්ල තෝරන්න</span>
+                            </button>
+                        </div>
+                        <div id="itemShopsCheckboxContainer" class="grid grid-cols-2 gap-2 bg-slate-50 border border-slate-200 p-2.5 rounded-xl max-h-40 overflow-y-auto hide-scrollbar">
+                            <!-- Dynamic shop checkboxes rendered here -->
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">භාණ්ඩයේ නම (Item Name)</label>
+                        <input type="text" id="itemNameInput" placeholder="උදා: Large Eggs / Broiler Meat / පාන්" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">ආරම්භක ඒකක මිල (Default Unit Price - Rs.)</label>
+                        <input type="number" step="0.01" id="itemPriceInput" placeholder="0.00" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                    </div>
+                    <button type="submit" id="addItemSubmitBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition">
+                        එක් කරන්න (Add Item)
+                    </button>
+                </form>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">ලියාපදිංචි භාණ්ඩ ලැයිස්තුව</h3>
+                <div id="allRegisteredItemsList" class="space-y-2"></div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- SHARED EXPENSES TRACKER TAB -->
+        <!-- ======================================================== -->
+        <section id="view-expenses" class="hidden space-y-4">
+            <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 flex flex-col space-y-2">
+                <div class="flex justify-between items-center">
+                    <label class="text-xs font-bold text-slate-600 flex items-center gap-1.5">
+                        <i class="fa-regular fa-calendar-days text-emerald-600"></i> වියදම් දිනය:
+                    </label>
+                    <button onclick="setExpenseTodayDate()" class="text-xs bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-2 py-0.5 rounded-md font-bold">අද (Today)</button>
+                </div>
+                <input type="date" id="expenseDateInput" onchange="loadDailyExpenses()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-emerald-500 outline-none">
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="text-sm font-extrabold text-slate-800 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-receipt text-rose-500"></i> වියදම් වර්ගයක් එක් කරන්න
+                </h3>
+                <form id="addExpenseCatForm" onsubmit="handleAddExpenseCategory(event)" class="flex gap-2">
+                    <input type="text" id="expenseCatNameInput" placeholder="උදා: ෆාම් කෑම (Feed) / විදුලි බිල" required class="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                    <button type="submit" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition">
+                        + ඇඩ්
+                    </button>
+                </form>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+                <div class="flex justify-between items-center border-b pb-2">
+                    <h3 class="text-sm font-bold text-slate-800">දෛනික වියදම් සටහන</h3>
+                    <span id="dailyExpenseTotalBadge" class="text-xs font-extrabold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full">Rs. 0.00</span>
+                </div>
+                <div id="expensesListContainer" class="space-y-3"></div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- ADMIN DASHBOARD VIEWS -->
+        <!-- ======================================================== -->
+
+        <!-- 1. FOOD DEALERS DASHBOARD -->
+        <section id="view-admin-dealers" class="hidden space-y-4">
+            <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 flex justify-between items-center">
+                <span class="text-xs font-bold text-slate-600"><i class="fa-solid fa-chart-line text-emerald-600 mr-1"></i> මාසික වාර්තාව:</span>
+                <input type="month" id="adminDealersMonthPicker" onchange="renderDealersAdminDashboard()" class="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-2 focus:ring-emerald-500 outline-none">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-emerald-600 text-white p-3.5 rounded-2xl shadow-sm">
+                    <p class="text-[11px] font-semibold text-emerald-100 uppercase">මුළු ආදායම (Revenue)</p>
+                    <p id="dealersKpiSales" class="text-lg font-black mt-1">Rs. 0.00</p>
+                    <span class="text-[10px] bg-emerald-700 text-emerald-100 px-1.5 py-0.5 rounded mt-2 inline-block">Gross Revenue</span>
+                </div>
+                <div class="bg-rose-600 text-white p-3.5 rounded-2xl shadow-sm">
+                    <p class="text-[11px] font-semibold text-rose-100 uppercase">මුළු වියදම (Expenses)</p>
+                    <p id="dealersKpiExpenses" class="text-lg font-black mt-1">Rs. 0.00</p>
+                    <span class="text-[10px] bg-rose-700 text-rose-100 px-1.5 py-0.5 rounded mt-2 inline-block">Total Expenses</span>
+                </div>
+                <div class="bg-slate-800 text-white p-3.5 rounded-2xl shadow-sm col-span-2">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[11px] font-semibold text-slate-400 uppercase">ශුද්ධ ලාභය / අලාභය (Net Profit)</p>
+                            <p id="dealersKpiNetProfit" class="text-2xl font-black text-amber-400 mt-1">Rs. 0.00</p>
+                        </div>
+                        <span id="dealersProfitBadge" class="text-xs px-2.5 py-1 rounded-full font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">PROFIT</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">ආදායම vs වියදම් බිඳවැටීම</h4>
+                <div class="h-48 relative">
+                    <canvas id="dealersProfitPieChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">කඩවල් අනුව ආදායම් සංසන්දනය</h4>
+                <div class="h-56 relative">
+                    <canvas id="dealersShopsBarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. POULTRY FARM HOUSE DASHBOARD -->
+        <section id="view-admin-farm" class="hidden space-y-4">
+            <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 flex justify-between items-center">
+                <span class="text-xs font-bold text-slate-600"><i class="fa-solid fa-chart-pie text-amber-600 mr-1"></i> ෆාම් මාසික වාර්තාව:</span>
+                <input type="month" id="adminFarmMonthPicker" onchange="renderFarmAdminDashboard()" class="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-2 focus:ring-amber-500 outline-none">
+            </div>
+
+            <!-- Detailed Farm Metrics Cards Grid -->
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-amber-600 text-white p-3.5 rounded-2xl shadow-sm">
+                    <p class="text-[10px] font-bold uppercase text-amber-100">එකතු කළ බිත්තර (Eggs Collected)</p>
+                    <p id="farmKpiTotalEggs" class="text-xl font-black mt-0.5">0</p>
+                    <span id="farmKpiDamagedEggRate" class="text-[10px] bg-amber-700 text-yellow-200 px-1.5 py-0.5 rounded mt-1 inline-block">0% Damaged</span>
+                </div>
+
+                <div class="bg-emerald-600 text-white p-3.5 rounded-2xl shadow-sm">
+                    <p class="text-[10px] font-bold uppercase text-emerald-100">විකිණූ බිත්තර / මස් (Sold Units)</p>
+                    <p id="farmKpiSoldUnits" class="text-xl font-black mt-0.5">0</p>
+                    <span class="text-[10px] bg-emerald-700 text-emerald-100 px-1.5 py-0.5 rounded mt-1 inline-block">Units Sold</span>
+                </div>
+
+                <div class="bg-slate-800 text-white p-3.5 rounded-2xl shadow-sm">
+                    <p class="text-[10px] font-bold uppercase text-slate-400">මුළු ෆාම් ආදායම</p>
+                    <p id="farmKpiRevenue" class="text-lg font-black text-amber-300 mt-0.5">Rs. 0.00</p>
+                </div>
+
+                <div class="bg-rose-600 text-white p-3.5 rounded-2xl shadow-sm">
+                    <p class="text-[10px] font-bold uppercase text-rose-100">මුළු ෆාම් වියදම්</p>
+                    <p id="farmKpiExpenses" class="text-lg font-black mt-0.5">Rs. 0.00</p>
+                </div>
+
+                <!-- Profit Margin Highlight Card -->
+                <div class="bg-gradient-to-r from-teal-800 to-slate-900 text-white p-4 rounded-2xl shadow-md col-span-2 flex justify-between items-center">
+                    <div>
+                        <p class="text-[10px] font-bold text-emerald-300 uppercase">ශුද්ධ ෆාම් ලාභය & Profit Margin %</p>
+                        <p id="farmKpiNetProfit" class="text-2xl font-black text-amber-400 mt-0.5">Rs. 0.00</p>
+                    </div>
+                    <div class="text-right">
+                        <span id="farmProfitMarginBadge" class="text-base font-black px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 inline-block">0%</span>
+                        <p class="text-[9px] text-slate-400 mt-1">Profit Percentage</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Farm Analytics Charts -->
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">ෆාම් වියදම් බෙදී යාම (Expense Breakdown)</h4>
+                <div class="h-48 relative">
+                    <canvas id="farmExpensePieChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">ගණුදෙනුකරුවන්ගේ බිත්තර / මස් ආදායම</h4>
+                <div class="h-56 relative">
+                    <canvas id="farmSalesBarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL: ADD SHOP / FARM BUYER MODAL -->
+    <div id="addShopModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-xs rounded-2xl shadow-2xl p-4 space-y-3">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h3 id="modalAddTitle" class="text-sm font-extrabold text-slate-800">අලුත් කඩයක් ඇඩ් කරන්න</h3>
+                <button onclick="closeAddShopModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form onsubmit="handleCreateShop(event)" class="space-y-3">
+                <div>
+                    <label id="modalAddLabel" class="block text-xs font-semibold text-slate-600 mb-1">නම (Name)</label>
+                    <input type="text" id="newShopNameInput" placeholder="උදා: City Mart / Farm Buyer A" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                </div>
+                <div class="flex gap-2 pt-1">
+                    <button type="button" onclick="closeAddShopModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2 rounded-xl text-xs">අවලංගුයි</button>
+                    <button type="submit" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl text-xs shadow-md">එක් කරන්න</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: CHANGE UNIT PRICE -->
+    <div id="changePriceModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-xs rounded-2xl shadow-2xl p-4 space-y-3">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h3 class="text-sm font-extrabold text-slate-800">ඒකක මිල වෙනස් කිරීම</h3>
+                <button onclick="closePriceModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <p class="text-xs text-slate-500">මෙම නව මිල තෝරාගත් දින සිට ඉදිරියට පමණක් බලපැවැත්වේ.</p>
+            <form onsubmit="handleUpdateUnitPrice(event)" class="space-y-3">
+                <input type="hidden" id="modalItemId">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">නව ඒකක මිල (New Price - Rs.)</label>
+                    <input type="number" step="0.01" id="modalNewPriceInput" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                </div>
+                <div class="flex gap-2 pt-1">
+                    <button type="button" onclick="closePriceModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2 rounded-xl text-xs">අවලංගුයි</button>
+                    <button type="submit" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl text-xs shadow-md">සුරකින්න</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- BOTTOM FIXED NAVIGATION BAR -->
+    <nav id="bottomNav" class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-slate-200 z-30 pb-safe shadow-lg hidden">
+        <div class="grid grid-cols-4 text-center py-2">
+            <button onclick="navigateToTab('shops')" id="nav-shops" class="flex flex-col items-center justify-center text-emerald-600 font-bold">
+                <i id="navShopsIcon" class="fa-solid fa-store text-lg"></i>
+                <span id="navShopsText" class="text-[10px] mt-1">කඩවල්</span>
+            </button>
+            <button onclick="navigateToTab('items')" id="nav-items" class="flex flex-col items-center justify-center text-slate-400 font-normal">
+                <i class="fa-solid fa-boxes-stacked text-lg"></i>
+                <span class="text-[10px] mt-1">භාණ්ඩ</span>
+            </button>
+            <button onclick="navigateToTab('expenses')" id="nav-expenses" class="flex flex-col items-center justify-center text-slate-400 font-normal">
+                <i class="fa-solid fa-wallet text-lg"></i>
+                <span class="text-[10px] mt-1">වියදම්</span>
+            </button>
+            <button onclick="navigateToTab('admin')" id="nav-admin" class="flex flex-col items-center justify-center text-slate-400 font-normal">
+                <i class="fa-solid fa-chart-pie text-lg"></i>
+                <span class="text-[10px] mt-1">ඇඩ්මින්</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- PWA SERVICE WORKER REGISTRATION SCRIPT -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                const CACHE_NAME = 'priyankara-biz-cache-v2';
+                self.addEventListener('install', (e) => {
+                    self.skipWaiting();
+                });
+                self.addEventListener('activate', (e) => {
+                    self.clients.claim();
+                });
+                self.addEventListener('fetch', (e) => {
+                    e.respondWith(
+                        fetch(e.request).catch(() => caches.match(e.request))
+                    );
+                });
+            `;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(blob);
+            navigator.serviceWorker.register(swUrl).catch(err => console.log('SW Reg Error:', err));
+        }
+    </script>
+
+    <!-- FIREBASE CLOUD FIRESTORE INTEGRATION MODULE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAaxXIqYD5E6KJISYQ8vh-2P6Qp62bopv0",
+            authDomain: "priyankara-groups-business.firebaseapp.com",
+            projectId: "priyankara-groups-business",
+            storageBucket: "priyankara-groups-business.firebasestorage.app",
+            messagingSenderId: "417734535878",
+            appId: "1:417734535878:web:c365d3955c4bd70c0005c7",
+            measurementId: "G-DXHGHETYD5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const dbFirestore = getFirestore(app);
+
+        // Fixed document path for global multi-device synchronization
+        const UNIFIED_DOC_PATH = ['artifacts', 'priyankara-groups-business', 'public', 'data', 'shared_state', 'main'];
+
+        let firebaseUser = null;
+
+        async function initAuth() {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch(e) {
+                console.warn('Firebase Auth error, falling back:', e);
+                // Attempt direct anonymous login fallback
+                try { await signInAnonymously(auth); } catch(err){}
+            }
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            firebaseUser = user;
+            if (user) {
+                updateCloudStatus('online', 'Cloud Live');
+                setupFirestoreListeners();
+            } else {
+                updateCloudStatus('offline', 'Offline');
+            }
+        });
+
+        function updateCloudStatus(status, label) {
+            const badge = document.getElementById('cloudStatusBadge');
+            if (!badge) return;
+            if (status === 'online') {
+                badge.className = "bg-emerald-400/20 text-emerald-300 text-[9px] px-1.5 py-0.5 rounded font-bold flex items-center gap-1 border border-emerald-400/30";
+                badge.innerHTML = `<i class="fa-solid fa-cloud text-[9px]"></i> <span>${label}</span>`;
+            } else {
+                badge.className = "bg-amber-400/20 text-amber-300 text-[9px] px-1.5 py-0.5 rounded font-bold flex items-center gap-1 border border-amber-400/30";
+                badge.innerHTML = `<i class="fa-solid fa-wifi text-[9px]"></i> <span>${label}</span>`;
+            }
+        }
+
+        function setupFirestoreListeners() {
+            if (!firebaseUser) return;
+
+            const docRef = doc(dbFirestore, ...UNIFIED_DOC_PATH);
+            onSnapshot(docRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    if (data && data.dealers && data.farm) {
+                        window.db = data;
+                        window.saveLocalOnly();
+                        window.refreshCurrentView();
+                    }
+                } else {
+                    // Initialize cloud with current db state if it doesn't exist yet
+                    window.saveCloudDatabase();
+                }
+            }, (error) => {
+                console.error("Firestore sync error:", error);
+                updateCloudStatus('offline', 'Offline');
+            });
+        }
+
+        window.saveCloudDatabase = async function() {
+            window.saveLocalOnly();
+            if (!firebaseUser) return;
+            try {
+                const docRef = doc(dbFirestore, ...UNIFIED_DOC_PATH);
+                await setDoc(docRef, window.db);
+                updateCloudStatus('online', 'Cloud Live');
+            } catch(e) {
+                console.warn('Cloud save error:', e);
+            }
+        };
+
+        initAuth();
+    </script>
+
+    <!-- MAIN APP SCRIPT -->
+    <script>
+        // Clean blank structure (no fake demo shops) to prevent overwriting actual cloud user data
+        const BLANK_APP_DATA = {
+            dealers: {
+                shops: [],
+                items: [],
+                dailySales: {},
+                expenseCategories: ['ඉන්ධන (Fuel)', 'විදුලි බිල (Electricity)', 'ප්‍රවාහන (Transport)', 'සේවක පඩි (Salaries)'],
+                dailyExpenses: {}
+            },
+            farm: {
+                shops: [],
+                items: [],
+                dailySales: {},
+                dailyEggProduction: {},
+                expenseCategories: ['කුකුළු කෑම (Poultry Feed)', 'ඖෂධ & එන්නත් (Medication)', 'ෆාම් විදුලිය (Electricity)', 'ප්‍රවාහනය (Transport)', 'සේවක වේතන (Farm Labor)'],
+                dailyExpenses: {}
+            }
+        };
+
+        window.db = {};
+        let activeBusiness = null; 
+        let activeTab = 'shops';   
+        let activeShopId = null;
+
+        let dealersPieChart = null;
+        let dealersBarChart = null;
+        let farmPieChart = null;
+        let farmBarChart = null;
+
+        window.onload = function() {
+            loadLocalDatabase();
+            initDateFields();
+            openLandingPage();
+        };
+
+        function loadLocalDatabase() {
+            const saved = localStorage.getItem('multi_business_app_db');
+            if (saved) {
+                try {
+                    window.db = JSON.parse(saved);
+                } catch(e) {
+                    window.db = BLANK_APP_DATA;
+                }
+            } else {
+                window.db = BLANK_APP_DATA;
+                window.saveLocalOnly();
+            }
+        }
+
+        window.saveLocalOnly = function() {
+            localStorage.setItem('multi_business_app_db', JSON.stringify(window.db));
+        };
+
+        function triggerSave() {
+            if (window.saveCloudDatabase) {
+                window.saveCloudDatabase();
+            } else {
+                window.saveLocalOnly();
+            }
+        }
+
+        function getTodayISO() {
+            return new Date().toISOString().split('T')[0];
+        }
+
+        function getTodayMonthISO() {
+            return new Date().toISOString().slice(0, 7);
+        }
+
+        function initDateFields() {
+            const today = getTodayISO();
+            const month = getTodayMonthISO();
+            document.getElementById('dealersDateInput').value = today;
+            document.getElementById('farmDateInput').value = today;
+            document.getElementById('farmProductionDateInput').value = today;
+            document.getElementById('expenseDateInput').value = today;
+            document.getElementById('adminDealersMonthPicker').value = month;
+            document.getElementById('adminFarmMonthPicker').value = month;
+        }
+
+        function setTodayDate(biz) {
+            const today = getTodayISO();
+            if (biz === 'dealers') {
+                document.getElementById('dealersDateInput').value = today;
+                loadDealersShopData();
+            } else {
+                document.getElementById('farmDateInput').value = today;
+                loadFarmShopData();
+            }
+        }
+
+        function setExpenseTodayDate() {
+            document.getElementById('expenseDateInput').value = getTodayISO();
+            loadDailyExpenses();
+        }
+
+        window.refreshCurrentView = function() {
+            if (!activeBusiness) return;
+            const focusedEl = document.activeElement;
+            if (focusedEl && (focusedEl.tagName === 'INPUT' || focusedEl.tagName === 'SELECT')) {
+                return; 
+            }
+            if (activeTab === 'shops') {
+                if (activeBusiness === 'dealers') renderDealersShopsGrid();
+                else { loadFarmProductionData(); renderFarmShopsGrid(); }
+            } else if (activeTab === 'shop-detail') {
+                if (activeBusiness === 'dealers') loadDealersShopData();
+                else loadFarmShopData();
+            } else if (activeTab === 'items') {
+                renderItemsTab();
+            } else if (activeTab === 'expenses') {
+                loadDailyExpenses();
+            } else if (activeTab === 'admin') {
+                if (activeBusiness === 'dealers') renderDealersAdminDashboard();
+                else renderFarmAdminDashboard();
+            }
+        };
+
+        function openLandingPage() {
+            activeBusiness = null;
+            hideAllViews();
+            document.getElementById('view-landing').classList.remove('hidden');
+            document.getElementById('bottomNav').classList.add('hidden');
+            document.getElementById('switchBizBtn').classList.add('hidden');
+            document.getElementById('backBtn').classList.add('hidden');
+            
+            document.getElementById('mainHeader').className = "bg-gradient-to-r from-emerald-800 to-teal-900 text-white p-4 sticky top-0 z-30 shadow-md";
+            document.getElementById('appHeaderTitle').innerText = "ව්‍යාපාර තේරීම";
+            document.getElementById('appHeaderSubtitle').innerText = "Business Cloud Portal";
+            document.getElementById('businessHeaderIcon').innerHTML = `<i class="fa-solid fa-briefcase text-base"></i>`;
+        }
+
+        function selectBusiness(biz) {
+            activeBusiness = biz;
+            document.getElementById('switchBizBtn').classList.remove('hidden');
+            document.getElementById('bottomNav').classList.remove('hidden');
+
+            const header = document.getElementById('mainHeader');
+            const title = document.getElementById('appHeaderTitle');
+            const subtitle = document.getElementById('appHeaderSubtitle');
+            const icon = document.getElementById('businessHeaderIcon');
+            const navShopsIcon = document.getElementById('navShopsIcon');
+            const navShopsText = document.getElementById('navShopsText');
+
+            if (biz === 'dealers') {
+                header.className = "bg-gradient-to-r from-emerald-800 to-teal-900 text-white p-4 sticky top-0 z-30 shadow-md";
+                title.innerText = "Food Dealers";
+                subtitle.innerText = "කඩවල් ජාල පාලනය";
+                icon.innerHTML = `<i class="fa-solid fa-shop text-amber-300"></i>`;
+                navShopsIcon.className = "fa-solid fa-store text-lg";
+                navShopsText.innerText = "කඩවල්";
+            } else {
+                header.className = "bg-gradient-to-r from-amber-700 to-orange-800 text-white p-4 sticky top-0 z-30 shadow-md";
+                title.innerText = "Poultry Farm House";
+                subtitle.innerText = "බිත්තර & කුකුළු මස් ෆාම්";
+                icon.innerHTML = `<i class="fa-solid fa-egg text-yellow-200"></i>`;
+                navShopsIcon.className = "fa-solid fa-feather-pointed text-lg";
+                navShopsText.innerText = "ෆාම් කඩවල්";
+            }
+
+            navigateToTab('shops');
+        }
+
+        function hideAllViews() {
+            const views = [
+                'landing', 'dealers-shops', 'dealers-shop-detail', 
+                'farm-shops', 'farm-shop-detail', 'items', 'expenses', 
+                'admin-dealers', 'admin-farm'
+            ];
+            views.forEach(id => {
+                const el = document.getElementById(`view-${id}`);
+                if (el) el.classList.add('hidden');
+            });
+        }
+
+        function navigateToTab(tab) {
+            activeTab = tab;
+            hideAllViews();
+
+            ['shops', 'items', 'expenses', 'admin'].forEach(t => {
+                const btn = document.getElementById(`nav-${t}`);
+                if (btn) {
+                    if (t === tab || (t === 'shops' && tab === 'shop-detail')) {
+                        btn.className = activeBusiness === 'dealers' 
+                            ? "flex flex-col items-center justify-center text-emerald-600 font-bold" 
+                            : "flex flex-col items-center justify-center text-amber-600 font-bold";
+                    } else {
+                        btn.className = "flex flex-col items-center justify-center text-slate-400 font-normal";
+                    }
+                }
+            });
+
+            const backBtn = document.getElementById('backBtn');
+            backBtn.classList.add('hidden');
+
+            if (tab === 'shops') {
+                if (activeBusiness === 'dealers') {
+                    document.getElementById('view-dealers-shops').classList.remove('hidden');
+                    renderDealersShopsGrid();
+                } else {
+                    document.getElementById('view-farm-shops').classList.remove('hidden');
+                    loadFarmProductionData();
+                    renderFarmShopsGrid();
+                }
+            } else if (tab === 'shop-detail') {
+                backBtn.classList.remove('hidden');
+                if (activeBusiness === 'dealers') {
+                    document.getElementById('view-dealers-shop-detail').classList.remove('hidden');
+                    loadDealersShopData();
+                } else {
+                    document.getElementById('view-farm-shop-detail').classList.remove('hidden');
+                    loadFarmShopData();
+                }
+            } else if (tab === 'items') {
+                document.getElementById('view-items').classList.remove('hidden');
+                renderItemsTab();
+            } else if (tab === 'expenses') {
+                document.getElementById('view-expenses').classList.remove('hidden');
+                loadDailyExpenses();
+            } else if (tab === 'admin') {
+                if (activeBusiness === 'dealers') {
+                    document.getElementById('view-admin-dealers').classList.remove('hidden');
+                    renderDealersAdminDashboard();
+                } else {
+                    document.getElementById('view-admin-farm').classList.remove('hidden');
+                    renderFarmAdminDashboard();
+                }
+            }
+        }
+
+        function navigateBack() {
+            navigateToTab('shops');
+        }
+
+        function getEffectiveUnitPrice(item, selectedDate) {
+            if (!item || !item.priceHistory || item.priceHistory.length === 0) return 0;
+            const valid = item.priceHistory.filter(ph => ph.date <= selectedDate);
+            if (valid.length === 0) return item.priceHistory[0].price;
+            valid.sort((a, b) => b.date.localeCompare(a.date));
+            return valid[0].price;
+        }
+
+        function renderDealersShopsGrid() {
+            const grid = document.getElementById('dealersShopsGrid');
+            const shops = window.db.dealers.shops || [];
+            document.getElementById('dealersShopCountBadge').innerText = `${shops.length} Shops`;
+            grid.innerHTML = '';
+
+            shops.forEach(shop => {
+                const box = document.createElement('div');
+                box.className = "bg-white p-4 rounded-2xl shadow-sm border border-slate-200 hover:border-emerald-500 hover:shadow-md transition cursor-pointer flex flex-col justify-between h-32 group";
+                box.onclick = () => openShopDetail(shop.id);
+                box.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-store"></i>
+                        </div>
+                        <button onclick="event.stopPropagation(); deleteShop('${shop.id}')" class="text-slate-300 hover:text-rose-500 p-1">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm text-slate-800 group-hover:text-emerald-700 transition line-clamp-2">${escapeHtml(shop.name)}</h3>
+                        <p class="text-[10px] text-slate-400 mt-0.5">විකුණුම් බලන්න &rarr;</p>
+                    </div>
+                `;
+                grid.appendChild(box);
+            });
+
+            const addCard = document.createElement('div');
+            addCard.className = "bg-emerald-50/60 border-2 border-dashed border-emerald-300 p-4 rounded-2xl hover:bg-emerald-100/50 transition cursor-pointer flex flex-col items-center justify-center text-center h-32 text-emerald-700";
+            addCard.onclick = () => openAddShopModal();
+            addCard.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold shadow-sm mb-1">
+                    <i class="fa-solid fa-plus text-xs"></i>
+                </div>
+                <span class="font-bold text-xs">Add a Shop</span>
+                <span class="text-[9px] text-emerald-600">අලුත් කඩයක් ඇඩ් කරන්න</span>
+            `;
+            grid.appendChild(addCard);
+        }
+
+        function openShopDetail(shopId) {
+            activeShopId = shopId;
+            navigateToTab('shop-detail');
+        }
+
+        function loadDealersShopData() {
+            const date = document.getElementById('dealersDateInput').value;
+            const container = document.getElementById('dealersItemsContainer');
+            const shop = (window.db.dealers.shops || []).find(s => s.id === activeShopId);
+            if (!shop) return;
+
+            document.getElementById('dealersDetailShopTitle').innerText = shop.name;
+
+            const shopItems = (window.db.dealers.items || []).filter(i => i.shopId === activeShopId);
+            container.innerHTML = '';
+
+            if (shopItems.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white p-6 rounded-2xl text-center border border-slate-200">
+                        <i class="fa-solid fa-box-open text-3xl text-slate-300 mb-2"></i>
+                        <p class="text-xs font-semibold text-slate-500">මෙම කඩයට තවම භාණ්ඩ ඇතුළත් කර නොමැත.</p>
+                        <button onclick="navigateToTab('items')" class="mt-3 text-xs bg-emerald-600 text-white font-bold px-3 py-1.5 rounded-lg">+ භාණ්ඩ එකතු කරන්න</button>
+                    </div>
+                `;
+                document.getElementById('dealersShopTotalRevenue').innerText = 'Rs. 0.00';
+                return;
+            }
+
+            shopItems.forEach(item => {
+                const effectivePrice = getEffectiveUnitPrice(item, date);
+                const dayEntry = (window.db.dealers.dailySales && window.db.dealers.dailySales[date] && window.db.dealers.dailySales[date][item.id]) || { delivered: 0, remaining: 0 };
+                
+                const delivered = Number(dayEntry.delivered) || 0;
+                const remaining = Number(dayEntry.remaining) || 0;
+                const sold = Math.max(0, delivered - remaining);
+                const itemTotal = sold * effectivePrice;
+
+                const itemCard = document.createElement('div');
+                itemCard.className = "bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 space-y-3";
+                itemCard.innerHTML = `
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                        <div>
+                            <h4 class="font-bold text-sm text-slate-800">${escapeHtml(item.name)}</h4>
+                            <div class="flex items-center gap-2 mt-0.5">
+                                <span class="text-xs text-slate-500">මිල: <strong class="text-slate-700">Rs. ${effectivePrice.toFixed(2)}</strong></span>
+                                <button onclick="openChangePriceModal('${item.id}', ${effectivePrice})" class="text-[10px] bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 px-2 py-0.5 rounded font-bold">
+                                    Change
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">මුළු එකතුව</span>
+                            <span id="itemTotal_${item.id}" class="text-sm font-black text-emerald-600">Rs. ${itemTotal.toFixed(2)}</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 mb-1">දුන් ගාණ (Units)</label>
+                            <input type="number" min="0" value="${delivered || ''}" placeholder="0" 
+                                oninput="handleStockInput('dealers', '${item.id}', 'delivered', this.value)" 
+                                class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-center text-sm font-bold text-slate-800 focus:ring-2 focus:ring-emerald-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 mb-1">ඉතුරු ගාණ (Remains)</label>
+                            <input type="number" min="0" value="${remaining || ''}" placeholder="0" 
+                                oninput="handleStockInput('dealers', '${item.id}', 'remaining', this.value)" 
+                                class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-center text-sm font-bold text-slate-800 focus:ring-2 focus:ring-emerald-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 mb-1">විකුණූ (Sold)</label>
+                            <div id="itemSold_${item.id}" class="w-full bg-emerald-50 border border-emerald-200 rounded-lg p-2 text-center text-sm font-extrabold text-emerald-700">
+                                ${sold}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(itemCard);
+            });
+
+            recalculateShopTotal('dealers');
+        }
+
+        function loadFarmProductionData() {
+            const date = document.getElementById('farmProductionDateInput').value;
+            const entry = (window.db.farm.dailyEggProduction && window.db.farm.dailyEggProduction[date]) || { total: 0, damaged: 0 };
+            
+            document.getElementById('prodTotalEggs').value = entry.total || '';
+            document.getElementById('prodDamagedEggs').value = entry.damaged || '';
+            
+            const total = Number(entry.total) || 0;
+            const damaged = Number(entry.damaged) || 0;
+            const sellable = Math.max(0, total - damaged);
+            document.getElementById('prodSellableEggs').innerText = sellable;
+        }
+
+        function saveFarmProduction() {
+            const date = document.getElementById('farmProductionDateInput').value;
+            const total = Math.max(0, parseInt(document.getElementById('prodTotalEggs').value) || 0);
+            const damaged = Math.max(0, parseInt(document.getElementById('prodDamagedEggs').value) || 0);
+
+            if (!window.db.farm.dailyEggProduction) window.db.farm.dailyEggProduction = {};
+            window.db.farm.dailyEggProduction[date] = { total, damaged };
+            triggerSave();
+
+            const sellable = Math.max(0, total - damaged);
+            document.getElementById('prodSellableEggs').innerText = sellable;
+        }
+
+        function renderFarmShopsGrid() {
+            const grid = document.getElementById('farmShopsGrid');
+            const shops = window.db.farm.shops || [];
+            document.getElementById('farmShopCountBadge').innerText = `${shops.length} Buyers`;
+            grid.innerHTML = '';
+
+            shops.forEach(shop => {
+                const box = document.createElement('div');
+                box.className = "bg-white p-4 rounded-2xl shadow-sm border border-slate-200 hover:border-amber-500 hover:shadow-md transition cursor-pointer flex flex-col justify-between h-32 group";
+                box.onclick = () => openShopDetail(shop.id);
+                box.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-feather-pointed"></i>
+                        </div>
+                        <button onclick="event.stopPropagation(); deleteShop('${shop.id}')" class="text-slate-300 hover:text-rose-500 p-1">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm text-slate-800 group-hover:text-amber-700 transition line-clamp-2">${escapeHtml(shop.name)}</h3>
+                        <p class="text-[10px] text-slate-400 mt-0.5">බිත්තර / මස් ලබාදීම් &rarr;</p>
+                    </div>
+                `;
+                grid.appendChild(box);
+            });
+
+            const addCard = document.createElement('div');
+            addCard.className = "bg-amber-50/60 border-2 border-dashed border-amber-300 p-4 rounded-2xl hover:bg-amber-100/50 transition cursor-pointer flex flex-col items-center justify-center text-center h-32 text-amber-700";
+            addCard.onclick = () => openAddShopModal();
+            addCard.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-amber-600 text-white flex items-center justify-center font-bold shadow-sm mb-1">
+                    <i class="fa-solid fa-plus text-xs"></i>
+                </div>
+                <span class="font-bold text-xs">Add Buyer/Shop</span>
+                <span class="text-[9px] text-amber-600">ගණුදෙනුකරුවෙකු ඇඩ් කරන්න</span>
+            `;
+            grid.appendChild(addCard);
+        }
+
+        function loadFarmShopData() {
+            const date = document.getElementById('farmDateInput').value;
+            const container = document.getElementById('farmItemsContainer');
+            const shop = (window.db.farm.shops || []).find(s => s.id === activeShopId);
+            if (!shop) return;
+
+            document.getElementById('farmDetailShopTitle').innerText = shop.name;
+
+            const shopItems = (window.db.farm.items || []).filter(i => i.shopId === activeShopId);
+            container.innerHTML = '';
+
+            if (shopItems.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white p-6 rounded-2xl text-center border border-slate-200">
+                        <i class="fa-solid fa-egg text-3xl text-slate-300 mb-2"></i>
+                        <p class="text-xs font-semibold text-slate-500">මෙම ගණුදෙනුකරුට තවම නිපැයුම් ඇතුළත් කර නොමැත.</p>
+                        <button onclick="navigateToTab('items')" class="mt-3 text-xs bg-amber-600 text-white font-bold px-3 py-1.5 rounded-lg">+ නිපැයුම් එකතු කරන්න</button>
+                    </div>
+                `;
+                document.getElementById('farmShopTotalRevenue').innerText = 'Rs. 0.00';
+                return;
+            }
+
+            shopItems.forEach(item => {
+                const effectivePrice = getEffectiveUnitPrice(item, date);
+                const dayEntry = (window.db.farm.dailySales && window.db.farm.dailySales[date] && window.db.farm.dailySales[date][item.id]) || { delivered: 0, remaining: 0 };
+                
+                const delivered = Number(dayEntry.delivered) || 0;
+                const remaining = Number(dayEntry.remaining) || 0;
+                const sold = Math.max(0, delivered - remaining);
+                const itemTotal = sold * effectivePrice;
+
+                const itemCard = document.createElement('div');
+                itemCard.className = "bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 space-y-3";
+                itemCard.innerHTML = `
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                        <div>
+                            <h4 class="font-bold text-sm text-slate-800">${escapeHtml(item.name)}</h4>
+                            <div class="flex items-center gap-2 mt-0.5">
+                                <span class="text-xs text-slate-500">මිල: <strong class="text-slate-700">Rs. ${effectivePrice.toFixed(2)}</strong></span>
+                                <button onclick="openChangePriceModal('${item.id}', ${effectivePrice})" class="text-[10px] bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 px-2 py-0.5 rounded font-bold">
+                                    Change
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">මුළු එකතුව</span>
+                            <span id="itemTotal_${item.id}" class="text-sm font-black text-amber-600">Rs. ${itemTotal.toFixed(2)}</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 mb-1">දුන් ගාණ (Units)</label>
+                            <input type="number" min="0" value="${delivered || ''}" placeholder="0" 
+                                oninput="handleStockInput('farm', '${item.id}', 'delivered', this.value)" 
+                                class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-center text-sm font-bold text-slate-800 focus:ring-2 focus:ring-amber-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 mb-1">ඉතුරු ගාණ (Remains)</label>
+                            <input type="number" min="0" value="${remaining || ''}" placeholder="0" 
+                                oninput="handleStockInput('farm', '${item.id}', 'remaining', this.value)" 
+                                class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-center text-sm font-bold text-slate-800 focus:ring-2 focus:ring-amber-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 mb-1">විකුණූ (Sold)</label>
+                            <div id="itemSold_${item.id}" class="w-full bg-amber-50 border border-amber-200 rounded-lg p-2 text-center text-sm font-extrabold text-amber-700">
+                                ${sold}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(itemCard);
+            });
+
+            recalculateShopTotal('farm');
+        }
+
+        function handleStockInput(biz, itemId, field, value) {
+            const dateInputId = biz === 'dealers' ? 'dealersDateInput' : 'farmDateInput';
+            const date = document.getElementById(dateInputId).value;
+            
+            if (!window.db[biz].dailySales) window.db[biz].dailySales = {};
+            if (!window.db[biz].dailySales[date]) window.db[biz].dailySales[date] = {};
+            if (!window.db[biz].dailySales[date][itemId]) window.db[biz].dailySales[date][itemId] = { delivered: 0, remaining: 0 };
+
+            window.db[biz].dailySales[date][itemId][field] = Math.max(0, parseInt(value) || 0);
+            triggerSave();
+            
+            const entry = window.db[biz].dailySales[date][itemId];
+            const delivered = Number(entry.delivered) || 0;
+            const remaining = Number(entry.remaining) || 0;
+            const sold = Math.max(0, delivered - remaining);
+
+            const item = (window.db[biz].items || []).find(i => i.id === itemId);
+            const price = getEffectiveUnitPrice(item, date);
+            const itemTotal = sold * price;
+
+            const soldEl = document.getElementById(`itemSold_${itemId}`);
+            const totalEl = document.getElementById(`itemTotal_${itemId}`);
+
+            if (soldEl) soldEl.innerText = sold;
+            if (totalEl) totalEl.innerText = `Rs. ${itemTotal.toFixed(2)}`;
+
+            recalculateShopTotal(biz);
+        }
+
+        function recalculateShopTotal(biz) {
+            const dateInputId = biz === 'dealers' ? 'dealersDateInput' : 'farmDateInput';
+            const date = document.getElementById(dateInputId).value;
+            const shopItems = (window.db[biz].items || []).filter(i => i.shopId === activeShopId);
+            
+            let grandTotal = 0;
+            shopItems.forEach(item => {
+                const effectivePrice = getEffectiveUnitPrice(item, date);
+                const dayEntry = (window.db[biz].dailySales && window.db[biz].dailySales[date] && window.db[biz].dailySales[date][item.id]) || { delivered: 0, remaining: 0 };
+                const sold = Math.max(0, (Number(dayEntry.delivered) || 0) - (Number(dayEntry.remaining) || 0));
+                grandTotal += sold * effectivePrice;
+            });
+
+            const revBadgeId = biz === 'dealers' ? 'dealersShopTotalRevenue' : 'farmShopTotalRevenue';
+            document.getElementById(revBadgeId).innerText = `Rs. ${grandTotal.toFixed(2)}`;
+        }
+
+        function openAddShopModal() {
+            document.getElementById('newShopNameInput').value = '';
+            const title = document.getElementById('modalAddTitle');
+            const label = document.getElementById('modalAddLabel');
+            if (activeBusiness === 'dealers') {
+                title.innerText = 'අලුත් කඩයක් ඇඩ් කරන්න';
+                label.innerText = 'කඩේ නම (Shop Name)';
+            } else {
+                title.innerText = 'අලුත් ගණුදෙනුකරුවෙකු / කඩයක් ඇඩ් කරන්න';
+                label.innerText = 'ගණුදෙනුකරුගේ නම (Buyer/Shop Name)';
+            }
+            document.getElementById('addShopModal').classList.remove('hidden');
+        }
+
+        function closeAddShopModal() {
+            document.getElementById('addShopModal').classList.add('hidden');
+        }
+
+        function handleCreateShop(e) {
+            e.preventDefault();
+            const name = document.getElementById('newShopNameInput').value.trim();
+            if (!name) return;
+
+            const newShop = {
+                id: (activeBusiness === 'dealers' ? 'dshop_' : 'fshop_') + Date.now(),
+                name: name
+            };
+            if (!window.db[activeBusiness].shops) window.db[activeBusiness].shops = [];
+            window.db[activeBusiness].shops.push(newShop);
+            triggerSave();
+            closeAddShopModal();
+
+            if (activeBusiness === 'dealers') renderDealersShopsGrid();
+            else renderFarmShopsGrid();
+        }
+
+        function deleteShop(shopId) {
+            if (!confirm('ඔබට මෙය ඉවත් කිරීමට අවශ්‍යද?')) return;
+            window.db[activeBusiness].shops = (window.db[activeBusiness].shops || []).filter(s => s.id !== shopId);
+            window.db[activeBusiness].items = (window.db[activeBusiness].items || []).filter(i => i.shopId !== shopId);
+            triggerSave();
+            
+            if (activeBusiness === 'dealers') renderDealersShopsGrid();
+            else renderFarmShopsGrid();
+        }
+
+        function openChangePriceModal(itemId, currentPrice) {
+            document.getElementById('modalItemId').value = itemId;
+            document.getElementById('modalNewPriceInput').value = currentPrice;
+            document.getElementById('changePriceModal').classList.remove('hidden');
+        }
+
+        function closePriceModal() {
+            document.getElementById('changePriceModal').classList.add('hidden');
+        }
+
+        function handleUpdateUnitPrice(e) {
+            e.preventDefault();
+            const itemId = document.getElementById('modalItemId').value;
+            const newPrice = parseFloat(document.getElementById('modalNewPriceInput').value);
+            const dateInputId = activeBusiness === 'dealers' ? 'dealersDateInput' : 'farmDateInput';
+            const date = document.getElementById(dateInputId).value;
+
+            if (isNaN(newPrice) || newPrice < 0) return;
+
+            const item = (window.db[activeBusiness].items || []).find(i => i.id === itemId);
+            if (item) {
+                if (!item.priceHistory) item.priceHistory = [];
+                const idx = item.priceHistory.findIndex(ph => ph.date === date);
+                if (idx >= 0) {
+                    item.priceHistory[idx].price = newPrice;
+                } else {
+                    item.priceHistory.push({ date: date, price: newPrice });
+                }
+                triggerSave();
+                closePriceModal();
+                
+                if (activeBusiness === 'dealers') loadDealersShopData();
+                else loadFarmShopData();
+            }
+        }
+
+        function renderItemsTab() {
+            const checkboxContainer = document.getElementById('itemShopsCheckboxContainer');
+            const title = document.getElementById('addItemSectionTitle');
+            const submitBtn = document.getElementById('addItemSubmitBtn');
+
+            if (activeBusiness === 'dealers') {
+                title.innerText = "Food Dealers: නව භාණ්ඩයක් ඇඩ් කරන්න";
+                submitBtn.className = "w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition";
+            } else {
+                title.innerText = "Poultry Farm: නව නිපැයුමක් ඇඩ් කරන්න";
+                submitBtn.className = "w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition";
+            }
+
+            checkboxContainer.innerHTML = '';
+            const shops = window.db[activeBusiness].shops || [];
+
+            if (shops.length === 0) {
+                checkboxContainer.innerHTML = `<p class="text-xs text-slate-400 col-span-2 text-center py-2">කඩවල් කිසිවක් නැත.</p>`;
+            } else {
+                shops.forEach(s => {
+                    checkboxContainer.innerHTML += `
+                        <label class="flex items-center space-x-2 p-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 cursor-pointer">
+                            <input type="checkbox" name="itemShopCheckboxes" value="${s.id}" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                            <span class="truncate">${escapeHtml(s.name)}</span>
+                        </label>
+                    `;
+                });
+            }
+
+            const list = document.getElementById('allRegisteredItemsList');
+            list.innerHTML = '';
+
+            const items = window.db[activeBusiness].items || [];
+            if (items.length === 0) {
+                list.innerHTML = `<p class="text-xs text-slate-400 text-center py-2">භාණ්ඩ කිසිවක් නැත.</p>`;
+                return;
+            }
+
+            items.forEach(item => {
+                const shop = (window.db[activeBusiness].shops || []).find(s => s.id === item.shopId);
+                const latestPrice = item.priceHistory && item.priceHistory.length > 0 ? item.priceHistory[item.priceHistory.length - 1].price : 0;
+                const row = document.createElement('div');
+                row.className = "flex justify-between items-center p-2.5 bg-slate-50 border border-slate-200 rounded-xl";
+                row.innerHTML = `
+                    <div>
+                        <h4 class="font-bold text-xs text-slate-800">${escapeHtml(item.name)}</h4>
+                        <span class="text-[10px] ${activeBusiness==='dealers'?'text-emerald-600':'text-amber-600'} font-semibold">${shop ? escapeHtml(shop.name) : 'Unassigned'}</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-black text-slate-700">Rs. ${latestPrice.toFixed(2)}</span>
+                        <button onclick="deleteItem('${item.id}')" class="text-slate-300 hover:text-rose-500">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                `;
+                list.appendChild(row);
+            });
+        }
+
+        function toggleSelectAllShops() {
+            const checkboxes = document.getElementsByName('itemShopCheckboxes');
+            if (checkboxes.length === 0) return;
+            
+            let allChecked = true;
+            checkboxes.forEach(cb => { if (!cb.checked) allChecked = false; });
+
+            checkboxes.forEach(cb => cb.checked = !allChecked);
+            document.getElementById('selectAllShopsLabel').innerText = !allChecked ? "සියල්ල ඉවත් කරන්න" : "සියල්ල තෝරන්න";
+        }
+
+        function handleAddItem(e) {
+            e.preventDefault();
+            const checkedBoxes = document.querySelectorAll('input[name="itemShopCheckboxes"]:checked');
+            const selectedShopIds = Array.from(checkedBoxes).map(cb => cb.value);
+
+            const name = document.getElementById('itemNameInput').value.trim();
+            const price = parseFloat(document.getElementById('itemPriceInput').value);
+
+            if (selectedShopIds.length === 0) {
+                alert('කරුණාකර අවම වශයෙන් එක් කඩයක් හෝ තෝරන්න.');
+                return;
+            }
+            if (!name || isNaN(price)) return;
+
+            if (!window.db[activeBusiness].items) window.db[activeBusiness].items = [];
+
+            selectedShopIds.forEach(shopId => {
+                const newItem = {
+                    id: (activeBusiness === 'dealers' ? 'ditem_' : 'fitem_') + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+                    shopId: shopId,
+                    name: name,
+                    priceHistory: [{ date: getTodayISO(), price: price }]
+                };
+                window.db[activeBusiness].items.push(newItem);
+            });
+
+            triggerSave();
+
+            document.getElementById('itemNameInput').value = '';
+            document.getElementById('itemPriceInput').value = '';
+            renderItemsTab();
+        }
+
+        function deleteItem(itemId) {
+            if (!confirm('ඔබට මෙම භාණ්ඩය ඉවත් කිරීමට අවශ්‍යද?')) return;
+            window.db[activeBusiness].items = (window.db[activeBusiness].items || []).filter(i => i.id !== itemId);
+            triggerSave();
+            renderItemsTab();
+        }
+
+        function loadDailyExpenses() {
+            const date = document.getElementById('expenseDateInput').value;
+            const container = document.getElementById('expensesListContainer');
+            container.innerHTML = '';
+
+            const categories = window.db[activeBusiness].expenseCategories || [];
+            const dayExpenses = (window.db[activeBusiness].dailyExpenses && window.db[activeBusiness].dailyExpenses[date]) || {};
+            let totalExpense = 0;
+
+            if (categories.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 text-center py-2">වියදම් වර්ග කිසිවක් ඇතුළත් කර නැත.</p>`;
+                document.getElementById('dailyExpenseTotalBadge').innerText = 'Rs. 0.00';
+                return;
+            }
+
+            categories.forEach(cat => {
+                const cost = dayExpenses[cat] || 0;
+                totalExpense += Number(cost);
+
+                const itemRow = document.createElement('div');
+                itemRow.className = "flex items-center justify-between gap-3 p-2.5 bg-slate-50 border border-slate-200 rounded-xl";
+                itemRow.innerHTML = `
+                    <span class="text-xs font-bold text-slate-700 flex-1">${escapeHtml(cat)}</span>
+                    <div class="w-32 relative">
+                        <span class="absolute left-2.5 top-2 text-xs text-slate-400 font-semibold">Rs.</span>
+                        <input type="number" min="0" step="0.01" value="${cost || ''}" placeholder="0.00"
+                            oninput="handleExpenseInput('${cat}', this.value)"
+                            class="w-full bg-white border border-slate-300 rounded-lg pl-8 pr-2 py-1.5 text-right text-xs font-bold text-slate-800 focus:ring-2 ${activeBusiness==='dealers'?'focus:ring-emerald-500':'focus:ring-amber-500'} outline-none">
+                    </div>
+                `;
+                container.appendChild(itemRow);
+            });
+
+            document.getElementById('dailyExpenseTotalBadge').innerText = `Rs. ${totalExpense.toFixed(2)}`;
+        }
+
+        function handleExpenseInput(cat, value) {
+            const date = document.getElementById('expenseDateInput').value;
+            if (!window.db[activeBusiness].dailyExpenses) window.db[activeBusiness].dailyExpenses = {};
+            if (!window.db[activeBusiness].dailyExpenses[date]) window.db[activeBusiness].dailyExpenses[date] = {};
+            window.db[activeBusiness].dailyExpenses[date][cat] = Math.max(0, parseFloat(value) || 0);
+            triggerSave();
+
+            let total = 0;
+            Object.values(window.db[activeBusiness].dailyExpenses[date]).forEach(v => total += Number(v || 0));
+            document.getElementById('dailyExpenseTotalBadge').innerText = `Rs. ${total.toFixed(2)}`;
+        }
+
+        function handleAddExpenseCategory(e) {
+            e.preventDefault();
+            const input = document.getElementById('expenseCatNameInput');
+            const catName = input.value.trim();
+            if (!catName) return;
+
+            if (!window.db[activeBusiness].expenseCategories) window.db[activeBusiness].expenseCategories = [];
+            if (!window.db[activeBusiness].expenseCategories.includes(catName)) {
+                window.db[activeBusiness].expenseCategories.push(catName);
+                triggerSave();
+            }
+            input.value = '';
+            loadDailyExpenses();
+        }
+
+        function renderDealersAdminDashboard() {
+            const month = document.getElementById('adminDealersMonthPicker').value;
+            if (!month) return;
+
+            let totalRev = 0;
+            let totalExp = 0;
+            const shopRevs = {};
+
+            (window.db.dealers.shops || []).forEach(s => shopRevs[s.name] = 0);
+
+            const dailySales = window.db.dealers.dailySales || {};
+            Object.keys(dailySales).forEach(date => {
+                if (date.startsWith(month)) {
+                    const dayData = dailySales[date];
+                    Object.keys(dayData).forEach(itemId => {
+                        const item = (window.db.dealers.items || []).find(i => i.id === itemId);
+                        if (item) {
+                            const shop = (window.db.dealers.shops || []).find(s => s.id === item.shopId);
+                            const price = getEffectiveUnitPrice(item, date);
+                            const entry = dayData[itemId];
+                            const sold = Math.max(0, (entry.delivered || 0) - (entry.remaining || 0));
+                            const rev = sold * price;
+
+                            totalRev += rev;
+                            if (shop) shopRevs[shop.name] = (shopRevs[shop.name] || 0) + rev;
+                        }
+                    });
+                }
+            });
+
+            const dailyExpenses = window.db.dealers.dailyExpenses || {};
+            Object.keys(dailyExpenses).forEach(date => {
+                if (date.startsWith(month)) {
+                    Object.values(dailyExpenses[date]).forEach(c => totalExp += Number(c || 0));
+                }
+            });
+
+            const netProfit = totalRev - totalExp;
+
+            document.getElementById('dealersKpiSales').innerText = `Rs. ${totalRev.toFixed(2)}`;
+            document.getElementById('dealersKpiExpenses').innerText = `Rs. ${totalExp.toFixed(2)}`;
+            document.getElementById('dealersKpiNetProfit').innerText = `Rs. ${netProfit.toFixed(2)}`;
+
+            const badge = document.getElementById('dealersProfitBadge');
+            if (netProfit >= 0) {
+                badge.innerText = 'PROFIT';
+                badge.className = 'text-xs px-2.5 py-1 rounded-full font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+            } else {
+                badge.innerText = 'LOSS';
+                badge.className = 'text-xs px-2.5 py-1 rounded-full font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30';
+            }
+
+            const ctxPie = document.getElementById('dealersProfitPieChart').getContext('2d');
+            if (dealersPieChart) dealersPieChart.destroy();
+            dealersPieChart = new Chart(ctxPie, {
+                type: 'doughnut',
+                data: {
+                    labels: ['ආදායම (Revenue)', 'වියදම් (Expenses)'],
+                    datasets: [{ data: [totalRev, totalExp], backgroundColor: ['#16a34a', '#e11d48'], borderWidth: 0 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+
+            const ctxBar = document.getElementById('dealersShopsBarChart').getContext('2d');
+            if (dealersBarChart) dealersBarChart.destroy();
+            dealersBarChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(shopRevs),
+                    datasets: [{ label: 'ආදායම (Rs.)', data: Object.values(shopRevs), backgroundColor: '#0d9488', borderRadius: 8 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
+            });
+        }
+
+        function renderFarmAdminDashboard() {
+            const month = document.getElementById('adminFarmMonthPicker').value;
+            if (!month) return;
+
+            let totalEggsProduced = 0;
+            let totalEggsDamaged = 0;
+            let totalSoldUnits = 0;
+            let totalRev = 0;
+            let totalExp = 0;
+
+            const categoryExpenses = {};
+            const buyerRevs = {};
+
+            (window.db.farm.expenseCategories || []).forEach(c => categoryExpenses[c] = 0);
+            (window.db.farm.shops || []).forEach(s => buyerRevs[s.name] = 0);
+
+            const dailyEggProd = window.db.farm.dailyEggProduction || {};
+            Object.keys(dailyEggProd).forEach(date => {
+                if (date.startsWith(month)) {
+                    const entry = dailyEggProd[date];
+                    totalEggsProduced += Number(entry.total || 0);
+                    totalEggsDamaged += Number(entry.damaged || 0);
+                }
+            });
+
+            const dailySales = window.db.farm.dailySales || {};
+            Object.keys(dailySales).forEach(date => {
+                if (date.startsWith(month)) {
+                    const dayData = dailySales[date];
+                    Object.keys(dayData).forEach(itemId => {
+                        const item = (window.db.farm.items || []).find(i => i.id === itemId);
+                        if (item) {
+                            const shop = (window.db.farm.shops || []).find(s => s.id === item.shopId);
+                            const price = getEffectiveUnitPrice(item, date);
+                            const entry = dayData[itemId];
+                            const sold = Math.max(0, (entry.delivered || 0) - (entry.remaining || 0));
+                            const rev = sold * price;
+
+                            totalSoldUnits += sold;
+                            totalRev += rev;
+                            if (shop) buyerRevs[shop.name] = (buyerRevs[shop.name] || 0) + rev;
+                        }
+                    });
+                }
+            });
+
+            const dailyExpenses = window.db.farm.dailyExpenses || {};
+            Object.keys(dailyExpenses).forEach(date => {
+                if (date.startsWith(month)) {
+                    const dayExp = dailyExpenses[date];
+                    Object.keys(dayExp).forEach(cat => {
+                        const cost = Number(dayExp[cat] || 0);
+                        totalExp += cost;
+                        categoryExpenses[cat] = (categoryExpenses[cat] || 0) + cost;
+                    });
+                }
+            });
+
+            const netProfit = totalRev - totalExp;
+            const damagedRatePercent = totalEggsProduced > 0 ? ((totalEggsDamaged / totalEggsProduced) * 100).toFixed(1) : 0;
+            const profitMarginPercent = totalRev > 0 ? ((netProfit / totalRev) * 100).toFixed(1) : 0;
+
+            document.getElementById('farmKpiTotalEggs').innerText = totalEggsProduced.toLocaleString();
+            document.getElementById('farmKpiDamagedEggRate').innerText = `${damagedRatePercent}% Damaged`;
+            document.getElementById('farmKpiSoldUnits').innerText = totalSoldUnits.toLocaleString();
+            document.getElementById('farmKpiRevenue').innerText = `Rs. ${totalRev.toFixed(2)}`;
+            document.getElementById('farmKpiExpenses').innerText = `Rs. ${totalExp.toFixed(2)}`;
+            document.getElementById('farmKpiNetProfit').innerText = `Rs. ${netProfit.toFixed(2)}`;
+
+            const marginBadge = document.getElementById('farmProfitMarginBadge');
+            marginBadge.innerText = `${profitMarginPercent}% Margin`;
+            if (netProfit >= 0) {
+                marginBadge.className = 'text-base font-black px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+            } else {
+                marginBadge.className = 'text-base font-black px-3 py-1 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/30';
+            }
+
+            const ctxPie = document.getElementById('farmExpensePieChart').getContext('2d');
+            if (farmPieChart) farmPieChart.destroy();
+            farmPieChart = new Chart(ctxPie, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(categoryExpenses),
+                    datasets: [{
+                        data: Object.values(categoryExpenses),
+                        backgroundColor: ['#d97706', '#0284c7', '#16a34a', '#dc2626', '#9333ea'],
+                        borderWidth: 0
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } } }
+            });
+
+            const ctxBar = document.getElementById('farmSalesBarChart').getContext('2d');
+            if (farmBarChart) farmBarChart.destroy();
+            farmBarChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(buyerRevs),
+                    datasets: [{ label: 'ආදායම (Rs.)', data: Object.values(buyerRevs), backgroundColor: '#d97706', borderRadius: 8 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
+            });
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+    </script>
 </body>
 </html>
