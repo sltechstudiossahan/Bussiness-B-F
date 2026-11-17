@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="si">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102a43">
+<title>Business Manager</title>
+<style>
+:root{--navy:#102a43;--blue:#1769aa;--sky:#eaf3fb;--green:#167447;--gold:#f4c542;--ink:#172b4d;--muted:#62758a;--line:#e2eaf1;--bg:#f4f7fb;--red:#bd3434}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px system-ui,-apple-system,"Noto Sans Sinhala",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:12px 15px;font-weight:700}.hidden{display:none!important}.wrap{max-width:760px;margin:auto;padding:16px 14px 92px}.top{background:var(--navy);color:white;padding:18px 16px;border-radius:0 0 22px 22px}.top h1{margin:0;font-size:21px}.top p{margin:5px 0 0;color:#c8d8e8;font-size:13px}.brand{display:flex;align-items:center;justify-content:space-between;gap:12px}.pill{background:#ffffff20;padding:7px 10px;border-radius:99px;font-size:12px}.business-grid{display:grid;gap:14px;margin-top:22px}.business-card{min-height:142px;text-align:left;padding:20px;color:white;border-radius:20px;box-shadow:0 8px 20px #16324b18}.food{background:linear-gradient(135deg,#1559a6,#3189d5)}.farm{background:linear-gradient(135deg,#12643f,#2b9a66)}.business-card h2{margin:0 0 8px;font-size:22px}.business-card p{margin:0;opacity:.9;line-height:1.5;font-size:13px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:20px 0 12px}.section-head h2{margin:0;font-size:19px}.btn{background:var(--blue);color:white}.btn.green{background:var(--green)}.btn.light{background:var(--sky);color:var(--blue)}.btn.danger{background:#fff0f0;color:var(--red)}.btn.small{padding:8px 11px;font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.stat{background:white;border:1px solid var(--line);padding:14px;border-radius:16px;min-width:0}.stat small{display:block;color:var(--muted);font-size:12px}.stat strong{display:block;font-size:20px;margin-top:6px;overflow-wrap:anywhere}.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:15px;margin-top:13px}.panel h3{margin:0 0 12px;font-size:16px}.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:5}.nav button{background:transparent;color:var(--muted);padding:8px 6px;font-size:11px;flex:1}.nav button.active{color:var(--blue);background:var(--sky)}.nav span{display:block;font-size:18px;margin-bottom:2px}.field{margin:10px 0}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid #d5e0e9;border-radius:11px;background:#fff;color:var(--ink);min-height:46px}.field textarea{min-height:76px}.form-actions{display:flex;gap:8px;margin-top:14px}.form-actions button{flex:1}.item{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.item:last-child{border:0}.item strong{display:block}.item small{color:var(--muted)}.amount{font-weight:800;white-space:nowrap}.positive{color:var(--green)}.negative{color:var(--red)}.empty{color:var(--muted);text-align:center;padding:22px 8px;font-size:13px}.muted{color:var(--muted)}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.toast{position:fixed;left:14px;right:14px;bottom:82px;background:#142c43;color:white;padding:12px 15px;border-radius:12px;z-index:10;text-align:center}.login{max-width:440px;margin:9vh auto;padding:20px}.login .panel{padding:20px}.back{background:transparent;color:#fff;padding:5px 9px}.badge{font-size:11px;background:#edf3f8;color:#42566b;padding:4px 8px;border-radius:30px}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.toolbar button{flex:1}.table-note{font-size:12px;color:var(--muted);line-height:1.5}.danger-text{color:var(--red)}@media(min-width:600px){.business-grid{grid-template-columns:1fr 1fr}.wrap{padding-top:22px}.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<div id="loginScreen" class="login">
+  <div class="top"><h1>BUSINESS MANAGER</h1><p>ඔබගේ ව්‍යාපාර දෙකම එකම තැනකින් කළමනාකරණය කරන්න</p></div>
+  <div class="panel">
+    <h2>Admin Login</h2>
+    <p class="muted">ඔබගේ Firebase Authentication ගිණුමෙන් ඇතුළු වන්න.</p>
+    <div class="field"><label>Email</label><input id="email" type="email" autocomplete="username" placeholder="admin@example.com"></div>
+    <div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Password"></div>
+    <button class="btn" style="width:100%" id="loginBtn">Login</button>
+    <p id="loginMsg" class="table-note"></p>
+  </div>
+</div>
+<div id="app" class="hidden">
+  <header class="top">
+    <div class="brand"><div><h1>BUSINESS MANAGER</h1><p id="subtitle">ඔබගේ ව්‍යාපාර කළමනාකරණය</p></div><button class="pill" id="logoutBtn">Logout</button></div>
+  </header>
+  <main class="wrap">
+    <section id="homeScreen">
+      <div class="section-head"><h2>ඔබගේ ව්‍යාපාරය තෝරන්න</h2></div>
+      <div class="business-grid">
+        <button class="business-card food" data-business="food"><h2>FOOD DEALERS</h2><p>Shops · Items · Sales · Purchases · Expenses · Reports</p></button>
+        <button class="business-card farm" data-business="farm"><h2>FARM HOUSE</h2><p>Shops · Farm Items · Egg Production · Sales · Expenses · Reports</p></button>
+      </div>
+      <div class="panel"><h3>දත්ත ආරක්ෂාව</h3><p class="table-note">ව්‍යාපාර දෙකේ දත්ත Firebase තුළ වෙන වෙනම තබා ඇත. Login වූ Admin ගිණුමට පමණක් ඒවාට ප්‍රවේශ විය හැක.</p></div>
+    </section>
+    <section id="businessScreen" class="hidden">
+      <div class="section-head"><div><button class="back" id="homeBtn">← ආපසු</button><h2 id="businessTitle">FOOD DEALERS</h2></div><span class="badge">LKR</span></div>
+      <div id="dashboardView">
+        <div class="grid">
+          <div class="stat"><small>මුළු ආදායම</small><strong id="incomeTotal">Rs. 0.00</strong></div>
+          <div class="stat"><small>මුළු වියදම්</small><strong id="expenseTotal">Rs. 0.00</strong></div>
+          <div class="stat"><small>ශුද්ධ ලාභය / අලාභය</small><strong id="profitTotal">Rs. 0.00</strong></div>
+          <div class="stat"><small>කඩ / ඒකක</small><strong id="shopTotal">0</strong></div>
+        </div>
+        <div class="panel"><h3>අලුත්ම ගනුදෙනු</h3><div id="recentList" class="empty">තවම ගනුදෙනු නැත.</div></div>
+      </div>
+      <div id="shopsView" class="hidden">
+        <div class="section-head"><h2>කඩ / ඒකක</h2><button class="btn small" id="addShopBtn">+ Add</button></div>
+        <div id="shopsList" class="panel"></div>
+      </div>
+      <div id="itemsView" class="hidden">
+        <div class="section-head"><h2>භාණ්ඩ / Items</h2><button class="btn small" id="addItemBtn">+ Add</button></div>
+        <div id="itemsList" class="panel"></div>
+      </div>
+      <div id="salesView" class="hidden">
+        <div class="section-head"><h2>විකුණුම් / Income</h2><button class="btn small" id="addSaleBtn">+ Add</button></div>
+        <div id="salesList" class="panel"></div>
+      </div>
+      <div id="expensesView" class="hidden">
+        <div class="section-head"><h2>වියදම් / Expenses</h2><button class="btn small" id="addExpenseBtn">+ Add</button></div>
+        <div id="expensesList" class="panel"></div>
+      </div>
+      <div id="farmView" class="hidden">
+        <div class="section-head"><h2>Farm House Management</h2><button class="btn small green" id="addEggBtn">+ Egg Production</button></div>
+        <div class="grid">
+          <div class="stat"><small>මුළු බිත්තර නිෂ්පාදනය</small><strong id="eggsTotal">0</strong></div>
+          <div class="stat"><small>බිත්තර වාර්තා</small><strong id="eggRecords">0</strong></div>
+        </div>
+        <div class="panel"><h3>බිත්තර නිෂ්පාදන වාර්තා</h3><div id="eggsList" class="empty">වාර්තා නැත.</div></div>
+        <p class="table-note">Farm House සඳහා egg production, egg sales සහ සාමාන්‍ය sales වාර්තා එකම Farm House දත්ත කොටස තුළ වෙනම ගබඩා වේ. බිත්තර වර්ග අවශ්‍ය පරිදි නමක් ලෙස ඇතුළත් කළ හැක.</p>
+      </div>
+    </section>
+  </main>
+  <nav id="bottomNav" class="nav hidden">
+    <button data-view="dashboard"><span>⌂</span>Dashboard</button>
+    <button data-view="shops"><span>▦</span>කඩ</button>
+    <button data-view="items"><span>□</span>Items</button>
+    <button data-view="sales"><span>↗</span>Sales</button>
+    <button data-view="expenses"><span>↘</span>Expenses</button>
+    <button data-view="farm" id="farmNav" class="hidden"><span>🥚</span>Farm</button>
+  </nav>
+</div>
+<div id="modal" class="hidden" style="position:fixed;inset:0;background:#102a4380;z-index:20;overflow:auto;padding:18px 12px">
+ <div class="panel" style="max-width:520px;margin:25px auto;padding:18px">
+  <div class="section-head"><h2 id="modalTitle">Add</h2><button class="btn light small" id="closeModal">Close</button></div>
+  <form id="modalForm"></form>
+ </div>
+</div>
+<div id="toast" class="toast hidden"></div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAaxXIqYD5E6KJISYQ8vh-2P6Qp62bopv0",
+  authDomain: "priyankara-groups-business.firebaseapp.com",
+  projectId: "priyankara-groups-business",
+  storageBucket: "priyankara-groups-business.firebasestorage.app",
+  messagingSenderId: "417734535878",
+  appId: "1:417734535878:web:c365d3955c4bd70c0005c7",
+  measurementId: "G-DXHGHETYD5"
+};
+const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app);
+let user=null, business="food", cache={shops:[],items:[],sales:[],expenses:[],eggs:[]}, currentView="dashboard";
+const $=id=>document.getElementById(id), money=n=>"Rs. "+Number(n||0).toLocaleString("en-LK",{minimumFractionDigits:2,maximumFractionDigits:2});
+const path=(name)=>collection(db,"users",user.uid,"businesses",business,name);
+function notify(msg){$("toast").textContent=msg;$("toast").classList.remove("hidden");setTimeout(()=>$("toast").classList.add("hidden"),2600)}
+function showLogin(msg=""){ $("loginMsg").textContent=msg; $("loginScreen").classList.remove("hidden"); $("app").classList.add("hidden"); }
+onAuthStateChanged(auth,u=>{user=u;if(u){$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden")}else showLogin()});
+$("loginBtn").onclick=async()=>{try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value)}catch(e){$("loginMsg").textContent=authError(e)}};
+$("logoutBtn").onclick=()=>signOut(auth);
+function authError(e){return e.code==="auth/invalid-credential"?"Email හෝ Password වැරදියි.":e.message}
+document.querySelectorAll("[data-business]").forEach(b=>b.onclick=()=>openBusiness(b.dataset.business));
+$("homeBtn").onclick=()=>{$("businessScreen").classList.add("hidden");$("homeScreen").classList.remove("hidden");$("bottomNav").classList.add("hidden")};
+async function openBusiness(which){business=which;$("homeScreen").classList.add("hidden");$("businessScreen").classList.remove("hidden");$("bottomNav").classList.remove("hidden");$("businessTitle").textContent=which==="food"?"FOOD DEALERS":"FARM HOUSE";$("farmNav").classList.toggle("hidden",which!=="farm");await loadAll();showView("dashboard")}
+async function loadAll(){
+ const names=["shops","items","sales","expenses","eggs"];
+ try{for(const n of names){const snap=await getDocs(query(path(n),orderBy("createdAt","desc")));cache[n]=snap.docs.map(d=>({id:d.id,...d.data()}))}renderAll()}
+ catch(e){notify("දත්ත ලබාගැනීමට නොහැකි විය: "+e.message)}
+}
+async function save(name,data){await addDoc(path(name),{...data,createdAt:serverTimestamp(),createdBy:user.uid});await loadAll();notify("සාර්ථකව සුරැකුවා")}
+function renderAll(){
+ const income=cache.sales.reduce((s,x)=>s+Number(x.amount||0),0),expense=cache.expenses.reduce((s,x)=>s+Number(x.amount||0),0);
+ $("incomeTotal").textContent=money(income);$("expenseTotal").textContent=money(expense);$("profitTotal").textContent=money(income-expense);$("profitTotal").className=income-expense>=0?"positive":"negative";$("shopTotal").textContent=cache.shops.length;
+ $("recentList").innerHTML=[...cache.sales.map(x=>({...x,kind:"ආදායම",sign:"+"})),...cache.expenses.map(x=>({...x,kind:"වියදම",sign:"−"}))].sort((a,b)=>(b.date||"").localeCompare(a.date||"")).slice(0,8).map(x=>rowHtml(x.title||x.kind,x.date||"",x.sign+" "+money(x.amount))).join("")||'<div class="empty">තවම ගනුදෙනු නැත.</div>';
+ $("shopsList").innerHTML=cache.shops.map(x=>rowHtml(x.name,x.note||"කඩ / ඒකක","")).join("")||'<div class="empty">කඩ එකතු කර නැත.</div>';
+ $("itemsList").innerHTML=cache.items.map(x=>rowHtml(x.name,(x.category||"Item")+" · තොගය: "+(x.quantity??0),money(x.price))).join("")||'<div class="empty">භාණ්ඩ එකතු කර නැත.</div>';
+ $("salesList").innerHTML=cache.sales.map(x=>rowHtml(x.title,x.date,money(x.amount))).join("")||'<div class="empty">විකුණුම් නැත.</div>';
+ $("expensesList").innerHTML=cache.expenses.map(x=>rowHtml(x.title,x.date,money(x.amount))).join("")||'<div class="empty">වියදම් නැත.</div>';
+ const eggs=cache.eggs.reduce((s,x)=>s+Number(x.quantity||0),0);$("eggsTotal").textContent=eggs.toLocaleString();$("eggRecords").textContent=cache.eggs.length;
+ $("eggsList").innerHTML=cache.eggs.map(x=>rowHtml(x.eggType+" · "+x.shop,x.date,""+Number(x.quantity||0)+" eggs")).join("")||'<div class="empty">බිත්තර නිෂ්පාදන වාර්තා නැත.</div>';
+}
+function rowHtml(a,b,c){return `<div class="item"><div><strong>${esc(a||"—")}</strong><small>${esc(b||"")}</small></div><div class="amount">${esc(c||"")}</div></div>`}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function showView(v){currentView=v;["dashboard","shops","items","sales","expenses","farm"].forEach(x=>$(x+"View").classList.toggle("hidden",x!==v));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===v));}
+document.querySelectorAll(".nav [data-view]").forEach(b=>b.onclick=()=>showView(b.dataset.view));
+function field(label,name,type="text",required=true,placeholder=""){return `<div class="field"><label>${label}</label><input name="${name}" type="${type}" ${required?"required":""} placeholder="${placeholder}"></div>`}
+function selectField(label,name,options){return `<div class="field"><label>${label}</label><select name="${name}" required>${options.map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join("")}</select></div>`}
+function openForm(title,html,onSave){$("modalTitle").textContent=title;$("modalForm").innerHTML=html+`<div class="form-actions"><button type="button" class="btn light" id="cancelForm">Cancel</button><button class="btn" type="submit">Save</button></div>`;$("modal").classList.remove("hidden");$("cancelForm").onclick=closeModal;$("modalForm").onsubmit=async e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.target).entries());try{await onSave(data);closeModal()}catch(err){notify("දෝෂයක්: "+err.message)}}}
+function closeModal(){$("modal").classList.add("hidden")}
+$("closeModal").onclick=closeModal;
+$("addShopBtn").onclick=()=>openForm("කඩයක් / ඒකකයක් එකතු කරන්න",field("කඩයේ නම","name")+field("විස්තර","note","text",false),d=>save("shops",d));
+$("addItemBtn").onclick=()=>openForm("භාණ්ඩයක් එකතු කරන්න",field("භාණ්ඩයේ නම","name")+field("වර්ගය","category","text",false)+field("මිල (LKR)","price","number")+field("දැනට ඇති තොගය","quantity","number"),d=>save("items",{...d,price:Number(d.price),quantity:Number(d.quantity)}));
+$("addSaleBtn").onclick=()=>openForm("විකුණුමක් / ආදායමක් එකතු කරන්න",field("විස්තරය","title")+selectField("කඩය", "shop",["—",...cache.shops.map(x=>x.name)])+field("මුදල (LKR)","amount","number")+field("දිනය","date"),d=>save("sales",{...d,amount:Number(d.amount)}));
+$("addExpenseBtn").onclick=()=>openForm("වියදමක් එකතු කරන්න",field("වියදමේ විස්තරය","title")+selectField("වර්ගය","category",["සාමාන්‍ය","මිලදී ගැනීම්","ආහාර / Feed","බෙහෙත්","විදුලිය","ජලය","වැටුප්","ප්‍රවාහනය","වෙනත්"])+field("මුදල (LKR)","amount","number")+field("දිනය","date"),d=>save("expenses",{...d,amount:Number(d.amount)}));
+$("addEggBtn").onclick=()=>openForm("බිත්තර නිෂ්පාදනය ඇතුළත් කරන්න",selectField("Farm House කඩය / ඒකකය","shop",["—",...cache.shops.map(x=>x.name)])+field("බිත්තර වර්ගය","eggType","text",true,"උදා: White / Brown")+field("ප්‍රමාණය","quantity","number")+field("දිනය","date"),d=>save("eggs",{...d,quantity:Number(d.quantity)}));
+</script>
+</body></html>

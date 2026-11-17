@@ -1,0 +1,20 @@
+BUSINESS MANAGER - setup
+
+1. Firebase Console > Authentication > Sign-in method > enable Email/Password.
+2. Authentication > Users > Add user. Create your admin account yourself.
+3. Copy that user's UID.
+4. Firestore Database > Rules: replace ADMIN_UID in firestore.rules with that UID, then Publish.
+5. Upload index.html to your hosting (Firebase Hosting is recommended).
+6. Open the site on your phone and sign in with the admin email/password.
+
+Data is stored separately:
+users/{adminUid}/businesses/food/...
+users/{adminUid}/businesses/farm/...
+
+Important:
+- Do not share your admin password.
+- Do not publish permissive Firestore rules such as allow read, write: if true.
+- This is a starter version with mobile dashboard, shops, items, income/sales,
+  expenses and farm egg-production records. Additional workflows such as invoices,
+  stock adjustments, suppliers, vaccination/mortality and PDF/Excel reports can be
+  added in the next iteration.
