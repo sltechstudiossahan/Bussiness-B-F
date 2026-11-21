@@ -183,12 +183,12 @@
 
         <!-- 1.1 SHOPS MAIN VIEW (2-Column Grid Layout) -->
         <section id="view-dealers-shops" class="hidden space-y-4">
-            <!-- Dealers Capital Box -->
+            <!-- Combined Capital Box -->
             <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-emerald-200 flex justify-between items-center gap-2">
                 <div>
-                    <p class="text-[10px] font-bold uppercase text-emerald-700">Business Capital (ඉතිරි ප්‍රාග්ධනය)</p>
+                    <p class="text-[10px] font-bold uppercase text-emerald-700">Combined Business Capital (එකතුව ඉතිරි මුදල)</p>
                     <p id="dealersAvailableCapitalDisplay" class="text-base font-black text-slate-800">Rs. 0.00</p>
-                    <p class="text-[10px] text-slate-500">ආරම්භක Capital: <span id="dealersBaseCapitalDisplay" class="font-bold text-slate-700">Rs. 0.00</span> | වියදම් අඩු වූ: <span id="dealersSpentCapitalDisplay" class="font-bold text-rose-600">Rs. 0.00</span></p>
+                    <p class="text-[10px] text-slate-500">ආරම්භක Capital: <span id="dealersBaseCapitalDisplay" class="font-bold text-slate-700">Rs. 0.00</span> | මුළු වියදම්: <span id="dealersSpentCapitalDisplay" class="font-bold text-rose-600">Rs. 0.00</span></p>
                 </div>
                 <button onclick="openCapitalModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-bold px-3 py-2 rounded-xl shadow-sm shrink-0">
                     <i class="fa-solid fa-coins mr-1"></i>Capital ඇඩ්
@@ -248,12 +248,12 @@
 
         <!-- 2.1 FARM SHOPS / BUYERS GRID (2-Column Layout) -->
         <section id="view-farm-shops" class="hidden space-y-4">
-            <!-- Farm Capital Box -->
+            <!-- Combined Capital Box -->
             <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-amber-200 flex justify-between items-center gap-2">
                 <div>
-                    <p class="text-[10px] font-bold uppercase text-amber-700">Farm Capital (ඉතිරි ප්‍රාග්ධනය)</p>
+                    <p class="text-[10px] font-bold uppercase text-amber-700">Combined Business Capital (එකතුව ඉතිරි මුදල)</p>
                     <p id="farmAvailableCapitalDisplay" class="text-base font-black text-slate-800">Rs. 0.00</p>
-                    <p class="text-[10px] text-slate-500">ආරම්භක Capital: <span id="farmBaseCapitalDisplay" class="font-bold text-slate-700">Rs. 0.00</span> | වියදම් අඩු වූ: <span id="farmSpentCapitalDisplay" class="font-bold text-rose-600">Rs. 0.00</span></p>
+                    <p class="text-[10px] text-slate-500">ආරම්භක Capital: <span id="farmBaseCapitalDisplay" class="font-bold text-slate-700">Rs. 0.00</span> | මුළු වියදම්: <span id="farmSpentCapitalDisplay" class="font-bold text-rose-600">Rs. 0.00</span></p>
                 </div>
                 <button onclick="openCapitalModal()" class="bg-amber-600 hover:bg-amber-700 text-white text-[11px] font-bold px-3 py-2 rounded-xl shadow-sm shrink-0">
                     <i class="fa-solid fa-coins mr-1"></i>Capital ඇඩ්
@@ -376,10 +376,10 @@
         <!-- SHARED EXPENSES TRACKER TAB -->
         <!-- ======================================================== -->
         <section id="view-expenses" class="hidden space-y-4">
-            <!-- Capital Remaining Banner in Expenses -->
+            <!-- Combined Capital Remaining Banner in Expenses -->
             <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-200 flex justify-between items-center">
                 <div>
-                    <p class="text-[10px] font-bold uppercase text-slate-500">වියදම් අඩු වූ පසු ඉතිරි Capital</p>
+                    <p class="text-[10px] font-bold uppercase text-slate-500">වියදම් අඩු වූ පසු ඉතිරි Combined Capital</p>
                     <p id="expensesAvailableCapitalDisplay" class="text-sm font-black text-emerald-700">Rs. 0.00</p>
                 </div>
                 <button onclick="openCapitalModal()" class="text-[11px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg">
@@ -429,167 +429,147 @@
         </section>
 
         <!-- ======================================================== -->
-        <!-- ADMIN DASHBOARD VIEWS -->
+        <!-- SINGLE UNIFIED ADMIN DASHBOARD (COMBINED + SEPARATE) -->
         <!-- ======================================================== -->
-
-        <!-- 1. FOOD DEALERS DASHBOARD -->
-        <section id="view-admin-dealers" class="hidden space-y-4">
+        <section id="view-admin-unified" class="hidden space-y-4">
+            <!-- Period Filter Bar -->
             <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 space-y-2.5">
                 <div class="flex justify-between items-center">
-                    <span class="text-xs font-bold text-slate-600"><i class="fa-solid fa-chart-line text-emerald-600 mr-1"></i> වාර්තා කාලය:</span>
+                    <span class="text-xs font-bold text-slate-600"><i class="fa-solid fa-chart-line text-indigo-600 mr-1"></i> ඒකාබද්ධ වාර්තා කාලය:</span>
                     <div class="flex gap-1 bg-slate-100 p-1 rounded-xl text-[10px] font-bold">
-                        <button id="dealersPeriod-daily" onclick="setAdminPeriod('dealers', 'daily')" class="px-2.5 py-1 rounded-lg text-slate-600">දිනපතා</button>
-                        <button id="dealersPeriod-weekly" onclick="setAdminPeriod('dealers', 'weekly')" class="px-2.5 py-1 rounded-lg text-slate-600">සතිපතා</button>
-                        <button id="dealersPeriod-monthly" onclick="setAdminPeriod('dealers', 'monthly')" class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white">මාසික</button>
+                        <button id="unifiedPeriod-daily" onclick="setUnifiedAdminPeriod('daily')" class="px-2.5 py-1 rounded-lg text-slate-600">දිනපතා</button>
+                        <button id="unifiedPeriod-weekly" onclick="setUnifiedAdminPeriod('weekly')" class="px-2.5 py-1 rounded-lg text-slate-600">සතිපතා</button>
+                        <button id="unifiedPeriod-monthly" onclick="setUnifiedAdminPeriod('monthly')" class="px-2.5 py-1 rounded-lg bg-indigo-600 text-white">මාසික</button>
                     </div>
                 </div>
                 <div class="flex justify-between items-center gap-2">
-                    <span id="dealersPeriodLabel" class="text-[11px] font-semibold text-slate-500">මාසය තෝරන්න:</span>
-                    <input type="month" id="adminDealersMonthPicker" onchange="renderDealersAdminDashboard()" class="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-2 focus:ring-emerald-500 outline-none">
-                    <input type="week" id="adminDealersWeekPicker" onchange="renderDealersAdminDashboard()" class="hidden bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-2 focus:ring-emerald-500 outline-none">
-                    <input type="date" id="adminDealersDayPicker" onchange="renderDealersAdminDashboard()" class="hidden bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-2 focus:ring-emerald-500 outline-none">
+                    <span id="unifiedPeriodLabel" class="text-[11px] font-semibold text-slate-500">මාසය තෝරන්න:</span>
+                    <input type="month" id="adminUnifiedMonthPicker" onchange="renderUnifiedAdminDashboard()" class="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <input type="week" id="adminUnifiedWeekPicker" onchange="renderUnifiedAdminDashboard()" class="hidden bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <input type="date" id="adminUnifiedDayPicker" onchange="renderUnifiedAdminDashboard()" class="hidden bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-2 focus:ring-indigo-500 outline-none">
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
-                <div class="bg-indigo-700 text-white p-3.5 rounded-2xl shadow-sm">
-                    <div class="flex justify-between items-center">
-                        <p class="text-[10px] font-semibold text-indigo-200 uppercase">Capital (ඉතිරි මුදල)</p>
-                        <button onclick="openCapitalModal()" class="text-[10px] bg-white/20 hover:bg-white/30 px-1.5 py-0.5 rounded font-bold">Edit</button>
-                    </div>
-                    <p id="dealersKpiAvailableCapital" class="text-lg font-black text-amber-300 mt-1">Rs. 0.00</p>
-                    <span id="dealersKpiBaseCapital" class="text-[10px] bg-indigo-800 text-indigo-200 px-1.5 py-0.5 rounded mt-2 inline-block">Base: Rs. 0.00</span>
-                </div>
-                <div class="bg-emerald-600 text-white p-3.5 rounded-2xl shadow-sm">
-                    <p class="text-[11px] font-semibold text-emerald-100 uppercase">මුළු ආදායම (Revenue)</p>
-                    <p id="dealersKpiSales" class="text-lg font-black mt-1">Rs. 0.00</p>
-                    <span class="text-[10px] bg-emerald-700 text-emerald-100 px-1.5 py-0.5 rounded mt-2 inline-block">Gross Revenue</span>
-                </div>
-                <div class="bg-rose-600 text-white p-3.5 rounded-2xl shadow-sm col-span-2">
-                    <p class="text-[11px] font-semibold text-rose-100 uppercase">මුළු වියදම (Expenses - Capital වලින් අඩු වූ)</p>
-                    <p id="dealersKpiExpenses" class="text-lg font-black mt-1">Rs. 0.00</p>
-                    <span class="text-[10px] bg-rose-700 text-rose-100 px-1.5 py-0.5 rounded mt-1 inline-block">Deducted from Capital</span>
-                </div>
-                <div class="bg-slate-800 text-white p-3.5 rounded-2xl shadow-sm col-span-2">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-[11px] font-semibold text-slate-400 uppercase">ශුද්ධ ලාභය / අලාභය (Net Profit)</p>
-                            <p id="dealersKpiNetProfit" class="text-2xl font-black text-amber-400 mt-1">Rs. 0.00</p>
-                        </div>
-                        <span id="dealersProfitBadge" class="text-xs px-2.5 py-1 rounded-full font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">PROFIT</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Charts -->
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">ආදායම vs වියදම් බිඳවැටීම</h4>
-                <div class="h-48 relative">
-                    <canvas id="dealersProfitPieChart"></canvas>
-                </div>
-            </div>
-
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">කඩවල් අනුව ආදායම් සංසන්දනය</h4>
-                <div class="h-56 relative">
-                    <canvas id="dealersShopsBarChart"></canvas>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. POULTRY FARM HOUSE DASHBOARD -->
-        <section id="view-admin-farm" class="hidden space-y-4">
-            <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 space-y-2.5">
-                <div class="flex justify-between items-center">
-                    <span class="text-xs font-bold text-slate-600"><i class="fa-solid fa-chart-pie text-amber-600 mr-1"></i> ෆාම් වාර්තා කාලය:</span>
-                    <div class="flex gap-1 bg-slate-100 p-1 rounded-xl text-[10px] font-bold">
-                        <button id="farmPeriod-daily" onclick="setAdminPeriod('farm', 'daily')" class="px-2.5 py-1 rounded-lg text-slate-600">දිනපතා</button>
-                        <button id="farmPeriod-weekly" onclick="setAdminPeriod('farm', 'weekly')" class="px-2.5 py-1 rounded-lg text-slate-600">සතිපතා</button>
-                        <button id="farmPeriod-monthly" onclick="setAdminPeriod('farm', 'monthly')" class="px-2.5 py-1 rounded-lg bg-amber-600 text-white">මාසික</button>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center gap-2">
-                    <span id="farmPeriodLabel" class="text-[11px] font-semibold text-slate-500">මාසය තෝරන්න:</span>
-                    <input type="month" id="adminFarmMonthPicker" onchange="renderFarmAdminDashboard()" class="bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-2 focus:ring-amber-500 outline-none">
-                    <input type="week" id="adminFarmWeekPicker" onchange="renderFarmAdminDashboard()" class="hidden bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-2 focus:ring-amber-500 outline-none">
-                    <input type="date" id="adminFarmDayPicker" onchange="renderFarmAdminDashboard()" class="hidden bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-2 focus:ring-amber-500 outline-none">
-                </div>
-            </div>
-
-            <!-- Detailed Farm Metrics Cards Grid -->
-            <div class="grid grid-cols-2 gap-3">
-                <div class="bg-indigo-700 text-white p-3.5 rounded-2xl shadow-sm col-span-2 flex justify-between items-center">
+            <!-- 1. COMBINED CAPITAL + COMBINED NET PROFIT HERO CARD -->
+            <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white p-4 rounded-3xl shadow-lg space-y-3 border border-indigo-500/30">
+                <div class="flex justify-between items-start gap-2 border-b border-white/10 pb-3">
                     <div>
-                        <p class="text-[10px] font-bold uppercase text-indigo-200">Farm Capital (ඉතිරි ප්‍රාග්ධනය)</p>
-                        <p id="farmKpiAvailableCapital" class="text-xl font-black text-amber-300 mt-0.5">Rs. 0.00</p>
-                        <span id="farmKpiBaseCapital" class="text-[10px] text-indigo-200">Base Capital: Rs. 0.00</span>
+                        <p class="text-[10px] font-bold uppercase tracking-wider text-indigo-300">Combined Capital (දෙකේම එකතුව ඉතිරි මුදල)</p>
+                        <p id="unifiedAvailableCapital" class="text-2xl font-black text-amber-300 mt-0.5">Rs. 0.00</p>
+                        <p class="text-[10px] text-slate-300 mt-0.5">
+                            Base Capital: <strong id="unifiedBaseCapital" class="text-white">Rs. 0.00</strong> |
+                            All-Time Sales: <strong id="unifiedAllRev" class="text-emerald-300">Rs. 0.00</strong> |
+                            All-Time Exp: <strong id="unifiedAllExp" class="text-rose-300">Rs. 0.00</strong>
+                        </p>
                     </div>
-                    <button onclick="openCapitalModal()" class="bg-white/20 hover:bg-white/30 text-white text-xs font-bold px-3 py-1.5 rounded-xl">
-                        <i class="fa-solid fa-coins mr-1"></i>Capital
+                    <button onclick="openCapitalModal()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-extrabold px-3 py-2 rounded-xl shadow shrink-0">
+                        <i class="fa-solid fa-coins mr-1"></i>Capital ඇඩ්
                     </button>
                 </div>
 
-                <div class="bg-amber-600 text-white p-3.5 rounded-2xl shadow-sm">
-                    <p class="text-[10px] font-bold uppercase text-amber-100">එකතු කළ බිත්තර (Eggs Collected)</p>
-                    <p id="farmKpiTotalEggs" class="text-xl font-black mt-0.5">0</p>
-                    <span id="farmKpiDamagedEggRate" class="text-[10px] bg-amber-700 text-yellow-200 px-1.5 py-0.5 rounded mt-1 inline-block">0% Damaged</span>
-                </div>
-
-                <div class="bg-emerald-600 text-white p-3.5 rounded-2xl shadow-sm">
-                    <p class="text-[10px] font-bold uppercase text-emerald-100">විකිණූ බිත්තර / මස් (Sold Units)</p>
-                    <p id="farmKpiSoldUnits" class="text-xl font-black mt-0.5">0</p>
-                    <span class="text-[10px] bg-emerald-700 text-emerald-100 px-1.5 py-0.5 rounded mt-1 inline-block">Units Sold</span>
-                </div>
-
-                <div class="bg-slate-800 text-white p-3.5 rounded-2xl shadow-sm">
-                    <p class="text-[10px] font-bold uppercase text-slate-400">මුළු ෆාම් ආදායම</p>
-                    <p id="farmKpiRevenue" class="text-lg font-black text-amber-300 mt-0.5">Rs. 0.00</p>
-                </div>
-
-                <div class="bg-rose-600 text-white p-3.5 rounded-2xl shadow-sm">
-                    <p class="text-[10px] font-bold uppercase text-rose-100">මුළු ෆාම් වියදම්</p>
-                    <p id="farmKpiExpenses" class="text-lg font-black text-white mt-0.5">Rs. 0.00</p>
-                </div>
-
-                <!-- Profit Margin Highlight Card -->
-                <div class="bg-gradient-to-r from-teal-800 to-slate-900 text-white p-4 rounded-2xl shadow-md col-span-2 flex justify-between items-center">
+                <div class="flex justify-between items-center">
                     <div>
-                        <p class="text-[10px] font-bold text-emerald-300 uppercase">ශුද්ධ ෆාම් ලාභය & Profit Margin %</p>
-                        <p id="farmKpiNetProfit" class="text-2xl font-black text-amber-400 mt-0.5">Rs. 0.00</p>
+                        <p class="text-[10px] font-bold uppercase tracking-wider text-emerald-300">Combined Net Profit (දෙකේම එකට ලාභය / අලාභය)</p>
+                        <p id="unifiedCombinedNetProfit" class="text-2xl font-black text-white mt-0.5">Rs. 0.00</p>
+                        <p class="text-[10px] text-slate-300">
+                            තෝරාගත් කාලයේ ආදායම: <strong id="unifiedPeriodRev" class="text-emerald-300">Rs. 0.00</strong> |
+                            වියදම: <strong id="unifiedPeriodExp" class="text-rose-300">Rs. 0.00</strong>
+                        </p>
                     </div>
-                    <div class="text-right">
-                        <span id="farmProfitMarginBadge" class="text-base font-black px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 inline-block">0%</span>
-                        <p class="text-[9px] text-slate-400 mt-1">Profit Percentage</p>
+                    <span id="unifiedProfitBadge" class="text-xs px-3 py-1 rounded-full font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">PROFIT</span>
+                </div>
+            </div>
+
+            <!-- 2. SEPARATE PROFIT / REVENUE / EXPENSES CARDS (FOOD DEALERS VS POULTRY FARM) -->
+            <div class="grid grid-cols-1 gap-3">
+                <!-- Food Dealers Separate Box -->
+                <div class="bg-white p-4 rounded-2xl shadow-sm border-l-4 border-emerald-600 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs"><i class="fa-solid fa-shop"></i></span>
+                            <div>
+                                <h4 class="text-xs font-black text-slate-800 uppercase">Food Dealers (වෙනම ලාභය)</h4>
+                                <p class="text-[10px] text-slate-400">කඩවල් ජාලයේ තෝරාගත් කාලයේ සාරාංශය</p>
+                            </div>
+                        </div>
+                        <span id="sepDealersProfitBadge" class="text-[10px] px-2 py-0.5 rounded-full font-extrabold bg-emerald-50 text-emerald-700">PROFIT</span>
+                    </div>
+                    <p id="sepDealersNetProfit" class="text-xl font-black text-emerald-700">Rs. 0.00</p>
+                    <div class="grid grid-cols-2 gap-2 pt-1 text-[11px]">
+                        <div class="bg-emerald-50/70 rounded-xl p-2">
+                            <span class="text-slate-500 block text-[10px]">ආදායම (Revenue)</span>
+                            <strong id="sepDealersRev" class="text-slate-800 font-extrabold">Rs. 0.00</strong>
+                        </div>
+                        <div class="bg-rose-50/70 rounded-xl p-2">
+                            <span class="text-slate-500 block text-[10px]">වියදම් (Expenses)</span>
+                            <strong id="sepDealersExp" class="text-rose-700 font-extrabold">Rs. 0.00</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poultry Farm House Separate Box -->
+                <div class="bg-white p-4 rounded-2xl shadow-sm border-l-4 border-amber-600 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-xs"><i class="fa-solid fa-egg"></i></span>
+                            <div>
+                                <h4 class="text-xs font-black text-slate-800 uppercase">Poultry Farm House (වෙනම ලාභය)</h4>
+                                <p class="text-[10px] text-slate-400">ෆාම් ව්‍යාපාරයේ තෝරාගත් කාලයේ සාරාංශය</p>
+                            </div>
+                        </div>
+                        <span id="sepFarmMarginBadge" class="text-[10px] px-2 py-0.5 rounded-full font-extrabold bg-amber-50 text-amber-800">0% Margin</span>
+                    </div>
+                    <p id="sepFarmNetProfit" class="text-xl font-black text-amber-700">Rs. 0.00</p>
+                    <div class="grid grid-cols-2 gap-2 pt-1 text-[11px]">
+                        <div class="bg-amber-50/70 rounded-xl p-2">
+                            <span class="text-slate-500 block text-[10px]">ෆාම් ආදායම (Revenue)</span>
+                            <strong id="sepFarmRev" class="text-slate-800 font-extrabold">Rs. 0.00</strong>
+                        </div>
+                        <div class="bg-rose-50/70 rounded-xl p-2">
+                            <span class="text-slate-500 block text-[10px]">ෆාම් වියදම් (Expenses)</span>
+                            <strong id="sepFarmExp" class="text-rose-700 font-extrabold">Rs. 0.00</strong>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-[11px]">
+                        <div class="bg-slate-50 rounded-xl p-2">
+                            <span class="text-slate-500 block text-[10px]">එකතු කළ බිත්තර</span>
+                            <strong id="sepFarmEggs" class="text-slate-800 font-extrabold">0</strong>
+                            <span id="sepFarmDamagedRate" class="text-[9px] text-rose-600 ml-1">(0% damaged)</span>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-2">
+                            <span class="text-slate-500 block text-[10px]">විකිණූ ඒකක (Sold Units)</span>
+                            <strong id="sepFarmSoldUnits" class="text-slate-800 font-extrabold">0</strong>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Farm Analytics Charts -->
+            <!-- 3. COMPARISON CHARTS (SEPARATE + COMBINED) -->
             <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">ෆාම් වියදම් බෙදී යාම (Expense Breakdown)</h4>
-                <div class="h-48 relative">
-                    <canvas id="farmExpensePieChart"></canvas>
-                </div>
-            </div>
-
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">ගණුදෙනුකරුවන්ගේ බිත්තර / මස් ආදායම</h4>
+                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Food Dealers vs Poultry Farm සංසන්දනය</h4>
                 <div class="h-56 relative">
-                    <canvas id="farmSalesBarChart"></canvas>
+                    <canvas id="unifiedComparisonBarChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">එකාබද්ධ ආදායම vs වියදම් බිඳවැටීම</h4>
+                <div class="h-48 relative">
+                    <canvas id="unifiedProfitDoughnutChart"></canvas>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- MODAL: SET / ADD BUSINESS CAPITAL -->
+    <!-- MODAL: SET / ADD COMBINED BUSINESS CAPITAL -->
     <div id="capitalModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white w-full max-w-xs rounded-2xl shadow-2xl p-4 space-y-3">
             <div class="flex justify-between items-center border-b pb-2">
-                <h3 id="capitalModalTitle" class="text-sm font-extrabold text-slate-800">Business Capital ඇතුළත් කරන්න</h3>
+                <h3 id="capitalModalTitle" class="text-sm font-extrabold text-slate-800">Combined Business Capital</h3>
                 <button onclick="closeCapitalModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <p class="text-xs text-slate-500">වියදම් (Expenses) මෙම Capital මුදලින් අඩුවේ. (Add මගින් එකතු කරන්න හෝ Set මගින් මුළු Capital ගණන සකසන්න)</p>
+            <p class="text-xs text-slate-500">Food Dealers සහ Poultry Farm House දෙකේම මුදල් මෙම Capital එකට එකතු වේ; වියදම් මෙයින් අඩුවේ.</p>
             <form onsubmit="handleSaveCapital(event)" class="space-y-3">
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Capital මුදල (Rs.)</label>
@@ -797,7 +777,6 @@
 
     <!-- MAIN APP SCRIPT -->
     <script>
-        // Initial Mock Database setup for both businesses
         const INITIAL_APP_DATA = {
             dealers: {
                 capital: 0,
@@ -836,21 +815,17 @@
             }
         };
 
-        // Application State Variables
         window.db = {};
-        let activeBusiness = null; // 'dealers' or 'farm'
-        let activeTab = 'shops';   // 'shops', 'shop-detail', 'items', 'expenses', 'admin'
+        let activeBusiness = null;
+        let activeTab = 'shops';
         let activeShopId = null;
         let expenseSearchQuery = '';
-        let adminPeriod = { dealers: 'monthly', farm: 'monthly' };
+        let unifiedAdminPeriod = 'monthly';
         let orderEditing = { shops: false, expenses: false };
         let draggedIndex = null;
 
-        // Chart Instances
-        let dealersPieChart = null;
-        let dealersBarChart = null;
-        let farmPieChart = null;
-        let farmBarChart = null;
+        let unifiedComparisonChart = null;
+        let unifiedDoughnutChart = null;
 
         window.onload = function() {
             loadLocalDatabase();
@@ -889,7 +864,7 @@
             }
         }
 
-        // CAPITAL CALCULATION & UI HELPERS
+        // UNIFIED CAPITAL + PROFIT CALCULATIONS
         function getAllTimeRevenue(biz) {
             let rev = 0;
             const dailySales = (window.db[biz] && window.db[biz].dailySales) || {};
@@ -920,18 +895,33 @@
             return exp;
         }
 
-        function getCapitalSummary(biz) {
-            const baseCapital = Number((window.db[biz] && window.db[biz].capital) || 0);
-            const totalRevenue = getAllTimeRevenue(biz);
-            const totalExpenses = getAllTimeExpenses(biz);
+        function getCombinedCapitalSummary() {
+            const dealersBase = Number((window.db.dealers && window.db.dealers.capital) || 0);
+            const farmBase = Number((window.db.farm && window.db.farm.capital) || 0);
+            const baseCapital = dealersBase + farmBase;
+
+            const dealersRev = getAllTimeRevenue('dealers');
+            const farmRev = getAllTimeRevenue('farm');
+            const totalRevenue = dealersRev + farmRev;
+
+            const dealersExp = getAllTimeExpenses('dealers');
+            const farmExp = getAllTimeExpenses('farm');
+            const totalExpenses = dealersExp + farmExp;
+
             const availableCapital = baseCapital + totalRevenue - totalExpenses;
-            return { baseCapital, totalRevenue, totalExpenses, availableCapital };
+            return {
+                baseCapital,
+                totalRevenue,
+                totalExpenses,
+                availableCapital,
+                dealersBase,
+                farmBase
+            };
         }
 
         function updateCapitalDisplays(biz) {
+            const { baseCapital, totalExpenses, availableCapital } = getCombinedCapitalSummary();
             const targetBiz = biz || activeBusiness;
-            if (!targetBiz) return;
-            const { baseCapital, totalExpenses, availableCapital } = getCapitalSummary(targetBiz);
 
             if (targetBiz === 'dealers') {
                 const availEl = document.getElementById('dealersAvailableCapitalDisplay');
@@ -940,7 +930,7 @@
                 if (availEl) availEl.innerText = `Rs. ${availableCapital.toFixed(2)}`;
                 if (baseEl) baseEl.innerText = `Rs. ${baseCapital.toFixed(2)}`;
                 if (spentEl) spentEl.innerText = `Rs. ${totalExpenses.toFixed(2)}`;
-            } else {
+            } else if (targetBiz === 'farm') {
                 const availEl = document.getElementById('farmAvailableCapitalDisplay');
                 const baseEl = document.getElementById('farmBaseCapitalDisplay');
                 const spentEl = document.getElementById('farmSpentCapitalDisplay');
@@ -954,10 +944,9 @@
         }
 
         function openCapitalModal() {
-            if (!activeBusiness) return;
             const titleEl = document.getElementById('capitalModalTitle');
             const inputEl = document.getElementById('capitalAmountInput');
-            titleEl.innerText = activeBusiness === 'dealers' ? 'Food Dealers Capital ඇතුළත් කරන්න' : 'Poultry Farm Capital ඇතුළත් කරන්න';
+            titleEl.innerText = 'Combined Business Capital (දෙකටම)';
             inputEl.value = '';
             const addRadio = document.querySelector('input[name="capitalMode"][value="add"]');
             if (addRadio) addRadio.checked = true;
@@ -971,18 +960,22 @@
 
         function handleSaveCapital(e) {
             e.preventDefault();
-            if (!activeBusiness) return;
             const rawVal = parseFloat(document.getElementById('capitalAmountInput').value);
             if (isNaN(rawVal) || rawVal < 0) return;
 
             const modeEl = document.querySelector('input[name="capitalMode"]:checked');
             const mode = modeEl ? modeEl.value : 'add';
-            const currentCap = Number(window.db[activeBusiness].capital || 0);
+            const dealersCap = Number(window.db.dealers.capital || 0);
+            const farmCap = Number(window.db.farm.capital || 0);
+            const currentCombined = dealersCap + farmCap;
 
             if (mode === 'set') {
-                window.db[activeBusiness].capital = rawVal;
+                // Store combined capital in dealers.capital and zero farm.capital to avoid double counting
+                window.db.dealers.capital = rawVal;
+                window.db.farm.capital = 0;
             } else {
-                window.db[activeBusiness].capital = currentCap + rawVal;
+                window.db.dealers.capital = currentCombined + rawVal;
+                window.db.farm.capital = 0;
             }
 
             triggerSave();
@@ -1016,12 +1009,9 @@
             document.getElementById('farmDateInput').value = today;
             document.getElementById('farmProductionDateInput').value = today;
             document.getElementById('expenseDateInput').value = today;
-            document.getElementById('adminDealersMonthPicker').value = month;
-            document.getElementById('adminFarmMonthPicker').value = month;
-            document.getElementById('adminDealersWeekPicker').value = week;
-            document.getElementById('adminFarmWeekPicker').value = week;
-            document.getElementById('adminDealersDayPicker').value = today;
-            document.getElementById('adminFarmDayPicker').value = today;
+            document.getElementById('adminUnifiedMonthPicker').value = month;
+            document.getElementById('adminUnifiedWeekPicker').value = week;
+            document.getElementById('adminUnifiedDayPicker').value = today;
         }
 
         function setTodayDate(biz) {
@@ -1054,8 +1044,7 @@
             } else if (activeTab === 'expenses') {
                 loadDailyExpenses();
             } else if (activeTab === 'admin') {
-                if (activeBusiness === 'dealers') renderDealersAdminDashboard();
-                else renderFarmAdminDashboard();
+                renderUnifiedAdminDashboard();
             }
         };
 
@@ -1253,7 +1242,7 @@
             const views = [
                 'landing', 'dealers-shops', 'dealers-shop-detail', 
                 'farm-shops', 'farm-shop-detail', 'items', 'expenses', 
-                'admin-dealers', 'admin-farm'
+                'admin-unified'
             ];
             views.forEach(id => {
                 const el = document.getElementById(`view-${id}`);
@@ -1309,13 +1298,8 @@
                 document.getElementById('view-expenses').classList.remove('hidden');
                 loadDailyExpenses();
             } else if (tab === 'admin') {
-                if (activeBusiness === 'dealers') {
-                    document.getElementById('view-admin-dealers').classList.remove('hidden');
-                    renderDealersAdminDashboard();
-                } else {
-                    document.getElementById('view-admin-farm').classList.remove('hidden');
-                    renderFarmAdminDashboard();
-                }
+                document.getElementById('view-admin-unified').classList.remove('hidden');
+                renderUnifiedAdminDashboard();
             }
         }
 
@@ -1888,22 +1872,18 @@
             loadDailyExpenses();
         }
 
-        // ADMIN PERIOD & DATE RANGE HELPERS
-        function setAdminPeriod(biz, period) {
-            adminPeriod[biz] = period;
-            const isDealers = biz === 'dealers';
-            const activeBtnClass = isDealers ? 'px-2.5 py-1 rounded-lg bg-emerald-600 text-white' : 'px-2.5 py-1 rounded-lg bg-amber-600 text-white';
-            const inactiveBtnClass = 'px-2.5 py-1 rounded-lg text-slate-600';
-
+        // UNIFIED ADMIN PERIOD & DATE RANGE HELPERS
+        function setUnifiedAdminPeriod(period) {
+            unifiedAdminPeriod = period;
             ['daily', 'weekly', 'monthly'].forEach(p => {
-                const btn = document.getElementById(`${biz}Period-${p}`);
-                if (btn) btn.className = p === period ? activeBtnClass : inactiveBtnClass;
+                const btn = document.getElementById(`unifiedPeriod-${p}`);
+                if (btn) btn.className = p === period ? 'px-2.5 py-1 rounded-lg bg-indigo-600 text-white' : 'px-2.5 py-1 rounded-lg text-slate-600';
             });
 
-            const monthPicker = document.getElementById(isDealers ? 'adminDealersMonthPicker' : 'adminFarmMonthPicker');
-            const weekPicker = document.getElementById(isDealers ? 'adminDealersWeekPicker' : 'adminFarmWeekPicker');
-            const dayPicker = document.getElementById(isDealers ? 'adminDealersDayPicker' : 'adminFarmDayPicker');
-            const label = document.getElementById(isDealers ? 'dealersPeriodLabel' : 'farmPeriodLabel');
+            const monthPicker = document.getElementById('adminUnifiedMonthPicker');
+            const weekPicker = document.getElementById('adminUnifiedWeekPicker');
+            const dayPicker = document.getElementById('adminUnifiedDayPicker');
+            const label = document.getElementById('unifiedPeriodLabel');
 
             monthPicker.classList.toggle('hidden', period !== 'monthly');
             weekPicker.classList.toggle('hidden', period !== 'weekly');
@@ -1913,8 +1893,7 @@
             else if (period === 'weekly') label.innerText = 'සතිය තෝරන්න:';
             else label.innerText = 'දිනය තෝරන්න:';
 
-            if (isDealers) renderDealersAdminDashboard();
-            else renderFarmAdminDashboard();
+            renderUnifiedAdminDashboard();
         }
 
         function getWeekDateRange(weekStr) {
@@ -1940,222 +1919,196 @@
             return { start: toIsoLocal(monday), end: toIsoLocal(sunday) };
         }
 
-        function isDateInAdminPeriod(dateStr, biz) {
-            const period = adminPeriod[biz] || 'monthly';
-            const isDealers = biz === 'dealers';
-            if (period === 'daily') {
-                const selectedDay = document.getElementById(isDealers ? 'adminDealersDayPicker' : 'adminFarmDayPicker').value;
+        function isDateInUnifiedPeriod(dateStr) {
+            if (unifiedAdminPeriod === 'daily') {
+                const selectedDay = document.getElementById('adminUnifiedDayPicker').value;
                 return Boolean(selectedDay) && dateStr === selectedDay;
             }
-            if (period === 'weekly') {
-                const selectedWeek = document.getElementById(isDealers ? 'adminDealersWeekPicker' : 'adminFarmWeekPicker').value;
+            if (unifiedAdminPeriod === 'weekly') {
+                const selectedWeek = document.getElementById('adminUnifiedWeekPicker').value;
                 const range = getWeekDateRange(selectedWeek);
                 return Boolean(range) && dateStr >= range.start && dateStr <= range.end;
             }
-            const selectedMonth = document.getElementById(isDealers ? 'adminDealersMonthPicker' : 'adminFarmMonthPicker').value;
+            const selectedMonth = document.getElementById('adminUnifiedMonthPicker').value;
             return Boolean(selectedMonth) && dateStr.startsWith(selectedMonth);
         }
 
-        // ADMIN DASHBOARDS & CHARTS LOGIC
-        function renderDealersAdminDashboard() {
-            const period = adminPeriod.dealers || 'monthly';
-            const activeVal = period === 'daily'
-                ? document.getElementById('adminDealersDayPicker').value
-                : period === 'weekly'
-                    ? document.getElementById('adminDealersWeekPicker').value
-                    : document.getElementById('adminDealersMonthPicker').value;
-            if (!activeVal) return;
+        function computePeriodMetrics(biz) {
+            let rev = 0;
+            let exp = 0;
+            let soldUnits = 0;
+            let eggsProduced = 0;
+            let eggsDamaged = 0;
 
-            let totalRev = 0;
-            let totalExp = 0;
-            const shopRevs = {};
-
-            (window.db.dealers.shops || []).forEach(s => shopRevs[s.name] = 0);
-
-            const dailySales = window.db.dealers.dailySales || {};
+            const dailySales = (window.db[biz] && window.db[biz].dailySales) || {};
+            const items = (window.db[biz] && window.db[biz].items) || [];
             Object.keys(dailySales).forEach(date => {
-                if (isDateInAdminPeriod(date, 'dealers')) {
-                    const dayData = dailySales[date];
+                if (isDateInUnifiedPeriod(date)) {
+                    const dayData = dailySales[date] || {};
                     Object.keys(dayData).forEach(itemId => {
-                        const item = (window.db.dealers.items || []).find(i => i.id === itemId);
+                        const item = items.find(i => i.id === itemId);
                         if (item) {
-                            const shop = (window.db.dealers.shops || []).find(s => s.id === item.shopId);
                             const price = getEffectiveUnitPrice(item, date);
-                            const entry = dayData[itemId];
-                            const sold = Math.max(0, (entry.delivered || 0) - (entry.remaining || 0));
-                            const rev = sold * price;
-
-                            totalRev += rev;
-                            if (shop) shopRevs[shop.name] = (shopRevs[shop.name] || 0) + rev;
+                            const entry = dayData[itemId] || {};
+                            const sold = Math.max(0, (Number(entry.delivered) || 0) - (Number(entry.remaining) || 0));
+                            soldUnits += sold;
+                            rev += sold * price;
                         }
                     });
                 }
             });
 
-            const dailyExpenses = window.db.dealers.dailyExpenses || {};
+            const dailyExpenses = (window.db[biz] && window.db[biz].dailyExpenses) || {};
             Object.keys(dailyExpenses).forEach(date => {
-                if (isDateInAdminPeriod(date, 'dealers')) {
-                    Object.values(dailyExpenses[date]).forEach(c => totalExp += Number(c || 0));
+                if (isDateInUnifiedPeriod(date)) {
+                    Object.values(dailyExpenses[date] || {}).forEach(c => {
+                        exp += Number(c || 0);
+                    });
                 }
             });
 
-            const netProfit = totalRev - totalExp;
-            const capSummary = getCapitalSummary('dealers');
-
-            document.getElementById('dealersKpiAvailableCapital').innerText = `Rs. ${capSummary.availableCapital.toFixed(2)}`;
-            document.getElementById('dealersKpiBaseCapital').innerText = `Base: Rs. ${capSummary.baseCapital.toFixed(2)}`;
-            document.getElementById('dealersKpiSales').innerText = `Rs. ${totalRev.toFixed(2)}`;
-            document.getElementById('dealersKpiExpenses').innerText = `Rs. ${totalExp.toFixed(2)}`;
-            document.getElementById('dealersKpiNetProfit').innerText = `Rs. ${netProfit.toFixed(2)}`;
-
-            const badge = document.getElementById('dealersProfitBadge');
-            if (netProfit >= 0) {
-                badge.innerText = 'PROFIT';
-                badge.className = 'text-xs px-2.5 py-1 rounded-full font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
-            } else {
-                badge.innerText = 'LOSS';
-                badge.className = 'text-xs px-2.5 py-1 rounded-full font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30';
+            if (biz === 'farm') {
+                const dailyEggProd = (window.db.farm && window.db.farm.dailyEggProduction) || {};
+                Object.keys(dailyEggProd).forEach(date => {
+                    if (isDateInUnifiedPeriod(date)) {
+                        const entry = dailyEggProd[date] || {};
+                        eggsProduced += Number(entry.total || 0);
+                        eggsDamaged += Number(entry.damaged || 0);
+                    }
+                });
             }
 
-            // Pie Chart
-            const ctxPie = document.getElementById('dealersProfitPieChart').getContext('2d');
-            if (dealersPieChart) dealersPieChart.destroy();
-            dealersPieChart = new Chart(ctxPie, {
-                type: 'doughnut',
-                data: {
-                    labels: ['ආදායම (Revenue)', 'වියදම් (Expenses)'],
-                    datasets: [{ data: [totalRev, totalExp], backgroundColor: ['#16a34a', '#e11d48'], borderWidth: 0 }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-            });
-
-            // Bar Chart
-            const ctxBar = document.getElementById('dealersShopsBarChart').getContext('2d');
-            if (dealersBarChart) dealersBarChart.destroy();
-            dealersBarChart = new Chart(ctxBar, {
-                type: 'bar',
-                data: {
-                    labels: Object.keys(shopRevs),
-                    datasets: [{ label: 'ආදායම (Rs.)', data: Object.values(shopRevs), backgroundColor: '#0d9488', borderRadius: 8 }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
-            });
+            return {
+                rev,
+                exp,
+                netProfit: rev - exp,
+                soldUnits,
+                eggsProduced,
+                eggsDamaged
+            };
         }
 
-        function renderFarmAdminDashboard() {
-            const period = adminPeriod.farm || 'monthly';
-            const activeVal = period === 'daily'
-                ? document.getElementById('adminFarmDayPicker').value
-                : period === 'weekly'
-                    ? document.getElementById('adminFarmWeekPicker').value
-                    : document.getElementById('adminFarmMonthPicker').value;
+        function renderUnifiedAdminDashboard() {
+            const activeVal = unifiedAdminPeriod === 'daily'
+                ? document.getElementById('adminUnifiedDayPicker').value
+                : unifiedAdminPeriod === 'weekly'
+                    ? document.getElementById('adminUnifiedWeekPicker').value
+                    : document.getElementById('adminUnifiedMonthPicker').value;
             if (!activeVal) return;
 
-            let totalEggsProduced = 0;
-            let totalEggsDamaged = 0;
-            let totalSoldUnits = 0;
-            let totalRev = 0;
-            let totalExp = 0;
+            const cap = getCombinedCapitalSummary();
+            const dMetrics = computePeriodMetrics('dealers');
+            const fMetrics = computePeriodMetrics('farm');
 
-            const categoryExpenses = {};
-            const buyerRevs = {};
+            const combinedPeriodRev = dMetrics.rev + fMetrics.rev;
+            const combinedPeriodExp = dMetrics.exp + fMetrics.exp;
+            const combinedPeriodProfit = dMetrics.netProfit + fMetrics.netProfit;
 
-            (window.db.farm.expenseCategories || []).forEach(c => categoryExpenses[c] = 0);
-            (window.db.farm.shops || []).forEach(s => buyerRevs[s.name] = 0);
+            // Combined Capital & Profit UI
+            document.getElementById('unifiedAvailableCapital').innerText = `Rs. ${cap.availableCapital.toFixed(2)}`;
+            document.getElementById('unifiedBaseCapital').innerText = `Rs. ${cap.baseCapital.toFixed(2)}`;
+            document.getElementById('unifiedAllRev').innerText = `Rs. ${cap.totalRevenue.toFixed(2)}`;
+            document.getElementById('unifiedAllExp').innerText = `Rs. ${cap.totalExpenses.toFixed(2)}`;
 
-            // Egg Production Metrics
-            const dailyEggProd = window.db.farm.dailyEggProduction || {};
-            Object.keys(dailyEggProd).forEach(date => {
-                if (isDateInAdminPeriod(date, 'farm')) {
-                    const entry = dailyEggProd[date];
-                    totalEggsProduced += Number(entry.total || 0);
-                    totalEggsDamaged += Number(entry.damaged || 0);
-                }
-            });
+            document.getElementById('unifiedCombinedNetProfit').innerText = `Rs. ${combinedPeriodProfit.toFixed(2)}`;
+            document.getElementById('unifiedPeriodRev').innerText = `Rs. ${combinedPeriodRev.toFixed(2)}`;
+            document.getElementById('unifiedPeriodExp').innerText = `Rs. ${combinedPeriodExp.toFixed(2)}`;
 
-            // Sales & Revenue Metrics
-            const dailySales = window.db.farm.dailySales || {};
-            Object.keys(dailySales).forEach(date => {
-                if (isDateInAdminPeriod(date, 'farm')) {
-                    const dayData = dailySales[date];
-                    Object.keys(dayData).forEach(itemId => {
-                        const item = (window.db.farm.items || []).find(i => i.id === itemId);
-                        if (item) {
-                            const shop = (window.db.farm.shops || []).find(s => s.id === item.shopId);
-                            const price = getEffectiveUnitPrice(item, date);
-                            const entry = dayData[itemId];
-                            const sold = Math.max(0, (entry.delivered || 0) - (entry.remaining || 0));
-                            const rev = sold * price;
-
-                            totalSoldUnits += sold;
-                            totalRev += rev;
-                            if (shop) buyerRevs[shop.name] = (buyerRevs[shop.name] || 0) + rev;
-                        }
-                    });
-                }
-            });
-
-            // Expenses Breakdown Metrics
-            const dailyExpenses = window.db.farm.dailyExpenses || {};
-            Object.keys(dailyExpenses).forEach(date => {
-                if (isDateInAdminPeriod(date, 'farm')) {
-                    const dayExp = dailyExpenses[date];
-                    Object.keys(dayExp).forEach(cat => {
-                        const cost = Number(dayExp[cat] || 0);
-                        totalExp += cost;
-                        categoryExpenses[cat] = (categoryExpenses[cat] || 0) + cost;
-                    });
-                }
-            });
-
-            const netProfit = totalRev - totalExp;
-            const capSummary = getCapitalSummary('farm');
-            const damagedRatePercent = totalEggsProduced > 0 ? ((totalEggsDamaged / totalEggsProduced) * 100).toFixed(1) : 0;
-            const profitMarginPercent = totalRev > 0 ? ((netProfit / totalRev) * 100).toFixed(1) : 0;
-
-            document.getElementById('farmKpiAvailableCapital').innerText = `Rs. ${capSummary.availableCapital.toFixed(2)}`;
-            document.getElementById('farmKpiBaseCapital').innerText = `Base Capital: Rs. ${capSummary.baseCapital.toFixed(2)}`;
-            document.getElementById('farmKpiTotalEggs').innerText = totalEggsProduced.toLocaleString();
-            document.getElementById('farmKpiDamagedEggRate').innerText = `${damagedRatePercent}% Damaged`;
-            document.getElementById('farmKpiSoldUnits').innerText = totalSoldUnits.toLocaleString();
-            document.getElementById('farmKpiRevenue').innerText = `Rs. ${totalRev.toFixed(2)}`;
-            document.getElementById('farmKpiExpenses').innerText = `Rs. ${totalExp.toFixed(2)}`;
-            document.getElementById('farmKpiNetProfit').innerText = `Rs. ${netProfit.toFixed(2)}`;
-
-            const marginBadge = document.getElementById('farmProfitMarginBadge');
-            marginBadge.innerText = `${profitMarginPercent}% Margin`;
-            if (netProfit >= 0) {
-                marginBadge.className = 'text-base font-black px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+            const unifiedBadge = document.getElementById('unifiedProfitBadge');
+            if (combinedPeriodProfit >= 0) {
+                unifiedBadge.innerText = 'PROFIT';
+                unifiedBadge.className = 'text-xs px-3 py-1 rounded-full font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/30';
             } else {
-                marginBadge.className = 'text-base font-black px-3 py-1 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/30';
+                unifiedBadge.innerText = 'LOSS';
+                unifiedBadge.className = 'text-xs px-3 py-1 rounded-full font-black bg-rose-500/20 text-rose-300 border border-rose-400/30';
             }
 
-            // Farm Expenses Pie Chart
-            const ctxPie = document.getElementById('farmExpensePieChart').getContext('2d');
-            if (farmPieChart) farmPieChart.destroy();
-            farmPieChart = new Chart(ctxPie, {
-                type: 'pie',
+            // Food Dealers Separate UI
+            document.getElementById('sepDealersNetProfit').innerText = `Rs. ${dMetrics.netProfit.toFixed(2)}`;
+            document.getElementById('sepDealersRev').innerText = `Rs. ${dMetrics.rev.toFixed(2)}`;
+            document.getElementById('sepDealersExp').innerText = `Rs. ${dMetrics.exp.toFixed(2)}`;
+            const dBadge = document.getElementById('sepDealersProfitBadge');
+            if (dMetrics.netProfit >= 0) {
+                dBadge.innerText = 'PROFIT';
+                dBadge.className = 'text-[10px] px-2 py-0.5 rounded-full font-extrabold bg-emerald-50 text-emerald-700';
+            } else {
+                dBadge.innerText = 'LOSS';
+                dBadge.className = 'text-[10px] px-2 py-0.5 rounded-full font-extrabold bg-rose-50 text-rose-700';
+            }
+
+            // Poultry Farm Separate UI
+            document.getElementById('sepFarmNetProfit').innerText = `Rs. ${fMetrics.netProfit.toFixed(2)}`;
+            document.getElementById('sepFarmRev').innerText = `Rs. ${fMetrics.rev.toFixed(2)}`;
+            document.getElementById('sepFarmExp').innerText = `Rs. ${fMetrics.exp.toFixed(2)}`;
+            document.getElementById('sepFarmEggs').innerText = fMetrics.eggsProduced.toLocaleString();
+            document.getElementById('sepFarmSoldUnits').innerText = fMetrics.soldUnits.toLocaleString();
+
+            const damagedPct = fMetrics.eggsProduced > 0 ? ((fMetrics.eggsDamaged / fMetrics.eggsProduced) * 100).toFixed(1) : '0.0';
+            const marginPct = fMetrics.rev > 0 ? ((fMetrics.netProfit / fMetrics.rev) * 100).toFixed(1) : '0.0';
+            document.getElementById('sepFarmDamagedRate').innerText = `(${damagedPct}% damaged)`;
+
+            const fBadge = document.getElementById('sepFarmMarginBadge');
+            fBadge.innerText = `${marginPct}% Margin`;
+            if (fMetrics.netProfit >= 0) {
+                fBadge.className = 'text-[10px] px-2 py-0.5 rounded-full font-extrabold bg-amber-50 text-amber-800';
+            } else {
+                fBadge.className = 'text-[10px] px-2 py-0.5 rounded-full font-extrabold bg-rose-50 text-rose-700';
+            }
+
+            // Comparison Bar Chart: Food Dealers vs Poultry Farm
+            const ctxBar = document.getElementById('unifiedComparisonBarChart').getContext('2d');
+            if (unifiedComparisonChart) unifiedComparisonChart.destroy();
+            unifiedComparisonChart = new Chart(ctxBar, {
+                type: 'bar',
                 data: {
-                    labels: Object.keys(categoryExpenses),
+                    labels: ['Food Dealers', 'Poultry Farm', 'Combined (එකට)'],
+                    datasets: [
+                        {
+                            label: 'ආදායම (Revenue)',
+                            data: [dMetrics.rev, fMetrics.rev, combinedPeriodRev],
+                            backgroundColor: '#16a34a',
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'වියදම් (Expenses)',
+                            data: [dMetrics.exp, fMetrics.exp, combinedPeriodExp],
+                            backgroundColor: '#e11d48',
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'ශුද්ධ ලාභය (Net Profit)',
+                            data: [dMetrics.netProfit, fMetrics.netProfit, combinedPeriodProfit],
+                            backgroundColor: '#d97706',
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } }
+                }
+            });
+
+            // Combined Revenue vs Expenses Doughnut Chart
+            const ctxPie = document.getElementById('unifiedProfitDoughnutChart').getContext('2d');
+            if (unifiedDoughnutChart) unifiedDoughnutChart.destroy();
+            unifiedDoughnutChart = new Chart(ctxPie, {
+                type: 'doughnut',
+                data: {
+                    labels: ['එකාබද්ධ ආදායම (Revenue)', 'එකාබද්ධ වියදම් (Expenses)'],
                     datasets: [{
-                        data: Object.values(categoryExpenses),
-                        backgroundColor: ['#d97706', '#0284c7', '#16a34a', '#dc2626', '#9333ea'],
+                        data: [combinedPeriodRev, combinedPeriodExp],
+                        backgroundColor: ['#0d9488', '#e11d48'],
                         borderWidth: 0
                     }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } } }
-            });
-
-            // Farm Sales Bar Chart
-            const ctxBar = document.getElementById('farmSalesBarChart').getContext('2d');
-            if (farmBarChart) farmBarChart.destroy();
-            farmBarChart = new Chart(ctxBar, {
-                type: 'bar',
-                data: {
-                    labels: Object.keys(buyerRevs),
-                    datasets: [{ label: 'ආදායම (Rs.)', data: Object.values(buyerRevs), backgroundColor: '#d97706', borderRadius: 8 }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } }
+                }
             });
         }
 
