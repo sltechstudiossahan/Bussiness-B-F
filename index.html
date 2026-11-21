@@ -55,6 +55,15 @@
         .pb-safe {
             padding-bottom: env(safe-area-inset-bottom, 1rem);
         }
+        .dragging-item {
+            opacity: 0.55;
+            transform: scale(1.02);
+            z-index: 40;
+        }
+        .drag-over-target {
+            outline: 2px dashed #0d9488;
+            outline-offset: 2px;
+        }
     </style>
 </head>
 <body class="text-slate-800 bg-slate-100 min-h-screen flex flex-col justify-between max-w-md mx-auto shadow-2xl relative border-x border-slate-200">
@@ -177,8 +186,8 @@
             <div class="flex justify-between items-center gap-2 mb-1">
                 <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">ඔබගේ කඩවල් (Select Shop)</p>
                 <div class="flex items-center gap-2">
-                    <button onclick="stabilizeOrder('shops')" class="bg-emerald-700 hover:bg-emerald-800 text-white text-[10px] px-2.5 py-1 rounded-lg font-bold shadow-sm transition">
-                        <i class="fa-solid fa-check-double mr-1"></i>Order Stable කරන්න
+                    <button id="dealersOrderBtn" onclick="toggleOrderMode('shops')" class="bg-slate-800 hover:bg-slate-900 text-white text-[10px] px-2.5 py-1 rounded-lg font-bold shadow-sm transition">
+                        <i class="fa-solid fa-arrows-up-down-left-right mr-1"></i>Order වෙනස් කරන්න
                     </button>
                     <span id="dealersShopCountBadge" class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-extrabold">0 Shops</span>
                 </div>
@@ -255,8 +264,8 @@
             <div class="flex justify-between items-center gap-2 mb-1">
                 <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">ෆාම් ගණුදෙනුකරුවන් / කඩවල් (Farm Buyers)</p>
                 <div class="flex items-center gap-2">
-                    <button onclick="stabilizeOrder('shops')" class="bg-amber-700 hover:bg-amber-800 text-white text-[10px] px-2.5 py-1 rounded-lg font-bold shadow-sm transition">
-                        <i class="fa-solid fa-check-double mr-1"></i>Order Stable කරන්න
+                    <button id="farmOrderBtn" onclick="toggleOrderMode('shops')" class="bg-slate-800 hover:bg-slate-900 text-white text-[10px] px-2.5 py-1 rounded-lg font-bold shadow-sm transition">
+                        <i class="fa-solid fa-arrows-up-down-left-right mr-1"></i>Order වෙනස් කරන්න
                     </button>
                     <span id="farmShopCountBadge" class="bg-amber-100 text-amber-800 text-xs px-2.5 py-0.5 rounded-full font-extrabold">0 Buyers</span>
                 </div>
@@ -369,8 +378,8 @@
                 <div class="flex justify-between items-center gap-2 border-b pb-2">
                     <h3 class="text-sm font-bold text-slate-800">දෛනික වියදම් සටහන</h3>
                     <div class="flex items-center gap-2">
-                        <button onclick="stabilizeOrder('expenses')" class="bg-slate-800 hover:bg-slate-900 text-white text-[10px] px-2.5 py-1 rounded-lg font-bold transition">
-                            <i class="fa-solid fa-check-double mr-1"></i>Order Stable කරන්න
+                        <button id="expensesOrderBtn" onclick="toggleOrderMode('expenses')" class="bg-slate-800 hover:bg-slate-900 text-white text-[10px] px-2.5 py-1 rounded-lg font-bold transition">
+                            <i class="fa-solid fa-arrows-up-down-left-right mr-1"></i>Order වෙනස් කරන්න
                         </button>
                         <span id="dailyExpenseTotalBadge" class="text-xs font-extrabold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full">Rs. 0.00</span>
                     </div>
@@ -747,6 +756,8 @@
         let activeShopId = null;
         let expenseSearchQuery = '';
         let adminPeriod = { dealers: 'monthly', farm: 'monthly' };
+        let orderEditing = { shops: false, expenses: false };
+        let draggedIndex = null;
 
         // Chart Instances
         let dealersPieChart = null;
@@ -854,40 +865,150 @@
             }
         };
 
-        // ORDER STABILIZATION & REORDERING
-        function moveShopOrder(index, direction) {
-            const shops = window.db[activeBusiness].shops || [];
-            const targetIndex = index + direction;
-            if (targetIndex < 0 || targetIndex >= shops.length) return;
-            const temp = shops[index];
-            shops[index] = shops[targetIndex];
-            shops[targetIndex] = temp;
-            if (activeBusiness === 'dealers') renderDealersShopsGrid();
-            else renderFarmShopsGrid();
-        }
+        // ORDER CHANGE & STABILIZE TOGGLE + DRAG AND DROP
+        function updateOrderButtonsUI() {
+            const shopBtn = document.getElementById(activeBusiness === 'farm' ? 'farmOrderBtn' : 'dealersOrderBtn');
+            const expBtn = document.getElementById('expensesOrderBtn');
 
-        function moveExpenseCategoryOrder(index, direction) {
-            const cats = window.db[activeBusiness].expenseCategories || [];
-            const targetIndex = index + direction;
-            if (targetIndex < 0 || targetIndex >= cats.length) return;
-            const temp = cats[index];
-            cats[index] = cats[targetIndex];
-            cats[targetIndex] = temp;
-            loadDailyExpenses();
-        }
-
-        function stabilizeOrder(type) {
-            triggerSave();
-            if (type === 'shops') {
-                alert('කඩවල් වල order එක ස්ථිරව සුරැකුණි (Order Stabilized)!');
-            } else if (type === 'expenses') {
-                alert('දෛනික වියදම් වර්ග වල order එක ස්ථිරව සුරැකුණි (Order Stabilized)!');
+            if (shopBtn) {
+                if (orderEditing.shops) {
+                    shopBtn.className = "bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] px-2.5 py-1 rounded-lg font-bold shadow-sm transition";
+                    shopBtn.innerHTML = `<i class="fa-solid fa-check-double mr-1"></i>Order Stable කරන්න`;
+                } else {
+                    shopBtn.className = "bg-slate-800 hover:bg-slate-900 text-white text-[10px] px-2.5 py-1 rounded-lg font-bold shadow-sm transition";
+                    shopBtn.innerHTML = `<i class="fa-solid fa-arrows-up-down-left-right mr-1"></i>Order වෙනස් කරන්න`;
+                }
             }
+
+            if (expBtn) {
+                if (orderEditing.expenses) {
+                    expBtn.className = "bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] px-2.5 py-1 rounded-lg font-bold shadow-sm transition";
+                    expBtn.innerHTML = `<i class="fa-solid fa-check-double mr-1"></i>Order Stable කරන්න`;
+                } else {
+                    expBtn.className = "bg-slate-800 hover:bg-slate-900 text-white text-[10px] px-2.5 py-1 rounded-lg font-bold transition";
+                    expBtn.innerHTML = `<i class="fa-solid fa-arrows-up-down-left-right mr-1"></i>Order වෙනස් කරන්න`;
+                }
+            }
+        }
+
+        function toggleOrderMode(type) {
+            if (!orderEditing[type]) {
+                orderEditing[type] = true;
+                updateOrderButtonsUI();
+                if (type === 'shops') {
+                    if (activeBusiness === 'dealers') renderDealersShopsGrid();
+                    else renderFarmShopsGrid();
+                } else if (type === 'expenses') {
+                    loadDailyExpenses();
+                }
+            } else {
+                orderEditing[type] = false;
+                triggerSave();
+                updateOrderButtonsUI();
+                if (type === 'shops') {
+                    if (activeBusiness === 'dealers') renderDealersShopsGrid();
+                    else renderFarmShopsGrid();
+                    alert('කඩවල් වල order එක ස්ථිරව සුරැකුණි (Order Stabilized)!');
+                } else if (type === 'expenses') {
+                    loadDailyExpenses();
+                    alert('දෛනික වියදම් වර්ග වල order එක ස්ථිරව සුරැකුණි (Order Stabilized)!');
+                }
+            }
+        }
+
+        function reorderArrayItems(arr, fromIdx, toIdx) {
+            if (!Array.isArray(arr) || fromIdx === toIdx) return;
+            if (fromIdx < 0 || fromIdx >= arr.length || toIdx < 0 || toIdx >= arr.length) return;
+            const [moved] = arr.splice(fromIdx, 1);
+            arr.splice(toIdx, 0, moved);
+        }
+
+        function attachDragAndDropHandlers(el, type, index, container) {
+            if (!orderEditing[type]) return;
+            el.setAttribute('draggable', 'true');
+            el.dataset.dragIndex = index;
+
+            el.addEventListener('dragstart', (e) => {
+                draggedIndex = index;
+                el.classList.add('dragging-item');
+                if (e.dataTransfer) {
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/plain', String(index));
+                }
+            });
+
+            el.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                el.classList.add('drag-over-target');
+            });
+
+            el.addEventListener('dragleave', () => {
+                el.classList.remove('drag-over-target');
+            });
+
+            el.addEventListener('drop', (e) => {
+                e.preventDefault();
+                el.classList.remove('drag-over-target');
+                const fromIdx = draggedIndex !== null ? draggedIndex : parseInt(e.dataTransfer?.getData('text/plain') || '-1', 10);
+                if (fromIdx >= 0 && fromIdx !== index) {
+                    if (type === 'shops') {
+                        reorderArrayItems(window.db[activeBusiness].shops, fromIdx, index);
+                        if (activeBusiness === 'dealers') renderDealersShopsGrid();
+                        else renderFarmShopsGrid();
+                    } else if (type === 'expenses') {
+                        reorderArrayItems(window.db[activeBusiness].expenseCategories, fromIdx, index);
+                        loadDailyExpenses();
+                    }
+                }
+                draggedIndex = null;
+            });
+
+            el.addEventListener('dragend', () => {
+                el.classList.remove('dragging-item');
+                container.querySelectorAll('.drag-over-target').forEach(node => node.classList.remove('drag-over-target'));
+                draggedIndex = null;
+            });
+
+            el.addEventListener('touchstart', () => {
+                draggedIndex = index;
+                el.classList.add('dragging-item');
+            }, { passive: true });
+
+            el.addEventListener('touchmove', (e) => {
+                if (draggedIndex === null) return;
+                const touch = e.touches[0];
+                const targetEl = document.elementFromPoint(touch.clientX, touch.clientY)?.closest('[data-drag-index]');
+                container.querySelectorAll('.drag-over-target').forEach(node => node.classList.remove('drag-over-target'));
+                if (targetEl) targetEl.classList.add('drag-over-target');
+            }, { passive: true });
+
+            el.addEventListener('touchend', (e) => {
+                el.classList.remove('dragging-item');
+                const touch = e.changedTouches[0];
+                const targetEl = document.elementFromPoint(touch.clientX, touch.clientY)?.closest('[data-drag-index]');
+                container.querySelectorAll('.drag-over-target').forEach(node => node.classList.remove('drag-over-target'));
+                if (targetEl && draggedIndex !== null) {
+                    const targetIdx = parseInt(targetEl.dataset.dragIndex, 10);
+                    if (!isNaN(targetIdx) && targetIdx !== draggedIndex) {
+                        if (type === 'shops') {
+                            reorderArrayItems(window.db[activeBusiness].shops, draggedIndex, targetIdx);
+                            if (activeBusiness === 'dealers') renderDealersShopsGrid();
+                            else renderFarmShopsGrid();
+                        } else if (type === 'expenses') {
+                            reorderArrayItems(window.db[activeBusiness].expenseCategories, draggedIndex, targetIdx);
+                            loadDailyExpenses();
+                        }
+                    }
+                }
+                draggedIndex = null;
+            });
         }
 
         // ROUTING & BUSINESS SWITCHING LOGIC
         function openLandingPage() {
             activeBusiness = null;
+            orderEditing.shops = false;
+            orderEditing.expenses = false;
             hideAllViews();
             document.getElementById('view-landing').classList.remove('hidden');
             document.getElementById('bottomNav').classList.add('hidden');
@@ -902,6 +1023,8 @@
 
         function selectBusiness(biz) {
             activeBusiness = biz;
+            orderEditing.shops = false;
+            orderEditing.expenses = false;
             document.getElementById('switchBizBtn').classList.remove('hidden');
             document.getElementById('bottomNav').classList.remove('hidden');
 
@@ -964,6 +1087,7 @@
             backBtn.classList.add('hidden');
 
             if (tab === 'shops') {
+                updateOrderButtonsUI();
                 if (activeBusiness === 'dealers') {
                     document.getElementById('view-dealers-shops').classList.remove('hidden');
                     renderDealersShopsGrid();
@@ -985,6 +1109,7 @@
                 document.getElementById('view-items').classList.remove('hidden');
                 renderItemsTab();
             } else if (tab === 'expenses') {
+                updateOrderButtonsUI();
                 document.getElementById('view-expenses').classList.remove('hidden');
                 loadDailyExpenses();
             } else if (tab === 'admin') {
@@ -1019,26 +1144,23 @@
 
             shops.forEach((shop, idx) => {
                 const box = document.createElement('div');
-                box.className = "bg-white p-4 rounded-2xl shadow-sm border border-slate-200 hover:border-emerald-500 hover:shadow-md transition cursor-pointer flex flex-col justify-between h-32 group";
-                box.onclick = () => openShopDetail(shop.id);
+                box.className = `bg-white p-4 rounded-2xl shadow-sm border ${orderEditing.shops ? 'border-emerald-500 ring-2 ring-emerald-200 cursor-grab active:cursor-grabbing' : 'border-slate-200 hover:border-emerald-500 cursor-pointer'} hover:shadow-md transition flex flex-col justify-between h-32 group`;
+                box.onclick = () => { if (!orderEditing.shops) openShopDetail(shop.id); };
                 box.innerHTML = `
                     <div class="flex justify-between items-start">
                         <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg">
-                            <i class="fa-solid fa-store"></i>
+                            <i class="${orderEditing.shops ? 'fa-solid fa-grip-vertical' : 'fa-solid fa-store'}"></i>
                         </div>
-                        <div class="flex items-center gap-1" onclick="event.stopPropagation()">
-                            <button onclick="moveShopOrder(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="text-slate-400 hover:text-emerald-600 disabled:opacity-30 p-0.5 text-xs" title="Up"><i class="fa-solid fa-chevron-up"></i></button>
-                            <button onclick="moveShopOrder(${idx}, 1)" ${idx === shops.length - 1 ? 'disabled' : ''} class="text-slate-400 hover:text-emerald-600 disabled:opacity-30 p-0.5 text-xs" title="Down"><i class="fa-solid fa-chevron-down"></i></button>
-                            <button onclick="deleteShop('${shop.id}')" class="text-slate-300 hover:text-rose-500 p-1">
-                                <i class="fa-solid fa-trash-can text-xs"></i>
-                            </button>
-                        </div>
+                        <button onclick="event.stopPropagation(); deleteShop('${shop.id}')" class="text-slate-300 hover:text-rose-500 p-1">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
                     </div>
                     <div>
                         <h3 class="font-bold text-sm text-slate-800 group-hover:text-emerald-700 transition line-clamp-2">${escapeHtml(shop.name)}</h3>
-                        <p class="text-[10px] text-slate-400 mt-0.5">විකුණුම් බලන්න &rarr;</p>
+                        <p class="text-[10px] ${orderEditing.shops ? 'text-emerald-700 font-bold' : 'text-slate-400'} mt-0.5">${orderEditing.shops ? 'ඇදගෙන යන්න (Drag)' : 'විකුණුම් බලන්න &rarr;'}</p>
                     </div>
                 `;
+                attachDragAndDropHandlers(box, 'shops', idx, grid);
                 grid.appendChild(box);
             });
 
@@ -1174,26 +1296,23 @@
 
             shops.forEach((shop, idx) => {
                 const box = document.createElement('div');
-                box.className = "bg-white p-4 rounded-2xl shadow-sm border border-slate-200 hover:border-amber-500 hover:shadow-md transition cursor-pointer flex flex-col justify-between h-32 group";
-                box.onclick = () => openShopDetail(shop.id);
+                box.className = `bg-white p-4 rounded-2xl shadow-sm border ${orderEditing.shops ? 'border-amber-500 ring-2 ring-amber-200 cursor-grab active:cursor-grabbing' : 'border-slate-200 hover:border-amber-500 cursor-pointer'} hover:shadow-md transition flex flex-col justify-between h-32 group`;
+                box.onclick = () => { if (!orderEditing.shops) openShopDetail(shop.id); };
                 box.innerHTML = `
                     <div class="flex justify-between items-start">
                         <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-lg">
-                            <i class="fa-solid fa-feather-pointed"></i>
+                            <i class="${orderEditing.shops ? 'fa-solid fa-grip-vertical' : 'fa-solid fa-feather-pointed'}"></i>
                         </div>
-                        <div class="flex items-center gap-1" onclick="event.stopPropagation()">
-                            <button onclick="moveShopOrder(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="text-slate-400 hover:text-amber-600 disabled:opacity-30 p-0.5 text-xs" title="Up"><i class="fa-solid fa-chevron-up"></i></button>
-                            <button onclick="moveShopOrder(${idx}, 1)" ${idx === shops.length - 1 ? 'disabled' : ''} class="text-slate-400 hover:text-amber-600 disabled:opacity-30 p-0.5 text-xs" title="Down"><i class="fa-solid fa-chevron-down"></i></button>
-                            <button onclick="deleteShop('${shop.id}')" class="text-slate-300 hover:text-rose-500 p-1">
-                                <i class="fa-solid fa-trash-can text-xs"></i>
-                            </button>
-                        </div>
+                        <button onclick="event.stopPropagation(); deleteShop('${shop.id}')" class="text-slate-300 hover:text-rose-500 p-1">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
                     </div>
                     <div>
                         <h3 class="font-bold text-sm text-slate-800 group-hover:text-amber-700 transition line-clamp-2">${escapeHtml(shop.name)}</h3>
-                        <p class="text-[10px] text-slate-400 mt-0.5">බිත්තර / මස් ලබාදීම් &rarr;</p>
+                        <p class="text-[10px] ${orderEditing.shops ? 'text-amber-700 font-bold' : 'text-slate-400'} mt-0.5">${orderEditing.shops ? 'ඇදගෙන යන්න (Drag)' : 'බිත්තර / මස් ලබාදීම් &rarr;'}</p>
                     </div>
                 `;
+                attachDragAndDropHandlers(box, 'shops', idx, grid);
                 grid.appendChild(box);
             });
 
@@ -1523,12 +1642,9 @@
                 const cost = dayExpenses[cat] || 0;
 
                 const itemRow = document.createElement('div');
-                itemRow.className = "flex items-center justify-between gap-2 p-2.5 bg-slate-50 border border-slate-200 rounded-xl";
+                itemRow.className = `flex items-center justify-between gap-2 p-2.5 bg-slate-50 border ${orderEditing.expenses ? 'border-emerald-500 ring-2 ring-emerald-200 cursor-grab active:cursor-grabbing' : 'border-slate-200'} rounded-xl`;
                 itemRow.innerHTML = `
-                    <div class="flex flex-col text-slate-400">
-                        <button type="button" onclick="moveExpenseCategoryOrder(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="hover:text-slate-700 disabled:opacity-25 text-[10px] leading-none py-0.5" title="Up"><i class="fa-solid fa-chevron-up"></i></button>
-                        <button type="button" onclick="moveExpenseCategoryOrder(${idx}, 1)" ${idx === categories.length - 1 ? 'disabled' : ''} class="hover:text-slate-700 disabled:opacity-25 text-[10px] leading-none py-0.5" title="Down"><i class="fa-solid fa-chevron-down"></i></button>
-                    </div>
+                    ${orderEditing.expenses ? `<span class="text-emerald-600 text-xs px-1"><i class="fa-solid fa-grip-vertical"></i></span>` : ''}
                     <span class="text-xs font-bold text-slate-700 flex-1">${escapeHtml(cat)}</span>
                     <div class="w-32 relative">
                         <span class="absolute left-2.5 top-2 text-xs text-slate-400 font-semibold">Rs.</span>
@@ -1537,6 +1653,7 @@
                             class="w-full bg-white border border-slate-300 rounded-lg pl-8 pr-2 py-1.5 text-right text-xs font-bold text-slate-800 focus:ring-2 ${activeBusiness==='dealers'?'focus:ring-emerald-500':'focus:ring-amber-500'} outline-none">
                     </div>
                 `;
+                attachDragAndDropHandlers(itemRow, 'expenses', idx, container);
                 container.appendChild(itemRow);
             });
 
